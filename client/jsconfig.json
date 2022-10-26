@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
     "moduleResolution": "Node",
     "target": "ESNext",
     "module": "ESNext",
     "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "checkJs": true
+    "checkJs": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
-  "include": ["src/**/*.js", "src/**/*.svelte", "src"]
+  "include": ["src/**/*.js", "src/**/*.svelte"]
 }
