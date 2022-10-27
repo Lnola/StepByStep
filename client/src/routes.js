@@ -8,4 +8,10 @@ const routes = [
   },
 ];
 
+const beforeRoute = () => {
+  const { pathname } = location;
+  console.log(pathname);
+};
+
 export default routes;
+export { beforeRoute };

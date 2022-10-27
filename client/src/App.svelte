@@ -1,6 +1,12 @@
 <script>
+  import { onDestroy, onMount } from 'svelte';
   import { Router, Route } from 'svelte-routing';
-  import routes from '@/routes';
+  import createUrlObserver from '@/utils/createUrlObserver';
+  import routes, { beforeRoute } from '@/routes';
+
+  let observer;
+  onMount(() => (observer = createUrlObserver(beforeRoute)));
+  onDestroy(() => observer.disconnect());
 </script>
 
 <Router>
