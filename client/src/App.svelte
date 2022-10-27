@@ -1,9 +1,10 @@
 <script>
+  import { Router, Route } from 'svelte-routing';
+  import routes from '@/routes';
 </script>
 
-<main>
-  <div>Hello world!</div>
-</main>
-
-<style>
-</style>
+<Router>
+  {#each routes as { path, component }}
+    <Route {path} {component} />
+  {/each}
+</Router>
