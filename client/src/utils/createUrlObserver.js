@@ -3,8 +3,9 @@ const config = { subtree: true, childList: true };
 const createUrlObserver = callback => {
   let previousUrl = '';
   const observer = new MutationObserver(() => {
-    if (location.href !== previousUrl) {
-      previousUrl = location.href;
+    const { pathname } = location;
+    if (pathname !== previousUrl) {
+      previousUrl = pathname;
       callback();
     }
   });
