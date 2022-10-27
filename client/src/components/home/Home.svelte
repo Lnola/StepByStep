@@ -1,5 +1,5 @@
 <script>
-  export let location;
+  // export let location;
 </script>
 
 <main>
