@@ -5,7 +5,11 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon --exec babel-node src/app.js",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "db:migration:create": "npx sequelize-cli migration:create --name",
+    "db:migration:up": "npx sequelize-cli db:migrate",
+    "db:migration:undo": "npx sequelize-cli db:migrate:undo",
+    "db:migration:down": "npx sequelize-cli db:migrate:undo:all"
   },
   "author": "",
   "license": "ISC",
