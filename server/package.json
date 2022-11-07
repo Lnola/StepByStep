@@ -9,7 +9,11 @@
     "db:migration:create": "npx sequelize-cli migration:create --name",
     "db:migration:up": "npx sequelize-cli db:migrate",
     "db:migration:undo": "npx sequelize-cli db:migrate:undo",
-    "db:migration:down": "npx sequelize-cli db:migrate:undo:all"
+    "db:migration:down": "npx sequelize-cli db:migrate:undo:all",
+    "db:seed:create": "npx sequelize-cli seed:generate --name",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:seed:undo": "npx sequelize-cli db:seed:undo",
+    "db:seed:undo:all": "npx sequelize-cli db:seed:undo:all"
   },
   "author": "",
   "license": "ISC",
