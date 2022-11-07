@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "stepByStep",
+    "password": "stepByStep",
+    "database": "stepByStep",
+    "host": "localhost",
+    "port": 3002,
+    "dialect": "postgres"
+  }
+}
