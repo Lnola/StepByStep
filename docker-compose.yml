@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:14
+    restart: on-failure
+    environment:
+      POSTGRES_DB: stepByStep
+      POSTGRES_USER: stepByStep
+      POSTGRES_PASSWORD: stepByStep
+    ports:
+      - 3002:5432
+
+  server:
+    build: ./server
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    restart: on-failure
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: stepByStep
+      POSTGRES_USER: stepByStep
+      POSTGRES_PASSWORD: stepByStep
+      PORT: 3001
+    ports:
+      - 3001:3001
+    depends_on:
+      - db
+
+  client:
+    build: ./client
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
