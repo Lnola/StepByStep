@@ -1,4 +1,6 @@
+import authTokens from '@/shared/constants/authTokens';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { Model } from 'sequelize';
 
 class User extends Model {
@@ -60,10 +62,32 @@ class User extends Model {
     return bcrypt.compare(password, this.password);
   }
 
+  async generateTokens() {
+    const accessToken = this._generateToken(authTokens.type.ACCESS);
+    const refreshToken = this._generateToken(authTokens.type.REFRESH);
+
+    this.refreshToken = refreshToken;
+    await this.save();
+
+    return { accessToken, refreshToken };
+  }
+
   async _hashPassword() {
     const saltRounds = Number(process.env.SALT_ROUNDS);
     const hash = await bcrypt.hash(this.password, saltRounds);
     this.password = hash;
+  }
+
+  _generateToken(tokenType) {
+    const { id, username } = this;
+    const payload = { id, username };
+    const secret = authTokens.config[tokenType].secret;
+    const options = {
+      audience: authTokens.config[tokenType].audience,
+      expiresIn: authTokens.config[tokenType].duration,
+    };
+
+    return jwt.sign(payload, secret, options);
   }
 }
 
