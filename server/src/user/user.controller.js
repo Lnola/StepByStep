@@ -1,13 +1,21 @@
-import { NOT_FOUND, OK } from 'http-status';
+import { OK, UNAUTHORIZED } from 'http-status';
+import errorMessages from '@/shared/constants/errorMessages';
 import HttpError from '@/shared/error/httpError';
+import { setAuthCookies } from '@/shared/helpers/auth';
 import { User } from '@/shared/database/index';
 
-const fetchById = async (req, res, next) => {
-  const { id } = req.params;
-  const user = await User.findByPk(id);
-  if (!user) return next(new HttpError(NOT_FOUND, "User doesn't exist"));
+const login = async (req, res, next) => {
+  const { username, password } = req.body;
+  const user = await User.unscoped().findOne({ where: { username } });
+  if (!user) return next(new HttpError(UNAUTHORIZED, errorMessages.SIGN_IN_ERROR));
 
-  return res.status(OK).json({ id: user.id });
+  const isPasswordCorrect = await user.passwordCompare(password);
+  if (!isPasswordCorrect) return next(new HttpError(UNAUTHORIZED, errorMessages.SIGN_IN_ERROR));
+
+  const tokens = await user.generateTokens();
+  setAuthCookies(tokens, res);
+
+  return res.status(OK).json({ ...user.profile });
 };
 
-export { fetchById };
+export { login };
