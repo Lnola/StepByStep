@@ -4,9 +4,9 @@ import { forEach, invoke } from 'lodash';
 import UserModel from '@/user/user.model';
 
 const sequelize = new Sequelize(
-  process.env.POSTGRES_DB || '',
-  process.env.POSTGRES_USER || '',
-  process.env.POSTGRES_PASSWORD || '',
+  process.env.POSTGRES_DB || ' ',
+  process.env.POSTGRES_USER || ' ',
+  process.env.POSTGRES_PASSWORD || ' ',
   {
     dialect: 'postgres',
     host: process.env.POSTGRES_HOST,
