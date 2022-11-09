@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/app.js",
+    "dev": "nodemon --inspect=0.0.0.0 --exec babel-node src/app.js",
     "lint": "eslint ./",
     "db:migration:create": "npx sequelize-cli migration:create --name",
     "db:migration:up": "npx sequelize-cli db:migrate",
