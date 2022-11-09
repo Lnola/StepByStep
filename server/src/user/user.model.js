@@ -56,6 +56,10 @@ class User extends Model {
     };
   }
 
+  passwordCompare(password) {
+    return bcrypt.compare(password, this.password);
+  }
+
   async _hashPassword() {
     const saltRounds = Number(process.env.SALT_ROUNDS);
     const hash = await bcrypt.hash(this.password, saltRounds);
