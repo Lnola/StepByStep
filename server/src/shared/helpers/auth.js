@@ -4,4 +4,9 @@ const setAuthCookies = (tokens, res) => {
   res.cookie('refreshToken', refreshToken, { httpOnly: true });
 };
 
-export { setAuthCookies };
+const clearAuthCookies = res => {
+  res.clearCookie('accessToken');
+  res.clearCookie('refreshToken');
+};
+
+export { setAuthCookies, clearAuthCookies };
