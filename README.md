@@ -15,11 +15,7 @@ Recipe sharing and cooking application.
 $ docker compose up
 ```
 
-##
-
-##
-
-##
+</br></br></br>
 
 ## To start the project in developer mode
 
