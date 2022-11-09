@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { Model } from 'sequelize';
 
 class User extends Model {
@@ -45,6 +46,20 @@ class User extends Model {
       tableName: 'users',
       timestamps: false,
     };
+  }
+
+  static hooks() {
+    return {
+      beforeCreate(user) {
+        return user._hashPassword();
+      },
+    };
+  }
+
+  async _hashPassword() {
+    const saltRounds = Number(process.env.SALT_ROUNDS);
+    const hash = await bcrypt.hash(this.password, saltRounds);
+    this.password = hash;
   }
 }
 
