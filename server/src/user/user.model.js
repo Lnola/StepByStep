@@ -8,11 +8,26 @@ class User extends Model {
         primaryKey: true,
         autoIncrement: true,
       },
-
+      username: {
+        type: STRING,
+        allowNull: false,
+        unique: true,
+      },
       password: {
         type: STRING,
         allowNull: false,
       },
+      refreshToken: {
+        type: STRING,
+        allowNull: true,
+      },
+    };
+  }
+
+  get profile() {
+    return {
+      id: this.id,
+      username: this.username,
     };
   }
 
