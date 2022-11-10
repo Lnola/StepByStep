@@ -45,7 +45,7 @@ function defineModel(Model) {
 forEach(models, model => {
   invoke(model, 'associate', models);
   addHooks(model, models);
-  addScopes(model);
+  addScopes(model, models);
 });
 
 function addHooks(model, models) {
@@ -53,7 +53,7 @@ function addHooks(model, models) {
   forEach(hooks, (hook, type) => model.addHook(type, hook));
 }
 
-function addScopes(model) {
+function addScopes(model, models) {
   const scopes = invoke(model, 'scopes', models);
   forEach(scopes, (scope, name) => model.addScope(name, scope, { override: true }));
 }
