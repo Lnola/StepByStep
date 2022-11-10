@@ -27,6 +27,11 @@ class Comment extends Model {
     };
   }
 
+  static associate({ User, Recipe }) {
+    this.belongsTo(User);
+    this.belongsTo(Recipe);
+  }
+
   static dbOptions() {
     return {
       modelName: 'comment',

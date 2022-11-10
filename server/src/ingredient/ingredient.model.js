@@ -16,6 +16,10 @@ class Ingredient extends Model {
     };
   }
 
+  static associate({ StepIngredient }) {
+    this.hasMany(StepIngredient, { foreignKey: 'ingredientId' });
+  }
+
   static dbOptions() {
     return {
       modelName: 'ingredient',

@@ -16,6 +16,10 @@ class Role extends Model {
     };
   }
 
+  static associate({ User }) {
+    this.hasMany(User, { foreignKey: 'roleId' });
+  }
+
   static dbOptions() {
     return {
       modelName: 'role',

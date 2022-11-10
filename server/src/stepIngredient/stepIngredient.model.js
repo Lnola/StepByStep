@@ -23,6 +23,12 @@ class StepIngredient extends Model {
     };
   }
 
+  static associate({ UnitOfMeasurement, Ingredient, Step }) {
+    this.belongsTo(UnitOfMeasurement);
+    this.belongsTo(Ingredient);
+    this.belongsTo(Step);
+  }
+
   static dbOptions() {
     return {
       modelName: 'stepIngredient',

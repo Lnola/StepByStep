@@ -53,6 +53,13 @@ class User extends Model {
     };
   }
 
+  static associate({ Comment, Rating, Recipe, Role }) {
+    this.hasMany(Comment, { foreignKey: 'userId' });
+    this.hasMany(Rating, { foreignKey: 'userId' });
+    this.hasMany(Recipe, { foreignKey: 'userId' });
+    this.belongsTo(Role);
+  }
+
   static scopes() {
     return {
       defaultScope: {
