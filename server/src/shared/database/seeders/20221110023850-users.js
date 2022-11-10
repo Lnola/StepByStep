@@ -15,7 +15,7 @@ const createUser = (index, roleId = 1) => {
 
 module.exports = {
   up(queryInterface) {
-    const users = [createUser('', 1)];
+    const users = [createUser('', 2)];
     for (let i = 1; i < 5; i++) users.push(createUser(i));
     return queryInterface.bulkInsert(TABLE_NAME, users);
   },
