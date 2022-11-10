@@ -29,6 +29,14 @@ class StepIngredient extends Model {
     this.belongsTo(Step, { foreignKey: { name: 'stepId', field: 'stepId' } });
   }
 
+  static scopes({ Ingredient, UnitOfMeasurement }) {
+    return {
+      defaultScope: {
+        include: [Ingredient, UnitOfMeasurement],
+      },
+    };
+  }
+
   static dbOptions() {
     return {
       modelName: 'stepIngredient',
