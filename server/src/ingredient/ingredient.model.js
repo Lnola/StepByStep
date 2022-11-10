@@ -17,7 +17,7 @@ class Ingredient extends Model {
   }
 
   static associate({ StepIngredient }) {
-    this.hasMany(StepIngredient, { foreignKey: 'ingredientId' });
+    this.hasMany(StepIngredient, { foreignKey: { name: 'ingredientId', field: 'ingredientId' } });
   }
 
   static dbOptions() {

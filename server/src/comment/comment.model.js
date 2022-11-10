@@ -28,8 +28,8 @@ class Comment extends Model {
   }
 
   static associate({ User, Recipe }) {
-    this.belongsTo(User);
-    this.belongsTo(Recipe);
+    this.belongsTo(User, { foreignKey: { name: 'userId', field: 'userId' } });
+    this.belongsTo(Recipe, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
   }
 
   static dbOptions() {

@@ -21,7 +21,7 @@ class UnitOfMeasurement extends Model {
   }
 
   static associate({ StepIngredient }) {
-    this.hasMany(StepIngredient, { foreignKey: 'unitOfMeasurementId' });
+    this.hasMany(StepIngredient, { foreignKey: { name: 'unitOfMeasurementId', field: 'unitOfMeasurementId' } });
   }
 
   static dbOptions() {

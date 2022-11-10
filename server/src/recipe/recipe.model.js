@@ -40,10 +40,10 @@ class Recipe extends Model {
   }
 
   static associate({ Comment, Rating, User, Category }) {
-    this.hasMany(Comment, { foreignKey: 'recipeId' });
-    this.hasMany(Rating, { foreignKey: 'recipeId' });
-    this.belongsTo(User);
-    this.belongsTo(Category);
+    this.hasMany(Comment, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
+    this.hasMany(Rating, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
+    this.belongsTo(User, { foreignKey: { name: 'userId', field: 'userId' } });
+    this.belongsTo(Category, { foreignKey: { name: 'categoryId', field: 'categoryId' } });
   }
 
   static dbOptions() {

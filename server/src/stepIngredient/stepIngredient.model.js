@@ -24,9 +24,9 @@ class StepIngredient extends Model {
   }
 
   static associate({ UnitOfMeasurement, Ingredient, Step }) {
-    this.belongsTo(UnitOfMeasurement);
-    this.belongsTo(Ingredient);
-    this.belongsTo(Step);
+    this.belongsTo(UnitOfMeasurement, { foreignKey: { name: 'unitOfMeasurementId', field: 'unitOfMeasurementId' } });
+    this.belongsTo(Ingredient, { foreignKey: { name: 'ingredientId', field: 'ingredientId' } });
+    this.belongsTo(Step, { foreignKey: { name: 'stepId', field: 'stepId' } });
   }
 
   static dbOptions() {

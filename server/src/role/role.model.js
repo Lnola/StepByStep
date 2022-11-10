@@ -17,7 +17,7 @@ class Role extends Model {
   }
 
   static associate({ User }) {
-    this.hasMany(User, { foreignKey: 'roleId' });
+    this.hasMany(User, { foreignKey: { name: 'roleId', field: 'roleId' } });
   }
 
   static dbOptions() {
