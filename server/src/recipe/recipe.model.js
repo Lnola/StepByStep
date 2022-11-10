@@ -22,7 +22,7 @@ class Recipe extends Model {
       },
       publishedAt: {
         type: DATE,
-        allowNull: false,
+        allowNull: true,
       },
       createdAt: {
         type: DATE,
