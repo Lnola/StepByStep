@@ -50,6 +50,7 @@ class User extends Model {
       id: this.id,
       username: this.username,
       fullName: this.fullName,
+      role: this.role,
     };
   }
 
