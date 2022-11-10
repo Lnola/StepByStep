@@ -32,6 +32,14 @@ class Step extends Model {
     this.belongsTo(Recipe, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
   }
 
+  static scopes({ StepIngredient }) {
+    return {
+      includeStepIngredient: {
+        include: [StepIngredient],
+      },
+    };
+  }
+
   static dbOptions() {
     return {
       modelName: 'step',
