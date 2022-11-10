@@ -46,6 +46,14 @@ class Recipe extends Model {
     this.belongsTo(Category, { foreignKey: { name: 'categoryId', field: 'categoryId' } });
   }
 
+  static scopes({ Category }) {
+    return {
+      defaultScope: {
+        include: [Category],
+      },
+    };
+  }
+
   static dbOptions() {
     return {
       modelName: 'recipe',
