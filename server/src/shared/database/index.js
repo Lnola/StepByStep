@@ -1,6 +1,15 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { forEach, invoke } from 'lodash';
 
+import CategoryModel from '@/category/category.model';
+import CommentModel from '@/comment/comment.model';
+import IngredientModel from '@/ingredient/ingredient.model';
+import RatingModel from '@/rating/rating.model';
+import RecipeModel from '@/recipe/recipe.model';
+import RoleModel from '@/role/role.model';
+import StepIngredientModel from '@/stepIngredient/stepIngredient.model';
+import StepModel from '@/step/step.model';
+import UnitOfMeasurementModel from '@/unitOfMeasurement/unitOfMeasurement.model';
 import UserModel from '@/user/user.model';
 
 const sequelize = new Sequelize(
@@ -14,6 +23,15 @@ const sequelize = new Sequelize(
 );
 
 const models = {
+  Category: defineModel(CategoryModel),
+  Comment: defineModel(CommentModel),
+  Ingredient: defineModel(IngredientModel),
+  Rating: defineModel(RatingModel),
+  Recipe: defineModel(RecipeModel),
+  Role: defineModel(RoleModel),
+  StepIngredient: defineModel(StepIngredientModel),
+  Step: defineModel(StepModel),
+  UnitOfMeasurement: defineModel(UnitOfMeasurementModel),
   User: defineModel(UserModel),
 };
 
