@@ -66,6 +66,9 @@ class User extends Model {
         attributes: { exclude: ['password'] },
         include: [Role],
       },
+      includeRole: {
+        include: [Role],
+      },
     };
   }
 
