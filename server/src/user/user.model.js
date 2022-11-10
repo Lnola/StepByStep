@@ -4,12 +4,26 @@ import jwt from 'jsonwebtoken';
 import { Model } from 'sequelize';
 
 class User extends Model {
-  static fields({ INTEGER, STRING }) {
+  static fields({ INTEGER, STRING, VIRTUAL }) {
     return {
       id: {
         type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
+      },
+      firstName: {
+        type: STRING,
+        allowNull: true,
+      },
+      lastName: {
+        type: STRING,
+        allowNull: true,
+      },
+      fullName: {
+        type: VIRTUAL,
+        get() {
+          return `${this.firstName} ${this.lastName}`.trim();
+        },
       },
       username: {
         type: STRING,
@@ -24,6 +38,10 @@ class User extends Model {
         type: STRING,
         allowNull: true,
       },
+      roleId: {
+        type: INTEGER,
+        allowNull: false,
+      },
     };
   }
 
@@ -31,6 +49,7 @@ class User extends Model {
     return {
       id: this.id,
       username: this.username,
+      fullName: this.fullName,
     };
   }
 
