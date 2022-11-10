@@ -60,10 +60,11 @@ class User extends Model {
     this.belongsTo(Role, { foreignKey: { name: 'roleId', field: 'roleId' } });
   }
 
-  static scopes() {
+  static scopes({ Role }) {
     return {
       defaultScope: {
         attributes: { exclude: ['password'] },
+        include: [Role],
       },
     };
   }
