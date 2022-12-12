@@ -7,7 +7,7 @@ import { User } from '@/shared/database/index';
 
 const login = async (req, res, next) => {
   const { username, password } = req.body;
-  const user = await User.unscoped().findOne({ where: { username } });
+  const user = await User.scope('includeRole').findOne({ where: { username } });
   if (!user) return next(new HttpError(UNAUTHORIZED, errorMessages.SIGN_IN_ERROR));
 
   const isPasswordCorrect = await user.passwordCompare(password);

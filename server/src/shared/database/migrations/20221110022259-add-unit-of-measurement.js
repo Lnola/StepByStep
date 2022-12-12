@@ -1,26 +1,22 @@
-const TABLE_NAME = 'users';
+const TABLE_NAME = 'units_of_measurement';
 
 module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable(TABLE_NAME, {
       id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
-      username: {
+      name: {
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
-        type: Sequelize.STRING,
       },
-      password: {
-        allowNull: false,
+      abbreviation: {
         type: Sequelize.STRING,
-      },
-      refreshToken: {
         allowNull: true,
-        type: Sequelize.STRING,
       },
     });
   },
