@@ -58,7 +58,7 @@ function addScopes(model, models) {
   forEach(scopes, (scope, name) => model.addScope(name, scope, { override: true }));
 }
 
-const { Message, RecommendedRoom, Room, RoomTag, Tag, User, UserRoomInteraction, UserTag } = models;
-export { Message, RecommendedRoom, Room, RoomTag, Tag, User, UserRoomInteraction, UserTag };
+const { Category, Comment, Ingredient, Rating, Recipe, Role, StepIngredient, Step, UnitOfMeasurement, User } = models;
+export { Category, Comment, Ingredient, Rating, Recipe, Role, StepIngredient, Step, UnitOfMeasurement, User };
 
 export default sequelize;
