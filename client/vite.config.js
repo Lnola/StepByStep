@@ -12,5 +12,13 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    proxy: {
+      '/api': {
+        target: `${process.env.VITE_SERVER_URL}/api`,
+        changeOrigin: true,
+        secure: false,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
   },
 });
