@@ -1,5 +1,5 @@
 <script>
-  import FeaturedCard from '../cards/FeaturedCard.svelte';
+  import Card from '../cards/Card.svelte';
 </script>
 
 <main name="featured">
@@ -8,7 +8,7 @@
     <div class="text">Pogledaj najbolje ocijenjene recepte!</div>
   </div>
   <div class="featured-recipes">
-    <FeaturedCard />
+    
   </div>
 </main>
 

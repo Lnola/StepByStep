@@ -5,12 +5,9 @@
   import Header from '../header/Header.svelte';
   import Navigation from '../navigation/Navigation.svelte';
   import Featured from './Featured.svelte';
-  import recipesApi from '@/api/recipesApi';
 
-  onMount(async () => {
-    const recipes = await recipesApi.browse();
-    console.log(recipes);
-  });
+
+  
 </script>
 
 <main name="homepage">

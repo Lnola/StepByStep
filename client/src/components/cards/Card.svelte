@@ -1,19 +1,25 @@
 <script>
-  function extendOptions(e) {
-    /*let buttonParent = e.target.parentNode;
-    let divParent = buttonParent.parentNode;
-    let circleChildrenNodes = divParent.querySelectorAll('.circle');
-    let circleChildrenArray = Array.prototype.slice.call(circleChildrenNodes)
-    circleChildrenArray.forEach(element => {
-        console.log(element);
-        element.classList.toggle("extend")
-    });*/
+  import ratingsApi from '@/api/ratingsApi';
+  import { onMount } from 'svelte';
+  import { slide, blur } from 'svelte/transition';
+  export let recipe;
 
+  function extendOptions(e) {
     let circles = Array.prototype.slice.call(e.target.parentNode.parentNode.querySelectorAll('.circle'));
     circles.forEach(child => {
       child.classList.toggle('extend');
     });
   }
+
+  let rating;
+  onMount(async () => {
+    let ratings = await ratingsApi.rating();
+    ratings.forEach(e => {
+      if (e.recipeId == recipe.id) {
+        rating = e.value;
+      }
+    });
+  });
 </script>
 
 <ignore style="display: none;">
@@ -22,10 +28,10 @@
 </ignore>
 
 <main>
-  <div class="container">
-    <div class="title">Dimljeni cheeseburger</div>
+  <div class="container" in:slide={{delay:700}} out:blur>
+    <div class="title">{recipe.name}</div>
     <div class="circle info"><button class="" on:click={extendOptions}>+</button></div>
-    <div class="circle rating">8/10</div>
+    <div class="circle rating">{rating}/5</div>
     <div class="circle time">
       <p>20</p>
       <p>min</p>
@@ -107,11 +113,5 @@
     height: 100%;
     font-size: xx-large;
     font-weight: 600;
-  }
-
-  .container img {
-    position: relative;
-    transform: scale(1.2);
-    width: 100%;
   }
 </style>

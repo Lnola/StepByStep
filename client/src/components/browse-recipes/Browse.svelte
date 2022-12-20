@@ -1,17 +1,23 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount } from 'svelte';
+  import { slide } from 'svelte/transition';
   import Header from '../header/Header.svelte';
   import Navigation from '../navigation/Navigation.svelte';
-
-  onMount(()=>{
-
-  });
+  import Category from './Category.svelte';
+  import Recipes from './Recipes.svelte';
+  let categoryId = 0
+  function handleCategoryToggle(event) {
+    categoryId = event.detail.value;
+    let categoryName = event.detail.text
+    console.log("CategoryID: " + categoryId + "\n"  + "Name: " + categoryName);
+  }
 </script>
 
 <main>
   <Header />
   <Navigation />
-  <div>asda</div>
+  <Category on:categoryToggle={handleCategoryToggle} />
+  <Recipes category={categoryId}/>
 </main>
 
 <style>
