@@ -1,5 +1,6 @@
 <script>
   import { authApi } from '@/api';
+  import { authStore } from '@/stores';
   import { redirect } from '@/utils/routing';
   import { createEventDispatcher } from 'svelte';
   import StepButton from '../common/Button.svelte';
@@ -14,6 +15,7 @@
   const submit = async () => {
     try {
       const user = await authApi.login({ username, password });
+      authStore.user.set(user);
       redirect('Home');
     } catch (err) {
       alert(err.response.data.message);
