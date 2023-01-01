@@ -1,7 +1,7 @@
 <script>
   import { authApi } from '@/api';
   import { authStore } from '@/stores';
-  import { redirect } from '@/utils/routing';
+  import { redirect } from '@/utils/router/routing';
   import { createEventDispatcher } from 'svelte';
   import StepButton from '../common/Button.svelte';
 

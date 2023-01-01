@@ -1,7 +1,7 @@
 <script>
   import { onDestroy, onMount } from 'svelte';
   import { Router, Route } from 'svelte-routing';
-  import createUrlObserver from '@/utils/createUrlObserver';
+  import createUrlObserver from '@/utils/router/createUrlObserver';
   import routes, { beforeRoute } from '@/routes';
 
   let observer;
