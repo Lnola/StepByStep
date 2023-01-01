@@ -4,12 +4,9 @@
 
   const components = [Login, Register];
   let componentIndex = 0;
-  let component = components[componentIndex];
+  $: component = components[componentIndex];
 
-  const swap = () => {
-    componentIndex = (componentIndex + 1) % components.length;
-    component = components[componentIndex];
-  };
+  const swap = () => (componentIndex = (componentIndex + 1) % components.length);
 </script>
 
 <main>
