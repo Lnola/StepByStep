@@ -6,7 +6,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "checkJs": true,
+    "checkJs": false,
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"]
