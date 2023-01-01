@@ -1,4 +1,5 @@
 import Home from './components/home/Home.svelte';
+import { isRoute, redirect } from './utils/routing';
 
 const routes = [
   {
@@ -10,7 +11,7 @@ const routes = [
 
 const beforeRoute = () => {
   const { pathname } = location;
-  console.log(pathname);
+  if (!isRoute(pathname)) redirect('Home');
 };
 
 export default routes;
