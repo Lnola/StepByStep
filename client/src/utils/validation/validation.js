@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { writable } from 'svelte/store';
 import { buildValidator } from './validate.js';
 
