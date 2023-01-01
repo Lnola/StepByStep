@@ -3,10 +3,15 @@
   import Register from './Register.svelte';
 
   const components = [Login, Register];
-  const componentIndex = 0;
-  const component = components[componentIndex];
+  let componentIndex = 0;
+  let component = components[componentIndex];
+
+  const swap = () => {
+    componentIndex = (componentIndex + 1) % components.length;
+    component = components[componentIndex];
+  };
 </script>
 
 <main>
-  <svelte:component this={component} />
+  <svelte:component this={component} on:swap={swap} />
 </main>
