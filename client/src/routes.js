@@ -1,4 +1,5 @@
 import Home from './components/home/Home.svelte';
+import Auth from './components/auth/Auth.svelte';
 import { isRoute, redirect } from './utils/routing';
 
 const routes = [
@@ -6,6 +7,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/auth',
+    name: 'Auth',
+    component: Auth,
   },
 ];
 
