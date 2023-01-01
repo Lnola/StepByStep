@@ -1,18 +1,25 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+  import StepButton from '@/components/common/Button.svelte';
+  import StepInput from '@/components/common/Input.svelte';
   import { authApi } from '@/api';
   import { authStore } from '@/stores';
   import { redirect } from '@/utils/router/routing';
-  import { createEventDispatcher } from 'svelte';
-  import StepButton from '../common/Button.svelte';
+  import { requiredValidator } from '@/utils/validation/validators';
 
   const dispatch = createEventDispatcher();
 
   let username = '';
   let password = '';
+  let isUsernameValid = false;
+  let isPasswordValid = false;
+
+  $: isValid = isUsernameValid && isPasswordValid;
 
   const swap = () => dispatch('swap');
 
   const submit = async () => {
+    if (!isValid) return;
     try {
       const user = await authApi.login({ username, password });
       authStore.user.set(user);
@@ -26,10 +33,19 @@
 <main>
   <h1>Login</h1>
   <form on:submit|preventDefault={submit}>
-    <label for="username">Username:</label>
-    <input bind:value={username} type="text" name="username" placeholder="Username..." />
-    <label for="password">Password:</label>
-    <input bind:value={password} type="password" name="password" placeholder="Password..." />
+    <StepInput
+      bind:value={username}
+      label="Username"
+      validators={[requiredValidator()]}
+      on:valid={({ detail: { valid } }) => (isUsernameValid = valid)}
+    />
+    <StepInput
+      bind:value={password}
+      label="Password"
+      validators={[requiredValidator()]}
+      on:valid={({ detail: { valid } }) => (isPasswordValid = valid)}
+    />
+
     <StepButton type="submit">Login</StepButton>
     <p>
       Don't have an account?
