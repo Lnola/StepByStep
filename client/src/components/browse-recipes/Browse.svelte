@@ -5,19 +5,25 @@
   import Navigation from '../navigation/Navigation.svelte';
   import Category from './Category.svelte';
   import Recipes from './Recipes.svelte';
-  let categoryId = 0
+  import recipesApi from '@/api/recipesApi';
+
+  let categoryId = 0;
   function handleCategoryToggle(event) {
     categoryId = event.detail.value;
-    let categoryName = event.detail.text
-    console.log("CategoryID: " + categoryId + "\n"  + "Name: " + categoryName);
+    let categoryName = event.detail.text;
+    console.log('CategoryID: ' + categoryId + '\n' + 'Name: ' + categoryName);
   }
+  let recipes = [];
+  onMount(async () => {
+    recipes = await recipesApi.browse();
+  });
 </script>
 
 <main>
   <Header />
   <Navigation />
   <Category on:categoryToggle={handleCategoryToggle} />
-  <Recipes category={categoryId}/>
+  <Recipes recipes={recipes} category={categoryId} />
 </main>
 
 <style>

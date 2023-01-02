@@ -5,12 +5,9 @@
   import Header from '../header/Header.svelte';
   import Navigation from '../navigation/Navigation.svelte';
   import Featured from './Featured.svelte';
-
-
-  
 </script>
 
-<main name="homepage">
+<main>
   <Header />
   <Navigation />
   <Featured />

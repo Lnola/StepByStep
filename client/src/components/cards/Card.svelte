@@ -28,9 +28,9 @@
 </ignore>
 
 <main>
-  <div class="container" in:slide={{delay:700}} out:blur>
+  <div class="container" in:slide={{ delay: 700 }} out:blur>
     <div class="title">{recipe.name}</div>
-    <div class="circle info"><button class="" on:click={extendOptions}>+</button></div>
+    <div class="circle info"><button class="" on:click={extendOptions}>ℹ️</button></div>
     <div class="circle rating">{rating}/5</div>
     <div class="circle time">
       <p>20</p>
@@ -74,10 +74,10 @@
     bottom: 4%;
     left: 4%;
     border-radius: 50%;
-    height: 5vh;
-    width: 5vh;
+    height: 6vh;
+    width: 6vh;
     transition: 0.5s;
-    font-size: large;
+    font-size: medium;
     font-weight: 800;
   }
 
@@ -86,12 +86,14 @@
   }
   .rating {
     z-index: 1;
+    overflow: hidden;
   }
   .time {
     display: flex;
     flex-direction: column;
     z-index: 0;
     font-size: medium;
+    overflow: hidden;
   }
   .time p {
     height: min-content;
@@ -100,7 +102,7 @@
   }
 
   .info.extend {
-    transform: translateX(240%) rotate(45deg);
+    transform: translateX(240%);
   }
   .rating.extend {
     transform: translateX(120%);
@@ -111,7 +113,7 @@
     background-color: transparent;
     width: 100%;
     height: 100%;
-    font-size: xx-large;
+    font-size: larger;
     font-weight: 600;
   }
 </style>

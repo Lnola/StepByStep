@@ -6,7 +6,7 @@
   }
 </script>
 
-<main name="header">
+<main>
   <div class="container">
     <div class="title">Step By Step</div>
     
@@ -15,11 +15,11 @@
   </div>
   {#if show}
   <div class=login transition:slide>
-    <a href="/">Prijava</a>
-    <a href="/">Registracija</a>
-    <a href="/">Moj profil</a>
-    <a href="/">Moji recepti</a>
-    <a href="/">Odjava</a>
+    <a href="/login">Prijava</a>
+    <a href="/register">Registracija</a>
+    <a href="/profile">Moj profil</a>
+    <a href="/my-recipes">Moji recepti</a>
+    <a href="/logout">Odjava</a>
   </div>
   {/if}
 </main>

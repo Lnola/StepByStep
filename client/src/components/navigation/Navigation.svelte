@@ -13,7 +13,7 @@
   }
 </script>
 
-<main name="nav/footer">
+<main>
   <div class="container">
     <div class="nav-grid">
       <div><a href="/">Naslovnica</a></div>
@@ -80,7 +80,7 @@
         on:keypress={showMenu}
         class="icon"
         alt="menu-icon"
-        src="https://cdn.icon-icons.com/icons2/1123/PNG/512/menucircularbutton_79584.png"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Xbox_Menu_button.svg/2048px-Xbox_Menu_button.svg.png"
       />
     </div>
   </div>

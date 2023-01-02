@@ -1,14 +1,21 @@
 <script>
+  import Recipes from '../browse-recipes/Recipes.svelte';
   import Card from '../cards/Card.svelte';
+  let recipes = [];
+
+  /*
+    algorithm to display featured recipes
+    save featured recipes to field "recipes"
+  */
 </script>
 
-<main name="featured">
+<main>
   <div class="featured-text">
     <div class="text">Nemaš ideju?</div>
     <div class="text">Pogledaj najbolje ocijenjene recepte!</div>
   </div>
   <div class="featured-recipes">
-    
+    <Recipes {recipes} category={0} />
   </div>
 </main>
 

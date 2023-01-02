@@ -1,15 +1,12 @@
 <script>
   export let category;
-  import recipesApi from '@/api/recipesApi';
-  import { onMount } from 'svelte';
+  export let recipes;
+
   import Card from '../cards/Card.svelte';
-  let recipes = [];
-  onMount(async () => {
-    recipes = await recipesApi.browse();
-  });
+  
 </script>
 
-<main name="recipes">
+<main>
   <div class="recipes-container">
     {#each recipes as recipe, id}
       {#if category == 0}

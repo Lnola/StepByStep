@@ -39,10 +39,10 @@
   }
 </script>
 
-<main name="categoryFilter">
+<main>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div class="expand" on:click={expand}>Filteri</div>
-  <div name="ada" class="categoryContainer">
+  <div class="categoryContainer">
     <div class="text">Filtriraj po kategoriji:</div>
     <form>
       <select id="categorySelect" name="categorySelect">
