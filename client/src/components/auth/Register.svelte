@@ -35,14 +35,12 @@
   };
 </script>
 
-<main>
-  <AuthForm
-    on:submit={submit}
-    on:swap={swap}
-    {inputs}
-    headerLabel="Registration"
-    buttonLabel="Register"
-    callToActionLabel="Already have an account?"
-    actionlabel="Click here to login!"
-  />
-</main>
+<AuthForm
+  on:submit={submit}
+  on:swap={swap}
+  {inputs}
+  headerLabel="Registration"
+  buttonLabel="Register"
+  callToActionLabel="Already have an account?"
+  actionlabel="Click here to login!"
+/>
