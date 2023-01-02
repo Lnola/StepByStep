@@ -1,25 +1,26 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  import StepButton from '@/components/common/Button.svelte';
-  import StepInput from '@/components/common/Input.svelte';
   import { authApi } from '@/api';
   import { authStore } from '@/stores';
   import { redirect } from '@/utils/router/routing';
   import { requiredValidator } from '@/utils/validation/validators';
+  import AuthForm from './AuthForm.svelte';
 
   const dispatch = createEventDispatcher();
 
-  let username = '';
-  let password = '';
-  let isUsernameValid = false;
-  let isPasswordValid = false;
-
-  $: isValid = isUsernameValid && isPasswordValid;
+  let inputs = {
+    username: { value: '', type: 'text', valid: false, label: 'Username', validators: [requiredValidator()] },
+    password: { value: '', type: 'password', valid: false, label: 'Password', validators: [requiredValidator()] },
+  };
 
   const swap = () => dispatch('swap');
 
   const submit = async () => {
-    if (!isValid) return;
+    const isFormValid = inputs.username.valid && inputs.password.valid;
+    if (!isFormValid) return;
+
+    const username = inputs.username.value;
+    const password = inputs.password.value;
     try {
       const user = await authApi.login({ username, password });
       authStore.user.set(user);
@@ -31,25 +32,13 @@
 </script>
 
 <main>
-  <h1>Login</h1>
-  <form on:submit|preventDefault={submit}>
-    <StepInput
-      bind:value={username}
-      label="Username"
-      validators={[requiredValidator()]}
-      on:valid={({ detail: { valid } }) => (isUsernameValid = valid)}
-    />
-    <StepInput
-      bind:value={password}
-      label="Password"
-      validators={[requiredValidator()]}
-      on:valid={({ detail: { valid } }) => (isPasswordValid = valid)}
-    />
-
-    <StepButton type="submit">Login</StepButton>
-    <p>
-      Don't have an account?
-      <StepButton on:click={swap} inline>Click here to register.</StepButton>
-    </p>
-  </form>
+  <AuthForm
+    on:submit={submit}
+    on:swap={swap}
+    {inputs}
+    headerLabel="Login"
+    buttonLabel="Login"
+    callToActionLabel="Don't have an account?"
+    actionlabel="Click here to register!"
+  />
 </main>
