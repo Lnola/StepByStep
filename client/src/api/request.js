@@ -1,3 +1,4 @@
+import { logout } from '@/stores/auth';
 import axios from 'axios';
 import { StatusCodes } from 'http-status-codes';
 
@@ -16,8 +17,7 @@ request.interceptors.response.use(
   res => res,
   err => {
     if (isAuthError(err)) {
-      // add logout action
-      console.log('user logout');
+      logout();
     }
 
     throw err;
