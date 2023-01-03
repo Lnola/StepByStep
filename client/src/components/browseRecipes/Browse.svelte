@@ -10,7 +10,6 @@
   let categoryId = 0;
   function handleCategoryToggle(event) {
     categoryId = event.detail.value;
-    let categoryName = event.detail.text;
   }
   let recipes = [];
   onMount(async () => {

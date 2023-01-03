@@ -1,7 +1,9 @@
+import errorMessages from '@/shared/constants/errorMessages';
+import HttpError from '@/shared/error/httpError';
 import { OK } from 'http-status';
 import { Recipe } from '@/shared/database/index';
 
-const list = async (req, res, next) => {
+const listPublishedRecipes = async (req, res, next) => {
   try {
     const recipes = await Recipe.findAll({
       where: {
@@ -10,9 +12,8 @@ const list = async (req, res, next) => {
     });
     return res.status(OK).json(recipes);
   } catch (err) {
-    console.log(err);
-    return next(new Error());
+    return next(new HttpError(404, errorMessages.NOT_FOUND_ERROR));
   }
 };
 
-export { list };
+export { listPublishedRecipes };

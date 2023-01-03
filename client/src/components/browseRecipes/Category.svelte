@@ -1,40 +1,39 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte';
-  import categoriesApi from '@/api/categories';
+  import categories from '@/api/categories';
   const dispatch = createEventDispatcher();
-  addEventListener('DOMContentLoaded', event => {
-    let element = document.getElementById('categorySelect');
 
-    element.addEventListener('change', () => {
-      dispatch('categoryToggle', {
-        // @ts-ignore
-        value: element.value,
-        // @ts-ignore
-        text: element.options[element.selectedIndex].text,
-      });
+  function handleChange(e) {
+    dispatch('categoryToggle', {
+      // @ts-ignore
+      value: e.target.value,
+      // @ts-ignore
+      text: e.target.options[e.target.selectedIndex].text,
     });
-  });
-  let categories = [];
+  }
+
+  let categoriesList = [];
+  let isExpanded;
+
   onMount(async () => {
-    expanded = false;
-    categories = await categoriesApi.fetchAll();
+    isExpanded = false;
+    categoriesList = await categories.fetchAll();
   });
 
-  let expanded;
   function expand() {
     let element = document.querySelector('.categoryContainer');
-    if (expanded == false) {
+    if (isExpanded == false) {
       // @ts-ignore
       element.style.visibility = 'visible';
       // @ts-ignore
       element.style.height = '10vh';
-      expanded = true;
+      isExpanded = true;
     } else {
       // @ts-ignore
       element.style.visibility = 'hidden';
       // @ts-ignore
       element.style.height = '0vh';
-      expanded = false;
+      isExpanded = false;
     }
   }
 </script>
@@ -45,9 +44,9 @@
   <div class="categoryContainer">
     <div class="text">Filtriraj po kategoriji:</div>
     <form>
-      <select id="categorySelect" name="categorySelect">
+      <select id="categorySelect" name="categorySelect" on:change={handleChange}>
         <option value="0">Not selected</option>
-        {#each categories as category, id}
+        {#each categoriesList as category, id}
           <option value={category.id}>{category.name}</option>
         {/each}
       </select>

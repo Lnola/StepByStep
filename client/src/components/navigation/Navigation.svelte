@@ -1,15 +1,15 @@
 <script>
   import { slide, draw } from 'svelte/transition';
-  let search = false;
-  let menu = false;
-  function showSearch() {
-    search = search == false ? true : false;
-    if (search) menu = false;
+  let isSearchVisible = false;
+  let isMenuVisible = false;
+  function toggleSearchVisibility() {
+    isSearchVisible = !isSearchVisible;
+    if (isSearchVisible) isMenuVisible = false;
   }
 
-  function showMenu() {
-    menu = menu == false ? true : false;
-    if (menu) search = false;
+  function toggleMenuVisibility() {
+    isMenuVisible = !isMenuVisible;
+    if (isMenuVisible) isSearchVisible = false;
   }
 </script>
 
@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  {#if menu}
+  {#if isMenuVisible}
     <div class="mobile-menu" transition:slide>
       <div>Option 1</div>
       <div>Option 2</div>
@@ -36,7 +36,7 @@
     </div>
   {/if}
 
-  {#if search}
+  {#if isSearchVisible}
     <div class="mobile-search" transition:slide>
       <input type="text" />
       <img
@@ -67,8 +67,8 @@
     </div>
     <div class="container-element">
       <img
-        on:click={showSearch}
-        on:keypress={showSearch}
+        on:click={toggleSearchVisibility}
+        on:keypress={toggleSearchVisibility}
         class="icon"
         alt="search-icon"
         src="https://cdn4.iconfinder.com/data/icons/core-ui-filled-rounded/32/filled_rounded_search-512.png"
@@ -76,8 +76,8 @@
     </div>
     <div class="container-element">
       <img
-        on:click={showMenu}
-        on:keypress={showMenu}
+        on:click={toggleMenuVisibility}
+        on:keypress={toggleMenuVisibility}
         class="icon"
         alt="menu-icon"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Xbox_Menu_button.svg/2048px-Xbox_Menu_button.svg.png"

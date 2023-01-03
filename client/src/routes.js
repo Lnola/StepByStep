@@ -1,4 +1,4 @@
-import Browse from './components/browse-recipes/Browse.svelte';
+import Browse from './components/browseRecipes/Browse.svelte';
 import Home from './components/home/Home.svelte';
 
 const routes = [

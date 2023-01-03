@@ -1,8 +1,8 @@
-import { list } from './recipe.controller';
+import { listPublishedRecipes } from './recipe.controller';
 import { Router } from 'express';
 
 const router = Router();
 const path = '/recipes';
-router.get('/list', list);
+router.get('/listPublishedRecipes', listPublishedRecipes);
 
 export default { router, path };

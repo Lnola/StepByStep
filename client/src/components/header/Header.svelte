@@ -1,8 +1,8 @@
 <script>
   import { slide } from 'svelte/transition';
-  let show = false;
+  let areOptionsVisible = false;
   function showOptions() {
-    show = show == false ? true : false;
+    areOptionsVisible = areOptionsVisible == false ? true : false;
   }
 </script>
 
@@ -18,7 +18,7 @@
       src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png"
     />
   </div>
-  {#if show}
+  {#if areOptionsVisible}
     <div class="login" transition:slide>
       <a href="/login">Prijava</a>
       <a href="/register">Registracija</a>

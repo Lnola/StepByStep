@@ -1,6 +1,4 @@
 <script>
-  import { onMount } from 'svelte';
-
   // export let location;
   import Header from '../header/Header.svelte';
   import Navigation from '../navigation/Navigation.svelte';

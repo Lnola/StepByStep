@@ -1,6 +1,5 @@
 <script>
-  import Recipes from '../browse-recipes/Recipes.svelte';
-  import Card from '../cards/Card.svelte';
+  import Recipes from '../browseRecipes/Recipes.svelte';
   let recipes = [];
 
   /*

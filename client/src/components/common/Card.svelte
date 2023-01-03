@@ -1,8 +1,7 @@
 <script>
-  import ratingsApi from '@/api/ratings';
-  import { onMount } from 'svelte';
   import { slide, blur } from 'svelte/transition';
   export let recipe;
+  export let rating;
 
   function extendOptions(e) {
     let circles = Array.prototype.slice.call(e.target.parentNode.parentNode.querySelectorAll('.circle'));
@@ -10,16 +9,6 @@
       child.classList.toggle('extend');
     });
   }
-
-  let rating;
-  onMount(async () => {
-    let ratings = await ratingsApi.list();
-    ratings.forEach(e => {
-      if (e.recipeId == recipe.id) {
-        rating = e.value;
-      }
-    });
-  });
 </script>
 
 <ignore style="display: none;">
