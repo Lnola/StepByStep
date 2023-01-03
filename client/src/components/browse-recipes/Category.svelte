@@ -95,7 +95,7 @@
   select {
     height: 5vh;
     width: 35vw;
-    font-size: medium;
+    font-size: small;
     font-family: 'Poppins';
     border-color: #ebf2af;
     background-color: #ebf2af;
