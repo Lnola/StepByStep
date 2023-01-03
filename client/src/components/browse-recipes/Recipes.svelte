@@ -3,7 +3,6 @@
   export let recipes;
 
   import Card from '../cards/Card.svelte';
-  
 </script>
 
 <main>
@@ -12,7 +11,7 @@
       {#if category == 0}
         <Card {recipe} />
       {:else if category == recipe.categoryId}
-        <Card {recipe}/>
+        <Card {recipe} />
       {/if}
     {/each}
   </div>

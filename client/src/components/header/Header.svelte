@@ -1,39 +1,43 @@
 <script>
   import { slide } from 'svelte/transition';
   let show = false;
-  function showOptions(){
-    show = show==false ? true: false
+  function showOptions() {
+    show = show == false ? true : false;
   }
 </script>
 
 <main>
   <div class="container">
     <div class="title">Step By Step</div>
-    
-      <img on:click={showOptions} on:keydown={showOptions} class="profileIcon" alt="profileIcon" src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" />
-    
+
+    <img
+      on:click={showOptions}
+      on:keydown={showOptions}
+      class="profileIcon"
+      alt="profileIcon"
+      src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png"
+    />
   </div>
   {#if show}
-  <div class=login transition:slide>
-    <a href="/login">Prijava</a>
-    <a href="/register">Registracija</a>
-    <a href="/profile">Moj profil</a>
-    <a href="/my-recipes">Moji recepti</a>
-    <a href="/logout">Odjava</a>
-  </div>
+    <div class="login" transition:slide>
+      <a href="/login">Prijava</a>
+      <a href="/register">Registracija</a>
+      <a href="/profile">Moj profil</a>
+      <a href="/my-recipes">Moji recepti</a>
+      <a href="/logout">Odjava</a>
+    </div>
   {/if}
 </main>
 
 <style>
-
-a{
-  padding: 0;
-  margin: 2.5vh;
-  text-decoration: none;
-  color: white;
-  font-size: large;
-  font-weight: 600;
-}
+  a {
+    padding: 0;
+    margin: 2.5vh;
+    text-decoration: none;
+    color: white;
+    font-size: large;
+    font-weight: 600;
+  }
 
   main {
     font-size: large;
@@ -44,7 +48,7 @@ a{
   }
 
   .login {
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -54,7 +58,7 @@ a{
     background-color: #4b124b;
   }
 
-  .login:before{
+  .login:before {
     height: 0;
   }
 

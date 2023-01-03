@@ -1,5 +1,5 @@
-import Home from './components/home/Home.svelte';
 import Browse from './components/browse-recipes/Browse.svelte';
+import Home from './components/home/Home.svelte';
 
 const routes = [
   {
@@ -8,10 +8,10 @@ const routes = [
     component: Home,
   },
   {
-    path:'/browse',
+    path: '/browse',
     name: 'Recipes',
-    component: Browse
-  }
+    component: Browse,
+  },
 ];
 
 const beforeRoute = () => {

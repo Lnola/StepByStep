@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte';
-  import categoriesApi from '@/api/categoriesApi';
+  import categoriesApi from '@/api/categories';
   const dispatch = createEventDispatcher();
   addEventListener('DOMContentLoaded', event => {
     let element = document.getElementById('categorySelect');
@@ -17,7 +17,7 @@
   let categories = [];
   onMount(async () => {
     expanded = false;
-    categories = await categoriesApi.categories();
+    categories = await categoriesApi.fetchAll();
   });
 
   let expanded;

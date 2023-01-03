@@ -1,5 +1,5 @@
 <script>
-  import ratingsApi from '@/api/ratingsApi';
+  import ratingsApi from '@/api/ratings';
   import { onMount } from 'svelte';
   import { slide, blur } from 'svelte/transition';
   export let recipe;
@@ -13,7 +13,7 @@
 
   let rating;
   onMount(async () => {
-    let ratings = await ratingsApi.rating();
+    let ratings = await ratingsApi.list();
     ratings.forEach(e => {
       if (e.recipeId == recipe.id) {
         rating = e.value;

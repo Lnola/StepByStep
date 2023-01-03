@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { StatusCodes } from 'http-status-codes';
+import axios from 'axios';
 
 const { FORBIDDEN } = StatusCodes;
 
