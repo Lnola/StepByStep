@@ -1,10 +1,9 @@
 <script>
   import { onMount } from 'svelte';
-  import { slide } from 'svelte/transition';
-  import Header from '../header/Header.svelte';
-  import Navigation from '../navigation/Navigation.svelte';
-  import Category from './Category.svelte';
-  import Recipes from './Recipes.svelte';
+  import Header from '@/components/header/Header.svelte';
+  import Navigation from '@/components/navigation/Navigation.svelte';
+  import Category from '@/components/browseRecipes/Category.svelte';
+  import Recipes from '@/components/browseRecipes/Recipes.svelte';
   import recipesApi from '@/api/recipes';
 
   let categoryId = 0;

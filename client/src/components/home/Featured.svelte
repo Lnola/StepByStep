@@ -1,5 +1,5 @@
 <script>
-  import Recipes from '../browseRecipes/Recipes.svelte';
+  import Recipes from '@/components/browseRecipes/Recipes.svelte';
   let recipes = [];
 
   /*

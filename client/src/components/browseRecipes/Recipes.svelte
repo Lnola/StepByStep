@@ -4,7 +4,7 @@
   import { each } from 'svelte/internal';
   export let category;
   export let recipes;
-  import Card from '../common/Card.svelte';
+  import Card from '@/components/common/Card.svelte';
 
   let ratingsList = [];
   onMount(async () => {
