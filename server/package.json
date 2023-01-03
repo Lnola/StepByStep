@@ -13,7 +13,8 @@
     "db:seed:create": "npx sequelize-cli seed:generate --name",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:seed:undo": "npx sequelize-cli db:seed:undo",
-    "db:seed:undo:all": "npx sequelize-cli db:seed:undo:all"
+    "db:seed:undo:all": "npx sequelize-cli db:seed:undo:all",
+    "db:reseed": "npm run db:migration:down && npm run db:migration:up && npm run db:seed"
   },
   "author": "",
   "license": "ISC",
