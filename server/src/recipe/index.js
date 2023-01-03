@@ -3,6 +3,6 @@ import { Router } from 'express';
 
 const router = Router();
 const path = '/recipes';
-router.get('/listPublishedRecipes', listPublishedRecipes);
+router.get('/published', listPublishedRecipes);
 
 export default { router, path };

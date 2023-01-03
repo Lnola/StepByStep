@@ -1,7 +1,7 @@
 <script>
-  import Header from '../header/Header.svelte';
-  import Navigation from '../navigation/Navigation.svelte';
-  import Featured from './Featured.svelte';
+  import Header from '@/components/layout/Header.svelte';
+  import Navigation from '@/components/layout/Navigation.svelte';
+  import Featured from '@/components/home/Featured.svelte';
   import StepButton from '@/components/common/Button.svelte';
   import { logout } from '@/stores/auth';
 </script>
@@ -9,7 +9,6 @@
 <main>
   <div>Home</div>
   <StepButton on:click={logout}>Logout</StepButton>
-  >>>>>>> main
 </main>
 
 <style>

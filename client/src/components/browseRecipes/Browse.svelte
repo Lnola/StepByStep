@@ -1,16 +1,18 @@
 <script>
   import { onMount } from 'svelte';
-  import Header from '@/components/header/Header.svelte';
-  import Navigation from '@/components/navigation/Navigation.svelte';
+  import Header from '@/components/layout/Header.svelte';
+  import Navigation from '@/components/layout/Navigation.svelte';
   import Category from '@/components/browseRecipes/Category.svelte';
   import Recipes from '@/components/browseRecipes/Recipes.svelte';
-  import recipesApi from '@/api/recipes';
+  import { recipesApi } from '@/api';
 
   let categoryId = 0;
-  function handleCategoryToggle(event) {
-    categoryId = event.detail.value;
-  }
   let recipes = [];
+
+  function handleCategoryToggle({ detail: { value } }) {
+    categoryId = value;
+  }
+
   onMount(async () => {
     recipes = await recipesApi.fetchAll();
   });

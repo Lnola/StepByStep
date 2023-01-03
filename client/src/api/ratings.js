@@ -8,11 +8,10 @@ const urls = {
   },
 };
 
-
-const list = () => {
+const fetchAll = () => {
   return request.get(urls.list).then(extractData);
 };
 
 export default {
-  list,
+  fetchAll,
 };

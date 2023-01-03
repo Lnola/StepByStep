@@ -1,22 +1,17 @@
 <script>
   import { slide } from 'svelte/transition';
   let areOptionsVisible = false;
-  function showOptions() {
-    areOptionsVisible = areOptionsVisible == false ? true : false;
+  function toggleOptionsVisibility() {
+    areOptionsVisible = !areOptionsVisible;
   }
 </script>
 
 <main>
   <div class="container">
     <div class="title">Step By Step</div>
-
-    <img
-      on:click={showOptions}
-      on:keydown={showOptions}
-      class="profileIcon"
-      alt="profileIcon"
-      src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png"
-    />
+    <button class="profileIcon" on:click={toggleOptionsVisibility}>
+      <img class="profileIcon" alt="profileIcon" src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" />
+    </button>
   </div>
   {#if areOptionsVisible}
     <div class="login" transition:slide>
@@ -67,13 +62,22 @@
     font-size: larger;
   }
   .profileIcon {
-    position: absolute;
-    top: 0.5vh;
-    right: 1vh;
     width: 6vh;
     height: 6vh;
   }
 
+  button.profileIcon {
+    padding: 0;
+    margin: 0;
+    top: 0.5vh;
+    right: 1vh;
+    display: flex;
+    width: 6vh;
+    height: 6vh;
+    position: absolute;
+    background-color: transparent;
+    border: none;
+  }
   .container {
     height: 7vh;
     width: 100%;

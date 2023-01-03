@@ -1,14 +1,13 @@
 <script>
-  import ratings from '@/api/ratings';
+  import { ratingsApi } from '@/api';
   import { onMount } from 'svelte';
-  import { each } from 'svelte/internal';
   export let category;
   export let recipes;
   import Card from '@/components/common/Card.svelte';
 
   let ratingsList = [];
   onMount(async () => {
-    ratingsList = await ratings.list();
+    ratingsList = await ratingsApi.fetchAll();
   });
 </script>
 
@@ -18,9 +17,9 @@
       {#each ratingsList as rating}
         {#if rating.recipeId == recipe.id}
           {#if category == 0}
-            <Card {recipe} {rating} />
+            <Card {recipe} rating={rating.value} />
           {:else if category == recipe.categoryId}
-            <Card {recipe} {rating} />
+            <Card {recipe} rating={rating.value} />
           {/if}
         {/if}
       {/each}

@@ -1,14 +1,12 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte';
-  import categories from '@/api/categories';
+  import { categoriesApi } from '@/api';
   const dispatch = createEventDispatcher();
 
-  function handleChange(e) {
+  function handleChange({ target }) {
     dispatch('categoryToggle', {
-      // @ts-ignore
-      value: e.target.value,
-      // @ts-ignore
-      text: e.target.options[e.target.selectedIndex].text,
+      value: target.value,
+      text: target.options[target.selectedIndex].text,
     });
   }
 
@@ -17,37 +15,23 @@
 
   onMount(async () => {
     isExpanded = false;
-    categoriesList = await categories.fetchAll();
+    categoriesList = await categoriesApi.fetchAll();
   });
 
   function expand() {
-    let element = document.querySelector('.categoryContainer');
-    if (isExpanded == false) {
-      // @ts-ignore
-      element.style.visibility = 'visible';
-      // @ts-ignore
-      element.style.height = '10vh';
-      isExpanded = true;
-    } else {
-      // @ts-ignore
-      element.style.visibility = 'hidden';
-      // @ts-ignore
-      element.style.height = '0vh';
-      isExpanded = false;
-    }
+    isExpanded = !isExpanded;
   }
 </script>
 
 <main>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div class="expand" on:click={expand}>Filteri</div>
-  <div class="categoryContainer">
+  <button class="expand" on:click={expand}>Filteri</button>
+  <div class="categoryContainer {isExpanded && 'extend'}">
     <div class="text">Filtriraj po kategoriji:</div>
     <form>
       <select id="categorySelect" name="categorySelect" on:change={handleChange}>
         <option value="0">Not selected</option>
-        {#each categoriesList as category, id}
-          <option value={category.id}>{category.name}</option>
+        {#each categoriesList as { id, name }}
+          <option value={id}>{name}</option>
         {/each}
       </select>
     </form>
@@ -76,9 +60,16 @@
     align-items: center;
   }
 
+  .categoryContainer.extend {
+    visibility: visible;
+    height: 10vh;
+  }
+
   .expand {
     color: white;
     border-radius: 5px;
+    border: none;
+    font-family: 'Poppins';
     display: flex;
     align-items: center;
     justify-content: center;

@@ -3,11 +3,9 @@
   export let recipe;
   export let rating;
 
-  function extendOptions(e) {
-    let circles = Array.prototype.slice.call(e.target.parentNode.parentNode.querySelectorAll('.circle'));
-    circles.forEach(child => {
-      child.classList.toggle('extend');
-    });
+  let extended = false;
+  function toggleExtended() {
+    extended = !extended
   }
 </script>
 
@@ -19,9 +17,9 @@
 <main>
   <div class="container" in:slide={{ delay: 700 }} out:blur>
     <div class="title">{recipe.name}</div>
-    <div class="circle info"><button class="" on:click={extendOptions}>ℹ️</button></div>
-    <div class="circle rating">{rating}/5</div>
-    <div class="circle time">
+    <div class="circle info {extended && 'extend'}"><button on:click={toggleExtended}>ℹ️</button></div>
+    <div class="circle rating {extended && 'extend'}">{rating}/5</div>
+    <div class="circle time {extended && 'extend'}">
       <p>20</p>
       <p>min</p>
     </div>

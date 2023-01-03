@@ -1,5 +1,5 @@
 <script>
-  import { slide, draw } from 'svelte/transition';
+  import { slide } from 'svelte/transition';
   let isSearchVisible = false;
   let isMenuVisible = false;
   function toggleSearchVisibility() {

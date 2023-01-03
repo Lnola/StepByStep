@@ -4,7 +4,7 @@ import request from './request';
 const urls = {
   root: '/recipes',
   get listPublishedRecipes() {
-    return this.root + '/listPublishedRecipes';
+    return this.root + '/published';
   },
 };
 
