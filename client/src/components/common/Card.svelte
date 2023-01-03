@@ -5,14 +5,9 @@
 
   let extended = false;
   function toggleExtended() {
-    extended = !extended
+    extended = !extended;
   }
 </script>
-
-<ignore style="display: none;">
-  <div class="info extend" />
-  <div class="rating extend" />
-</ignore>
 
 <main>
   <div class="container" in:slide={{ delay: 700 }} out:blur>
