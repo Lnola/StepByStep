@@ -11,6 +11,6 @@
 
 <Router>
   {#each routes as { path, component }}
-    <Route {path} {component} />
+    <Route {path}><svelte:component this={component} /></Route>
   {/each}
 </Router>

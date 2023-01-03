@@ -1,5 +1,4 @@
 <script>
-  // export let location;
 </script>
 
 <main>
