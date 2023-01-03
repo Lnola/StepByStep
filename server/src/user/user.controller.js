@@ -1,9 +1,9 @@
 import { clearAuthCookies, setAuthCookies } from '@/shared/helpers/auth';
 import { CONFLICT, CREATED, OK, UNAUTHORIZED } from 'http-status';
+import { Role, User } from '@/shared/database/index';
 import errorMessages from '@/shared/constants/errorMessages';
 import HttpError from '@/shared/error/httpError';
 import { UniqueConstraintError } from 'sequelize';
-import { User } from '@/shared/database/index';
 
 const login = async (req, res, next) => {
   const { username, password } = req.body;
@@ -22,7 +22,8 @@ const login = async (req, res, next) => {
 const register = async (req, res, next) => {
   const { body } = req;
   try {
-    const user = await User.create(body);
+    const role = await Role.findOne({ where: { name: 'user' } });
+    const user = await User.create({ ...body, roleId: role.id });
 
     const tokens = await user.generateTokens();
     setAuthCookies(tokens, res);
