@@ -2,8 +2,8 @@ const TABLE_NAME = 'step_ingredients';
 
 const createStepIngredient = (unitOfMeasurementId, amount, ingredientId, stepId) => {
   return {
-    amount,
     unitOfMeasurementId,
+    amount,
     ingredientId,
     stepId,
   };
