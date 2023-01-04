@@ -2,19 +2,25 @@
   import { onMount } from 'svelte';
   import Header from '@/components/layout/Header.svelte';
   import Navigation from '@/components/layout/Navigation.svelte';
-  import Category from '@/components/browseRecipes/Category.svelte';
-  import Recipes from '@/components/browseRecipes/Recipes.svelte';
+  import Recipes from '@/components/browseUserRecipes/Recipes.svelte';
   import { recipesApi } from '@/api';
+  import { dividePublished } from '@/utils/helper';
+  import Category from '@/components/browseUserRecipes/Category.svelte';
 
-  let categoryId = 0;
   let recipes = [];
+  let isPublished = undefined;
 
   function handleCategoryToggle({ detail: { value } }) {
-    categoryId = +value;
+    value = parseInt(value);
+    if (value === 1) {
+      isPublished = true;
+    } else if (value === 2) {
+      isPublished = false;
+    } else isPublished = undefined;
   }
 
   onMount(async () => {
-    recipes = await recipesApi.fetchAll();
+    recipes = await recipesApi.fetchUserRecipes();
   });
 </script>
 
@@ -22,7 +28,7 @@
   <Header />
   <Navigation />
   <Category on:categoryToggle={handleCategoryToggle} />
-  <Recipes {recipes} {categoryId} />
+  <Recipes {recipes} publishedBool={isPublished} />
 </main>
 
 <style>

@@ -1,7 +1,8 @@
 <script>
-  import { slide, blur } from 'svelte/transition';
-  export let recipe;
-  export let rating;
+  import { slide } from 'svelte/transition';
+  export let title;
+  export let option1;
+  export let option2;
 
   let extended = false;
   function toggleExtended() {
@@ -10,14 +11,11 @@
 </script>
 
 <main>
-  <div class="container" in:slide={{ delay: 700 }} out:blur>
-    <div class="title">{recipe.name}</div>
+  <div class="container" in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
+    <div class="title">{title}</div>
     <div class="circle info {extended && 'extend'}"><button on:click={toggleExtended}>ℹ️</button></div>
-    <div class="circle rating {extended && 'extend'}">{rating}/5</div>
-    <div class="circle time {extended && 'extend'}">
-      <p>20</p>
-      <p>min</p>
-    </div>
+    <div class="circle rating {extended && 'extend'}">{option1}/5</div>
+    <div class="circle time {extended && 'extend'}">{option2} min</div>
   </div>
 </main>
 
@@ -76,11 +74,9 @@
     z-index: 0;
     font-size: medium;
     overflow: hidden;
-  }
-  .time p {
-    height: min-content;
-    margin: -15%;
-    padding: 0;
+    text-align: center;
+    line-height: 100%;
+    font-size: small;
   }
 
   .info.extend {

@@ -19,7 +19,7 @@
       <button>Prijava</button>
       <button>Registracija</button>
       <button>Moj profil</button>
-      <button>Moji recepti</button>
+      <button><a href="/userRecipes">Moji recepti</a></button>
       <button on:click={logout}>Odjava</button>
     </div>
   {/if}
@@ -35,6 +35,11 @@
     color: white;
     font-size: large;
     font-weight: 600;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
   }
 
   main {

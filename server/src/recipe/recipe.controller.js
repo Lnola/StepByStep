@@ -12,6 +12,7 @@ const listPublishedRecipes = async (req, res, next) => {
         isPublished: true,
       },
     });
+
     return res.status(OK).json(recipes);
   } catch (err) {
     if (err instanceof DatabaseError) {
@@ -22,4 +23,25 @@ const listPublishedRecipes = async (req, res, next) => {
   }
 };
 
-export { listPublishedRecipes };
+const listUserRecipes = async (req, res, next) => {
+  // const user = req.user;
+  // const id = user.id
+  const id = 1;
+  try {
+    const recipes = await Recipe.findAll({
+      where: {
+        userId: id,
+      },
+    });
+
+    return res.status(OK).json(recipes);
+  } catch (err) {
+    if (err instanceof DatabaseError) {
+      return next(new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR));
+    } else {
+      return next(new Error());
+    }
+  }
+};
+
+export { listPublishedRecipes, listUserRecipes };

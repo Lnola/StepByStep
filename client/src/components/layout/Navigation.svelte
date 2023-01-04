@@ -155,6 +155,9 @@
   .mobile-search .icon {
     width: 5vh;
     height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   a {
     text-decoration: none;

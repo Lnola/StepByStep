@@ -1,7 +1,9 @@
-import Browse from './components/browseRecipes/Browse.svelte';
-import Home from './components/home/Home.svelte';
-import Auth from './components/auth/Auth.svelte';
 import { isAuthRoute, isRoute, redirect } from './utils/router/routing';
+
+import Auth from './components/auth/Auth.svelte';
+import Browse from './components/browseRecipes/Browse.svelte';
+import BrowseUserRecipes from './components/browseUserRecipes/BrowseUserRecipes.svelte';
+import Home from './components/home/Home.svelte';
 import { isLoggedIn } from './stores/auth';
 
 const routes = [
@@ -19,6 +21,11 @@ const routes = [
     path: '/auth',
     name: 'Auth',
     component: Auth,
+  },
+  {
+    path: '/userRecipes',
+    name: 'UserRecipes',
+    component: BrowseUserRecipes,
   },
 ];
 
