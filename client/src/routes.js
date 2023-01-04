@@ -1,5 +1,6 @@
 import Home from './components/home/Home.svelte';
 import Auth from './components/auth/Auth.svelte';
+import CreateRecipe from './components/recipes/CreateRecipe.svelte';
 import { isAuthRoute, isRoute, redirect } from './utils/router/routing';
 import { isLoggedIn } from './stores/auth';
 
@@ -13,6 +14,11 @@ const routes = [
     path: '/auth',
     name: 'Auth',
     component: Auth,
+  },
+  {
+    path: '/recipes/create',
+    name: 'CreateRecipe',
+    component: CreateRecipe
   },
 ];
 
