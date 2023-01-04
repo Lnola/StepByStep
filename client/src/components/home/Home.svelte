@@ -2,13 +2,10 @@
   import Header from '@/components/layout/Header.svelte';
   import Navigation from '@/components/layout/Navigation.svelte';
   import Featured from '@/components/home/Featured.svelte';
-  import StepButton from '@/components/common/Button.svelte';
-  import { logout } from '@/stores/auth';
 </script>
 
 <main>
   <Header />
-  <StepButton on:click={logout}>Logout</StepButton>
   <Featured />
   <Navigation />
 </main>

@@ -3,6 +3,7 @@
   export let title;
   export let option1;
   export let option2;
+  export let cover;
 
   let extended = false;
   function toggleExtended() {
@@ -12,6 +13,7 @@
 
 <main>
   <div class="container" in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
+    <img alt="recipeCover" src={cover} />
     <div class="title">{title}</div>
     <div class="circle info {extended && 'extend'}"><button on:click={toggleExtended}>ℹ️</button></div>
     <div class="circle rating {extended && 'extend'}">{option1}/5</div>
@@ -20,6 +22,11 @@
 </main>
 
 <style>
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
   .container {
     background-color: #4b124b;
     position: relative;

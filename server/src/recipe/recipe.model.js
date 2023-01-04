@@ -38,6 +38,10 @@ class Recipe extends Model {
         type: INTEGER,
         allowNull: false,
       },
+      imageurl: {
+        type: TEXT,
+        allowNull: true,
+      },
       avgRating: {
         type: VIRTUAL,
         get() {

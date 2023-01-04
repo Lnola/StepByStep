@@ -6,9 +6,9 @@
 
 <main>
   <div class="recipes-container">
-    {#each recipes as { name, isPublished, avgRating, preparationTime }}
+    {#each recipes as { name, isPublished, avgRating, preparationTime, imageurl }}
       {#if publishedBool === isPublished || publishedBool === undefined}
-        <Card title={name} option1={avgRating} option2={preparationTime} />
+        <Card title={name} option1={avgRating} option2={preparationTime} cover={imageurl} />
       {/if}
     {/each}
   </div>
