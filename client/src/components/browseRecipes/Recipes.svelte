@@ -1,13 +1,13 @@
 <script>
-  export let categoryId;
+  export let category;
   export let recipes;
   import Card from '@/components/common/Card.svelte';
 </script>
 
 <main>
   <div class="recipes-container">
-    {#each recipes as { name, id, avgRating, preparationTime, imageurl }}
-      {#if categoryId === id || categoryId === 0}
+    {#each recipes as { name, categoryId, avgRating, preparationTime, imageurl }}
+      {#if category === categoryId || category === 0}
         <Card title={name} option1={avgRating} option2={preparationTime} cover={imageurl} />
       {/if}
     {/each}

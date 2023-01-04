@@ -6,11 +6,11 @@
   import Recipes from '@/components/browseRecipes/Recipes.svelte';
   import { recipesApi } from '@/api';
 
-  let categoryId = 0;
+  let category = 0;
   let recipes = [];
 
   function handleCategoryToggle({ detail: { value } }) {
-    categoryId = +value;
+    category = +value;
   }
 
   onMount(async () => {
@@ -22,7 +22,7 @@
   <Header />
   <Navigation />
   <Category on:categoryToggle={handleCategoryToggle} />
-  <Recipes {recipes} {categoryId} />
+  <Recipes {recipes} {category} />
 </main>
 
 <style>
