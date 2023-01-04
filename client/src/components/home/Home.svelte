@@ -7,8 +7,10 @@
 </script>
 
 <main>
-  <div>Home</div>
+  <Header />
   <StepButton on:click={logout}>Logout</StepButton>
+  <Featured />
+  <Navigation />
 </main>
 
 <style>

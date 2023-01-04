@@ -1,5 +1,6 @@
 <script>
   import { slide } from 'svelte/transition';
+  import { logout } from '@/stores/auth';
   let areOptionsVisible = false;
   function toggleOptionsVisibility() {
     areOptionsVisible = !areOptionsVisible;
@@ -14,21 +15,23 @@
     </button>
   </div>
   {#if areOptionsVisible}
-    <div class="login" transition:slide>
-      <a href="/login">Prijava</a>
-      <a href="/register">Registracija</a>
-      <a href="/profile">Moj profil</a>
-      <a href="/my-recipes">Moji recepti</a>
-      <a href="/logout">Odjava</a>
+    <div class="options" transition:slide>
+      <button>Prijava</button>
+      <button>Registracija</button>
+      <button>Moj profil</button>
+      <button>Moji recepti</button>
+      <button on:click={logout}>Odjava</button>
     </div>
   {/if}
 </main>
 
 <style>
-  a {
+  .options > button {
     padding: 0;
     margin: 2.5vh;
-    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    font-family: 'Poppins';
     color: white;
     font-size: large;
     font-weight: 600;
@@ -42,7 +45,7 @@
     z-index: 3;
   }
 
-  .login {
+  .options {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -53,7 +56,7 @@
     background-color: #4b124b;
   }
 
-  .login:before {
+  .options:before {
     height: 0;
   }
 
