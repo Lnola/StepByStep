@@ -1,12 +1,7 @@
-import { extractData } from './helpers';
-import request from './request';
+import { fetchAll } from './helpers';
 
 const urls = {
   root: '/ingredients',
 };
 
-const fetchAll = () => {
-  return request.get(urls.root).then(extractData);
-};
-
-export default { fetchAll };
+export default { fetchAll: () => fetchAll(urls.root) };
