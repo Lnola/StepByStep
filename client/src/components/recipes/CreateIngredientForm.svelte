@@ -14,22 +14,28 @@
   });
 </script>
 
-<select class="item" name="ingredientId">
-  <option selected disabled value="">Select Ingredient</option>
-  {#each ingredients as ingredient_}
-    <option value={ingredient_.id}>{ingredient_.name}</option>
-  {/each}
-</select>
-<input class="item" type="text" name="amount" placeholder="amount" value={ingredient.amount} />
-<select class="item" name="unitOfMeasurementId">
-  <option selected disabled value="">Select Unit Of Measurement</option>
-  {#each unitsOfMeasurement as unitOfMeasurement}
-    <option value={unitOfMeasurement.id}>{unitOfMeasurement.name}</option>
-  {/each}
-</select>
+<div class="form">
+  <select class="item" name="ingredientId">
+    <option selected disabled value="">Select Ingredient</option>
+    {#each ingredients as ingredient_}
+      <option value={ingredient_.id}>{ingredient_.name}</option>
+    {/each}
+  </select>
+  <input class="item" type="text" name="amount" placeholder="amount" value={ingredient.amount} />
+  <select class="item" name="unitOfMeasurementId">
+    <option selected disabled value="">Select Unit</option>
+    {#each unitsOfMeasurement as unitOfMeasurement}
+      <option value={unitOfMeasurement.id}>{unitOfMeasurement.name}</option>
+    {/each}
+  </select>
+</div>
 
 <style>
+  .form {
+    margin: 2% 0;
+  }
+
   .item {
-    display: inline;
+    display: block;
   }
 </style>
