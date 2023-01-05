@@ -5,7 +5,7 @@ import errorMessages from '@/shared/constants/errorMessages';
 import HttpError from '@/shared/error/httpError';
 import { Recipe } from '@/shared/database/index';
 
-const listPublishedRecipes = async (req, res, next) => {
+const listPublishedRecipes = async (_req, res, next) => {
   try {
     const recipes = await Recipe.scope(['defaultScope', 'published']).findAll();
     return res.status(OK).json(recipes);
