@@ -77,7 +77,6 @@ class Recipe extends Model {
         include: [Category, Rating, Step],
       },
       published: {
-        include: [Category, Rating, Step],
         where: { isPublished: true },
       },
     };

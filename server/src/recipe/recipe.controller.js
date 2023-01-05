@@ -7,8 +7,7 @@ import { Recipe } from '@/shared/database/index';
 
 const listPublishedRecipes = async (req, res, next) => {
   try {
-    const recipes = await Recipe.scope('published').findAll();
-
+    const recipes = await Recipe.scope(['defaultScope', 'published']).findAll();
     return res.status(OK).json(recipes);
   } catch (err) {
     if (err instanceof DatabaseError) {
