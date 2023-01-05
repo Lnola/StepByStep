@@ -23,7 +23,7 @@
       <option value={category.id}>{category.name}</option>
     {/each}
   </select>
-  <CreateStepsList {steps} />
+  <CreateStepsList on:add-step {steps} />
   <button class="item" type="submit">Create Recipe</button>
 </form>
 

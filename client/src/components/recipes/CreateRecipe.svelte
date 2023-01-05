@@ -8,12 +8,12 @@
     description: '',
     steps: [],
   };
-  const stepForm = {
-    description: '',
-    time: '',
-    orderNumber: '',
-    ingredients: [],
-  };
+  // const stepForm = {
+  //   description: '',
+  //   time: '',
+  //   orderNumber: '',
+  //   ingredients: [],
+  // };
   const ingredientForm = {
     unifOfMeasurmentId: '',
     ingredientId: '',
@@ -23,9 +23,13 @@
 
   let categories = [];
 
-  const addStep = () => {
-    const newStep = stepForm;
-    newStep.orderNumber = recipeForm.steps.length + 1;
+  const addStep = e => {
+    const newStep = {
+      description: '',
+      time: '',
+      orderNumber: recipeForm.steps.length + 1,
+      ingredients: [],
+    };
 
     recipeForm.steps = [...recipeForm.steps, newStep];
   };
@@ -43,4 +47,4 @@
 </script>
 
 <h2>Create recipe</h2>
-<CreateRecipeForm {categories} steps={recipeForm.steps} />
+<CreateRecipeForm on:add-step={addStep} {categories} steps={recipeForm.steps} />
