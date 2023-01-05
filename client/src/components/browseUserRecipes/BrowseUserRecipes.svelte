@@ -10,11 +10,8 @@
   let isPublished = undefined;
 
   function updateCategory({ detail: { value } }) {
-    if (value === 1) {
-      isPublished = true;
-    } else if (value === 2) {
-      isPublished = false;
-    } else isPublished = undefined;
+    if (value === 0) isPublished = undefined;
+    isPublished = !!(value - 1);
   }
 
   onMount(async () => {
