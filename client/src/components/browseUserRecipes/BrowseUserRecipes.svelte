@@ -2,12 +2,12 @@
   import { onMount } from 'svelte';
   import Header from '@/components/layout/Header.svelte';
   import Navigation from '@/components/layout/Navigation.svelte';
-  import Recipes from '@/components/browseUserRecipes/Recipes.svelte';
+  import Recipes from '@/components/browseRecipes/Recipes.svelte';
   import Filter from '@/components/common/Filter.svelte';
   import { recipesApi } from '@/api';
 
   let recipes = [];
-  let isPublished;
+  let published = 0;
 
   const categories = [
     { id: 1, name: 'Published' },
@@ -15,8 +15,8 @@
   ];
 
   function updateCategory({ detail: { value } }) {
-    if (value === 0) return (isPublished = undefined);
-    isPublished = !(value - 1);
+    if (value === 0) return (published = 0);
+    published = !(value - 1);
   }
 
   onMount(async () => {
@@ -28,7 +28,7 @@
   <Header />
   <Navigation />
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {isPublished} />
+  <Recipes {recipes} {published} />
 </main>
 
 <style>
