@@ -21,8 +21,8 @@
     <form>
       <select on:change={handleChange}>
         <option value="0">-</option>
-        {#each categories as { id, value }}
-          <option value={id}>{value}</option>
+        {#each categories as { id, name }}
+          <option value={id}>{name}</option>
         {/each}
       </select>
     </form>

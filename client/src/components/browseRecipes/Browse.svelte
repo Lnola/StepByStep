@@ -2,12 +2,13 @@
   import { onMount } from 'svelte';
   import Header from '@/components/layout/Header.svelte';
   import Navigation from '@/components/layout/Navigation.svelte';
-  import Category from '@/components/browseRecipes/Category.svelte';
+  import Filter from '@/components/common/Filter.svelte';
   import Recipes from '@/components/browseRecipes/Recipes.svelte';
-  import { recipesApi } from '@/api';
+  import { recipesApi, categoriesApi } from '@/api';
 
   let category = 0;
   let recipes = [];
+  let categories;
 
   function updateCategory({ detail: { value } }) {
     category = value;
@@ -15,13 +16,14 @@
 
   onMount(async () => {
     recipes = await recipesApi.fetchPublished();
+    categories = await categoriesApi.fetchAll();
   });
 </script>
 
 <main>
   <Header />
   <Navigation />
-  <Category on:update={updateCategory} />
+  <Filter {categories} on:update={updateCategory} />
   <Recipes {recipes} {category} />
 </main>
 
