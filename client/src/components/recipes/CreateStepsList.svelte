@@ -8,6 +8,6 @@
 </script>
 
 {#each steps as step}
-  <CreateStepItem step={step} />
+  <CreateStepItem {step} />
 {/each}
 <button on:click={() => dispatch('add-step')}>Add Step</button>

@@ -14,7 +14,7 @@
   <label class="item" for="description">Recipe description: </label>
   <input class="item" type="textbox" name="description" />
   <div class="item">
-    <input type="radio" name="isPublished" value="false" />Private
+    <input type="radio" name="isPublished" value="false" checked />Private
     <input type="radio" name="isPublished" value="true" />Public
   </div>
   <select class="item" name="categoryId">

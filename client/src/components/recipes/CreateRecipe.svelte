@@ -8,18 +8,6 @@
     description: '',
     steps: [],
   };
-  // const stepForm = {
-  //   description: '',
-  //   time: '',
-  //   orderNumber: '',
-  //   ingredients: [],
-  // };
-  const ingredientForm = {
-    unifOfMeasurmentId: '',
-    ingredientId: '',
-    stepId: '',
-    amount: '',
-  };
 
   let categories = [];
 
@@ -34,16 +22,18 @@
     recipeForm.steps = [...recipeForm.steps, newStep];
   };
 
-  addStep();
-
   const handleFormSubmit = e => {
-    console.log(e);
+    console.log("Submit");
+    console.log(recipeForm);
   };
 
   onMount(async () => {
     // TODO: currently, if fetch fails, categories are set to [], but in the future this should inform user about error!
     categories = await categoriesApi.fetchAll().catch(() => []);
   });
+
+  // This will force user to have at least one step for each recipe
+  addStep();
 </script>
 
 <h2>Create recipe</h2>
