@@ -3,7 +3,7 @@
   import Header from '@/components/layout/Header.svelte';
   import Navigation from '@/components/layout/Navigation.svelte';
   import Filter from '@/components/common/Filter.svelte';
-  import Recipes from '@/components/browseRecipes/Recipes.svelte';
+  import Recipes from './RecipesList.svelte';
   import { recipesApi, categoriesApi } from '@/api';
 
   let category = 0;

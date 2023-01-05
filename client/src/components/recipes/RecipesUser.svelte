@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte';
+  import Recipes from './RecipesList.svelte';
   import Header from '@/components/layout/Header.svelte';
   import Navigation from '@/components/layout/Navigation.svelte';
-  import Recipes from '@/components/browseRecipes/Recipes.svelte';
   import Filter from '@/components/common/Filter.svelte';
   import { recipesApi } from '@/api';
 
