@@ -1,8 +1,14 @@
 <script>
   import CreateStepForm from './CreateStepForm.svelte';
+  import { createEventDispatcher } from 'svelte';
 
-  export let step;
   export let show;
+  export let enableUp;
+  export let enableDown;
+  export let step;
+  export let index;
+
+  const dispatch = createEventDispatcher();
 
   const addIngredient = e => {
     const newIngredient = {
@@ -14,16 +20,24 @@
     step.ingredients = [...step.ingredients, newIngredient];
   };
 
-  const toggle = () => show = !show;
+  const toggle = () => (show = !show);
 
-  $: btnText = show ? 'Hide' : 'Expand';
+  $: toggleBtnText = show ? '-' : '+';
 </script>
 
 <div class="bar">
   <h4>Step {step.orderNumber}</h4>
-  <button on:click={toggle}>{btnText}</button>
+  <div class="btns">
+    {#if enableUp}
+      <button on:click={() => dispatch('move-up', index)}>&uarr</button>
+    {/if}
+    {#if enableDown}
+      <button on:click={() => dispatch('move-down', index)}>&darr</button>
+    {/if}
+    <button on:click={toggle}>{toggleBtnText}</button>
+  </div>
 </div>
-{#if (show)}
+{#if show}
   <CreateStepForm on:add-ingredient={addIngredient} {step} />
 {/if}
 
@@ -31,6 +45,12 @@
   .bar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .btns {
+    display: flex;
+    justify-content: end;
     align-items: center;
   }
 </style>
