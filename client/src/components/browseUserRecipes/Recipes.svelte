@@ -7,7 +7,7 @@
 <main>
   <div class="recipes-container">
     {#each recipes as { name, isPublished: isRecipePublished, avgRating, preparationTime, imageUrl }}
-      {#if isPublished === isRecipePublished || isPublished === undefined}
+      {#if isPublished === isRecipePublished || !isPublished}
         <Card title={name} option1={avgRating} option2={preparationTime} cover={imageUrl} />
       {/if}
     {/each}
