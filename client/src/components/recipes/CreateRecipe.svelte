@@ -23,7 +23,7 @@
   };
 
   const handleFormSubmit = e => {
-    console.log("Submit");
+    console.log('Submit');
     console.log(recipeForm);
   };
 
@@ -36,5 +36,16 @@
   addStep();
 </script>
 
-<h2>Create recipe</h2>
-<CreateRecipeForm on:add-step={addStep} {categories} steps={recipeForm.steps} />
+<div class="container">
+  <div>
+    <h2>Create recipe</h2>
+    <CreateRecipeForm on:add-step={addStep} {categories} steps={recipeForm.steps} />
+  </div>
+</div>
+
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+  }
+</style>
