@@ -3,9 +3,8 @@
   const dispatch = createEventDispatcher();
 
   function handleChange({ target }) {
-    dispatch('categoryToggle', {
-      value: target.value,
-      text: target.options[target.selectedIndex].text,
+    dispatch('update', {
+      value: +target.value,
     });
   }
 

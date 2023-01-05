@@ -4,17 +4,15 @@
   const dispatch = createEventDispatcher();
 
   function handleChange({ target }) {
-    dispatch('categoryToggle', {
-      value: target.value,
-      text: target.options[target.selectedIndex].text,
+    dispatch('update', {
+      value: +target.value,
     });
   }
-
+  let value = null;
   let categoriesList = [];
-  let isExpanded;
+  let isExpanded = false;
 
   onMount(async () => {
-    isExpanded = false;
     categoriesList = await categoriesApi.fetchAll();
   });
 
@@ -28,7 +26,7 @@
   <div class="categoryContainer {isExpanded && 'extend'}">
     <div class="text">Filtriraj po kategoriji:</div>
     <form>
-      <select id="categorySelect" name="categorySelect" on:change={handleChange}>
+      <select bind:value on:change={handleChange}>
         <option value="0">Not selected</option>
         {#each categoriesList as { id, name }}
           <option value={id}>{name}</option>

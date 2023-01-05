@@ -38,7 +38,7 @@ class Recipe extends Model {
         type: INTEGER,
         allowNull: false,
       },
-      imageurl: {
+      imageUrl: {
         type: TEXT,
         allowNull: true,
       },
@@ -71,10 +71,14 @@ class Recipe extends Model {
     this.belongsTo(Category, { foreignKey: { name: 'categoryId', field: 'categoryId' } });
   }
 
-  static scopes({ Category, Rating, Step }) {
+  static scopes({ Category, Rating, Step, isPublished }) {
     return {
       defaultScope: {
         include: [Category, Rating, Step],
+      },
+      published: {
+        include: [Category, Rating, Step],
+        where: { isPublished: true },
       },
     };
   }

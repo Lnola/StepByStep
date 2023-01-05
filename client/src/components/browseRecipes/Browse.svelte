@@ -9,19 +9,19 @@
   let category = 0;
   let recipes = [];
 
-  function handleCategoryToggle({ detail: { value } }) {
-    category = +value;
+  function updateCategory({ detail: { value } }) {
+    category = value;
   }
 
   onMount(async () => {
-    recipes = await recipesApi.fetchAll();
+    recipes = await recipesApi.fetchPublished();
   });
 </script>
 
 <main>
   <Header />
   <Navigation />
-  <Category on:categoryToggle={handleCategoryToggle} />
+  <Category on:update={updateCategory} />
   <Recipes {recipes} {category} />
 </main>
 

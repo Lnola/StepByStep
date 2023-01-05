@@ -11,7 +11,7 @@ const urls = {
   },
 };
 
-const fetchAll = () => {
+const fetchPublished = () => {
   return request.get(urls.listPublishedRecipes).then(extractData);
 };
 
@@ -20,6 +20,6 @@ const fetchUserRecipes = () => {
 };
 
 export default {
-  fetchAll,
+  fetchPublished,
   fetchUserRecipes,
 };

@@ -7,11 +7,7 @@ import { Recipe } from '@/shared/database/index';
 
 const listPublishedRecipes = async (req, res, next) => {
   try {
-    const recipes = await Recipe.findAll({
-      where: {
-        isPublished: true,
-      },
-    });
+    const recipes = await Recipe.scope('published').findAll();
 
     return res.status(OK).json(recipes);
   } catch (err) {
@@ -25,15 +21,10 @@ const listPublishedRecipes = async (req, res, next) => {
 
 const listUserRecipes = async (req, res, next) => {
   // const user = req.user;
-  // const id = user.id
-  const id = 1;
+  // const userId = user.id
+  const userId = 1;
   try {
-    const recipes = await Recipe.findAll({
-      where: {
-        userId: id,
-      },
-    });
-
+    const recipes = await Recipe.findAll({ where: { userId } });
     return res.status(OK).json(recipes);
   } catch (err) {
     if (err instanceof DatabaseError) {

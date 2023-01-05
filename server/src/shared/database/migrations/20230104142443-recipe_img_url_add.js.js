@@ -1,5 +1,5 @@
 const TABLE_NAME = 'recipes';
-const FIELD_NAME = 'imageurl';
+const FIELD_NAME = 'imageUrl';
 
 module.exports = {
   up(queryInterface, Sequelize) {

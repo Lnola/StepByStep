@@ -19,7 +19,7 @@
       <button>Prijava</button>
       <button>Registracija</button>
       <button>Moj profil</button>
-      <button><a href="/userRecipes">Moji recepti</a></button>
+      <button><a href="/user-recipes">Moji recepti</a></button>
       <button on:click={logout}>Odjava</button>
     </div>
   {/if}
