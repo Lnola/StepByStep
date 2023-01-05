@@ -30,14 +30,6 @@ class Recipe extends Model {
         type: DATE,
         allowNull: false,
       },
-      userId: {
-        type: INTEGER,
-        allowNull: false,
-      },
-      categoryId: {
-        type: INTEGER,
-        allowNull: false,
-      },
       imageUrl: {
         type: TEXT,
         allowNull: true,
@@ -59,6 +51,14 @@ class Recipe extends Model {
           const timeArray = steps.map(({ dataValues: { time } }) => time);
           return sumTime(timeArray);
         },
+        userId: {
+          type: INTEGER,
+          allowNull: false,
+        },
+        categoryId: {
+          type: INTEGER,
+          allowNull: false,
+        },
       },
     };
   }
@@ -71,7 +71,7 @@ class Recipe extends Model {
     this.belongsTo(Category, { foreignKey: { name: 'categoryId', field: 'categoryId' } });
   }
 
-  static scopes({ Category, Rating, Step, isPublished }) {
+  static scopes({ Category, Rating, Step }) {
     return {
       defaultScope: {
         include: [Category, Rating, Step],
