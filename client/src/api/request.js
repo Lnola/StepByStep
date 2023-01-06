@@ -1,6 +1,6 @@
-import { logout } from '@/stores/auth';
 import axios from 'axios';
 import { StatusCodes } from 'http-status-codes';
+import { logout } from '@/stores/auth';
 
 const { FORBIDDEN } = StatusCodes;
 

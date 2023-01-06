@@ -13,6 +13,7 @@
 
 <style>
   .inline {
+    font-family: var(--font-family);
     background-color: transparent;
     border: none;
     padding: 0;
