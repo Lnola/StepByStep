@@ -8,6 +8,10 @@ class StepIngredient extends Model {
         primaryKey: true,
         autoIncrement: true,
       },
+      amount: {
+        type: INTEGER,
+        allowNull: false,
+      },
       unitOfMeasurementId: {
         type: INTEGER,
         allowNull: false,
