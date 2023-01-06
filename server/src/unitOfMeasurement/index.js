@@ -4,6 +4,6 @@ import { Router } from 'express';
 const router = Router();
 const path = '/units-of-measurement';
 
-router.get('', getUnitsOfMeasurement);
+router.get('/', getUnitsOfMeasurement);
 
-module.exports = { router, path };
+export { router, path };

@@ -4,6 +4,6 @@ import { Router } from 'express';
 const router = Router();
 const path = '/ingredients';
 
-router.get('', getIngredients);
+router.get('/', getIngredients);
 
-module.exports = { router, path };
+export { router, path };

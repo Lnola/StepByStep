@@ -1,9 +1,9 @@
-import { newStepIngredient } from './stepIngredient.controller';
+import { createStepIngredient } from './stepIngredient.controller';
 import { Router } from 'express';
 
 const router = Router();
 const path = '/step-ingredients';
 
-router.post('', newStepIngredient);
+router.post('/', createStepIngredient);
 
-module.exports = { router, path };
+export { router, path };

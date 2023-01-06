@@ -4,6 +4,6 @@ import { Router } from 'express';
 const router = Router();
 const path = '/steps';
 
-router.post('', newStep);
+router.post('/', newStep);
 
-module.exports = { router, path };
+export { router, path };
