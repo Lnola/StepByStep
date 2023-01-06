@@ -1,9 +1,13 @@
 import { Category } from '@/shared/database/index';
+import { OK } from 'http-status';
 
-const getCategories = async (_, res) => {
-  const categories = await Category.findAll();
-
-  res.json(categories);
+const list = async (_req, res, next) => {
+  try {
+    const categories = await Category.findAll();
+    return res.status(OK).json(categories);
+  } catch (err) {
+    return next(new Error());
+  }
 };
 
-module.exports = { getCategories };
+export { list };
