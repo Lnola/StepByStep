@@ -67,4 +67,4 @@
     {unitsOfMeasurement}
   />
 {/each}
-<button on:click={addStep}>Add Step</button>
+<button on:click={addStep}>Add step</button>

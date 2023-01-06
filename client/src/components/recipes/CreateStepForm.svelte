@@ -10,11 +10,11 @@
 </script>
 
 <label class="item" for="description">Description: </label>
-<input class="item" name="description" placeholder="Step description" bind:value={step.description}/>
+<input class="item" name="description" placeholder="step description" bind:value={step.description}/>
 <label class="item" for="time">Time: </label>
-<input class="item" name="time" placeholder="Step time" bind:value={step.time}/>
+<input class="item" name="time" placeholder="step time" bind:value={step.time}/>
 <CreateIngredientList stepIngredients={step.ingredients} {ingredients} {unitsOfMeasurement} />
-<button class="item" on:click={() => dispatch('add-ingredient', step)}>Add Ingredient</button>
+<button class="item" on:click={() => dispatch('add-ingredient', step)}>Add ingredient</button>
 
 <style>
   .item {

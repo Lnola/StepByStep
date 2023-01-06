@@ -1,4 +1,4 @@
-<!-- This component at the moment doesn't make sense - remove it if so -->
+<!-- This component at the moment doesn't make sense - possible removement -->
 <script>
   import CreateIngredientForm from './CreateIngredientForm.svelte';
 

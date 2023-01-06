@@ -14,10 +14,7 @@
   let ingredients = [];
   let unitsOfMeasurement = [];
 
-  const handleFormSubmit = e => {
-    console.log('Submit');
-    console.log(recipeForm);
-  };
+  const handleFormSubmit = e => {};
 
   onMount(async () => {
     // TODO: currently, if fetch fails, categories are set to [], but in the future this should inform user about error!
@@ -29,9 +26,9 @@
 </script>
 
 <label class="item" for="name">Recipe name: </label>
-<input class="item" name="name" placeholder="recipe name" bind:value={recipeForm.name} />
+<input class="item" name="name" placeholder="name" bind:value={recipeForm.name} />
 <label class="item" for="description">Recipe description: </label>
-<input class="item" type="textbox" name="description" bind:value={recipeForm.description} />
+<input class="item" type="textbox" name="description" placeholder="description" bind:value={recipeForm.description} />
 <div class="item">
   <input type="radio" name="isPublished" value={false} bind:group={recipeForm.isPublished} />Private
   <input type="radio" name="isPublished" value={true} bind:group={recipeForm.isPublished} />Public
@@ -42,12 +39,8 @@
     <option value={category.id}>{category.name}</option>
   {/each}
 </select>
-<CreateStepsList
-  bind:steps={recipeForm.steps}
-  {ingredients}
-  {unitsOfMeasurement}
-/>
-<button class="item" on:click={handleFormSubmit}>Create Recipe</button>
+<CreateStepsList bind:steps={recipeForm.steps} {ingredients} {unitsOfMeasurement} />
+<button class="item" on:click={handleFormSubmit}>Create recipe</button>
 
 <style>
   .item {
