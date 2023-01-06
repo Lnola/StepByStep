@@ -1,9 +1,9 @@
-import { newStep } from './step.controller';
+import { createStep } from './step.controller';
 import { Router } from 'express';
 
 const router = Router();
 const path = '/steps';
 
-router.post('/', newStep);
+router.post('/', createStep);
 
 export { router, path };
