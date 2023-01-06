@@ -17,12 +17,12 @@ const routes = [
     component: Auth,
   },
   {
-    path: '/browse',
+    path: '/recipes',
     name: 'Recipes',
     component: RecipesPublished,
   },
   {
-    path: '/user-recipes',
+    path: '/recipes/user',
     name: 'UserRecipes',
     component: RecipesUser,
   },
