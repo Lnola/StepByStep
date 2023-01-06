@@ -6,6 +6,7 @@
   export let unitsOfMeasurement;
 
   $: numOfSteps = steps.length;
+  $: showStepIndex = numOfSteps - 1;
 
   const addStep = e => {
     const newStep = {
@@ -34,13 +35,17 @@
   const moveStepDown = e => {
     // To move step down, it's like moving the next step up, same thing;
     // so we use index of next step, which is e.detail + 1
-    moveHelper(e.detail + 1);
+    moveHelper(e.detail, 1);
   };
 
-  const moveHelper = stepIndex => {
+  const moveHelper = (stepIndex, offset = 0) => {
+    stepIndex += offset;
+
     let newSteps = steps.slice(0, stepIndex - 1);
     newSteps.push(steps[stepIndex], steps[stepIndex - 1], ...steps.slice(stepIndex + 1));
     steps = [...newSteps];
+
+    showStepIndex = offset === 0 ? stepIndex - 1 : stepIndex;
   };
 
   // This will force user to have at least one step for each recipe
@@ -52,7 +57,7 @@
     on:move-up={moveStepUp}
     on:move-down={moveStepDown}
     on:remove-step={removeStep}
-    show={index === numOfSteps - 1}
+    show={index === showStepIndex}
     enableUp={index > 0}
     enableDown={index < numOfSteps - 1}
     enableDelete={numOfSteps > 1}
