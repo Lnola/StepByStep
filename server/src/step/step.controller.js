@@ -1,6 +1,6 @@
 import { Step } from '@/shared/database/index';
 
-const newStep = async (req, res, next) => {
+const createStep = async (req, res, next) => {
   try {
     const step = await Step.create(req.body);
     res.json({ stepId: step.id });
@@ -9,4 +9,4 @@ const newStep = async (req, res, next) => {
   }
 };
 
-export { newStep };
+export { createStep };

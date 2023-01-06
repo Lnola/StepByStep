@@ -1,4 +1,4 @@
-import getIngredients from './ingredient.controller';
+import { getIngredients } from './ingredient.controller';
 import { Router } from 'express';
 
 const router = Router();

@@ -1,4 +1,4 @@
-import getUnitsOfMeasurement from './unitOfMeasurement.controller';
+import { getUnitsOfMeasurement } from './unitOfMeasurement.controller';
 import { Router } from 'express';
 
 const router = Router();
