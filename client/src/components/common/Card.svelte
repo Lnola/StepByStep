@@ -1,9 +1,9 @@
 <script>
   import { slide } from 'svelte/transition';
-  export let title;
-  export let option1;
-  export let option2;
   export let cover;
+  export let title;
+  export let rating;
+  export let time;
 
   let extended = false;
   function toggleExtended() {
@@ -11,94 +11,88 @@
   }
 </script>
 
-<main>
-  <div class="container" in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
-    <img alt="recipeCover" src={cover} />
-    <div class="title">{title}</div>
-    <div class="circle info {extended && 'extend'}"><button on:click={toggleExtended}>ℹ️</button></div>
-    <div class="circle rating {extended && 'extend'}">{option1}/5</div>
-    <div class="circle time {extended && 'extend'}">{option2} min</div>
-  </div>
-</main>
+<article in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
+  <img alt="recipeCover" src={cover} />
+  <h3 class="title">{title}</h3>
+  <button on:click={toggleExtended}>
+    <span class="circle info {extended && 'extend'}"><i class="fa-solid fa-info" /></span>
+    <span class="circle rating {extended && 'extend'}">{rating}/5</span>
+    <span class="circle time {extended && 'extend'}">{time} min</span>
+  </button>
+</article>
 
 <style>
+  article {
+    position: relative;
+    overflow: hidden;
+    width: 85vw;
+    height: 25vh;
+    margin-top: 10%;
+    border-radius: 15px;
+    background-color: var(--color-accent);
+    z-index: 0;
+  }
+
   img {
     height: 100%;
     width: 100%;
     object-fit: cover;
   }
-  .container {
-    background-color: #4b124b;
-    position: relative;
-    z-index: 0;
-    overflow: hidden;
-    margin-top: 10%;
-    height: 25vh;
-    width: 85vw;
-    border-radius: 15px;
-  }
+
   .title {
-    padding: 3%;
     position: absolute;
-    z-index: 1;
-    background-color: #ebf2af;
-    font-weight: 600;
-    font-size: large;
-    color: #4b124b;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-left: 0.5vh solid #ebf2af;
     top: 7%;
     right: 0%;
+    margin: 0;
+    padding: 3%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-left: 0.5vh solid var(--color-secondary);
+    background-color: var(--color-secondary);
+    font-weight: 600;
+    font-size: large;
+    z-index: 1;
   }
 
   .circle {
+    position: absolute;
+    bottom: 4%;
+    left: 4%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    background-color: #ebf2af;
-    bottom: 4%;
-    left: 4%;
-    border-radius: 50%;
-    height: 6vh;
     width: 6vh;
-    transition: 0.5s;
+    height: 6vh;
+    border-radius: 50%;
+    background-color: var(--color-secondary);
     font-size: medium;
-    font-weight: 800;
+    transition: 0.5s;
   }
 
   .info {
     z-index: 2;
   }
+
   .rating {
-    z-index: 1;
     overflow: hidden;
+    z-index: 1;
   }
+
   .time {
     display: flex;
     flex-direction: column;
-    z-index: 0;
-    font-size: medium;
     overflow: hidden;
+    font-size: small;
     text-align: center;
     line-height: 100%;
-    font-size: small;
+    z-index: 0;
   }
 
   .info.extend {
     transform: translateX(240%);
   }
+
   .rating.extend {
     transform: translateX(120%);
-  }
-
-  .info button {
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    height: 100%;
-    font-size: larger;
-    font-weight: 600;
   }
 </style>

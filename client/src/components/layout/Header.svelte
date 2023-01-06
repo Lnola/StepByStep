@@ -1,56 +1,64 @@
 <script>
   import { slide } from 'svelte/transition';
   import { logout } from '@/stores/auth';
-  let areOptionsVisible = false;
+  import { redirect } from '@/utils/router/routing';
+
+  let optionsVisible = false;
   function toggleOptionsVisibility() {
-    areOptionsVisible = !areOptionsVisible;
+    optionsVisible = !optionsVisible;
   }
 </script>
 
-<main>
-  <div class="container">
-    <div class="title">Step By Step</div>
-    <button class="profileIcon" on:click={toggleOptionsVisibility}>
-      <img class="profileIcon" alt="profileIcon" src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" />
+<header>
+  <section class="header">
+    <div />
+    <h1 class="title">Step By Step</h1>
+    <button class="profile" on:click={toggleOptionsVisibility}>
+      <i class="fa-regular fa-circle-user" />
     </button>
-  </div>
-  {#if areOptionsVisible}
-    <div class="options" transition:slide>
-      <button>Prijava</button>
-      <button>Registracija</button>
-      <button>Moj profil</button>
-      <button><a href="/user-recipes">Moji recepti</a></button>
+  </section>
+  {#if optionsVisible}
+    <aside transition:slide>
+      <button on:click={() => redirect('UserRecipes')}>Moji recepti</button>
       <button on:click={logout}>Odjava</button>
-    </div>
+    </aside>
   {/if}
-</main>
+</header>
 
 <style>
-  .options > button {
-    padding: 0;
-    margin: 2.5vh;
-    background-color: transparent;
-    border: none;
-    font-family: 'Poppins';
-    color: white;
-    font-size: large;
-    font-weight: 600;
-  }
-
-  a {
-    text-decoration: none;
-    color: white;
-  }
-
-  main {
-    font-size: large;
+  header {
     position: fixed;
     top: 0;
     width: 100%;
+    font-size: large;
     z-index: 3;
   }
 
-  .options {
+  .header {
+    display: grid;
+    grid-template-columns: 20% auto 20%;
+    height: 7vh;
+    border-bottom: 1vh solid var(--color-accent);
+    color: var(--color-black);
+    background-color: var(--color-primary);
+  }
+
+  .title {
+    margin: auto;
+    text-align: center;
+    font-weight: 800;
+    font-size: larger;
+  }
+
+  .profile {
+    width: 100%;
+    font-size: 2rem;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+
+  aside {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -58,42 +66,23 @@
     margin: 0;
     width: 100%;
     height: auto;
-    background-color: #4b124b;
+    background-color: var(--color-accent);
   }
 
-  .options:before {
-    height: 0;
-  }
-
-  .title {
-    font-weight: 800;
-    font-size: larger;
-  }
-  .profileIcon {
-    width: 6vh;
-    height: 6vh;
-  }
-
-  button.profileIcon {
+  aside > button {
+    margin: 2.5vh;
     padding: 0;
-    margin: 0;
-    top: 0.5vh;
-    right: 1vh;
-    display: flex;
-    width: 6vh;
-    height: 6vh;
-    position: absolute;
-    background-color: transparent;
     border: none;
+    background-color: transparent;
+    font-family: var(--font-family);
+    color: var(--color-white);
+    font-size: large;
+    font-weight: 600;
   }
-  .container {
-    height: 7vh;
-    width: 100%;
-    background-color: #89dfc3;
-    align-items: center;
-    color: black;
-    display: flex;
-    justify-content: center;
-    border-bottom: 1vh solid #4b124b;
+
+  @media only screen and (min-width: 768px) {
+    .profile {
+      display: none;
+    }
   }
 </style>

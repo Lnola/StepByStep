@@ -8,30 +8,22 @@
   */
 </script>
 
-<main>
-  <div class="featured-text">
-    <div class="text">Nemaš ideju?</div>
-    <div class="text">Pogledaj najbolje ocijenjene recepte!</div>
+<section class="container">
+  <div class="header">
+    <p class="text">Nemaš ideju?</p>
+    <p class="text">Pogledaj najbolje ocijenjene recepte!</p>
   </div>
-  <div class="featured-recipes">
+  <div class="content">
     <Recipes {recipes} category={0} />
   </div>
-</main>
+</section>
 
 <style>
-  main {
+  .container {
     height: 100%;
   }
 
-  .featured-recipes {
-    padding-bottom: 30%;
-    margin-top: 10%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .featured-text {
+  .header {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,14 +31,18 @@
     margin-top: 5%;
   }
 
-  .text:nth-child(2) {
-    font-weight: 800;
-    font-size: larger;
-  }
-
   .text {
+    margin: 0;
     font-size: large;
     font-weight: 600;
     text-align: center;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+    padding-bottom: 30%;
   }
 </style>

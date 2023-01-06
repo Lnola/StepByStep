@@ -6,25 +6,19 @@
   export let recipes;
 </script>
 
-<main>
-  <div class="recipes-container">
-    {#each recipes as { name, isPublished, categoryId, avgRating, preparationTime, imageUrl }}
-      {#if category === categoryId || category === 0 || published === isPublished || published === 0}
-        <Card title={name} option1={avgRating} option2={preparationTime} cover={imageUrl} />
-      {/if}
-    {/each}
-  </div>
-</main>
+<section>
+  {#each recipes as { name, isPublished, categoryId, avgRating, preparationTime, imageUrl }}
+    {#if category === categoryId || category === 0 || published === isPublished || published === 0}
+      <Card cover={imageUrl} title={name} rating={avgRating} time={preparationTime} />
+    {/if}
+  {/each}
+</section>
 
 <style>
-  main {
-    height: 100%;
-  }
-
-  .recipes-container {
-    padding-bottom: 30%;
+  section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 30%;
   }
 </style>

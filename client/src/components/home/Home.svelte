@@ -20,12 +20,13 @@
     margin-top: 8vh;
     margin-bottom: 8vh;
   }
+
   @media only screen and (min-width: 768px) {
     main {
-      width: 100%;
-      height: 100vh;
       display: grid;
       grid-template-columns: 1fr 4fr;
+      width: 100%;
+      height: 100vh;
     }
   }
 </style>

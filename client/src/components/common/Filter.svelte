@@ -14,9 +14,9 @@
   }
 </script>
 
-<main>
-  <button class="expand" on:click={expand}>Filteri</button>
-  <div class="categoryContainer {isExpanded && 'extend'}">
+<section>
+  <button class="button" on:click={expand}>Filteri</button>
+  <div class="container {isExpanded && 'extend'}">
     <div>Filtriraj po kategoriji:</div>
     <form>
       <select on:change={handleChange}>
@@ -27,59 +27,59 @@
       </select>
     </form>
   </div>
-</main>
+</section>
 
 <style>
-  main {
+  section {
     width: 90%;
-  }
-
-  .categoryContainer {
-    overflow: hidden;
-    position: relative;
-    color: white;
-    margin-top: 5vh;
-    border-radius: 15px;
-    background-color: #4b124b;
-    display: flex;
-    visibility: hidden;
-    transition: 0.5s;
-    flex-direction: row;
-    height: 0vh;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  .categoryContainer.extend {
-    visibility: visible;
-    height: 10vh;
-  }
-
-  .expand {
-    color: white;
-    border-radius: 5px;
-    border: none;
-    font-family: 'Poppins';
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    background-color: #4b124b;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 30%;
     height: 4vh;
-    position: absolute;
-    right: 35%;
-    top: 8.5vh;
+    margin-top: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-accent);
+    color: white;
+    font-family: var(--font-family);
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    height: 0vh;
+    margin-top: 2vh;
+    border-radius: 15px;
+    background-color: var(--color-accent);
+    color: white;
+    opacity: 0;
+    transition: 0.5s;
+  }
+
+  .extend {
+    opacity: 1;
+    height: 10vh;
   }
 
   select {
-    height: 5vh;
     width: 35vw;
+    height: 5vh;
     font-size: small;
-    font-family: 'Poppins';
-    border-color: #ebf2af;
-    background-color: #ebf2af;
+    font-family: var(--font-family);
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
     border-radius: 5px;
   }
 </style>
