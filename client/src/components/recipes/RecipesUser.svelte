@@ -1,8 +1,6 @@
 <script>
   import { onMount } from 'svelte';
   import Recipes from './RecipesList.svelte';
-  import Header from '@/components/layout/Header.svelte';
-  import Navigation from '@/components/layout/Navigation.svelte';
   import Filter from '@/components/common/Filter.svelte';
   import { recipesApi } from '@/api';
 
@@ -25,8 +23,6 @@
 </script>
 
 <main>
-  <Header />
-  <Navigation />
   <Filter {categories} on:update={updateCategory} />
   <Recipes {recipes} {published} />
 </main>

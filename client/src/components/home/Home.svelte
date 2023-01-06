@@ -1,13 +1,9 @@
 <script>
-  import Header from '@/components/layout/Header.svelte';
-  import Navigation from '@/components/layout/Navigation.svelte';
   import Featured from '@/components/home/Featured.svelte';
 </script>
 
 <main>
-  <Header />
   <Featured />
-  <Navigation />
 </main>
 
 <style>
