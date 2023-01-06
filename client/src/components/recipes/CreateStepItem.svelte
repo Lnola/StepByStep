@@ -5,10 +5,13 @@
   export let show;
   export let enableUp;
   export let enableDown;
+  export let enableDelete;
   export let step;
   export let index;
   export let ingredients;
   export let unitsOfMeasurement;
+
+  $: toggleBtnText = show ? '-' : '+';
 
   const dispatch = createEventDispatcher();
 
@@ -23,12 +26,10 @@
   };
 
   const toggle = () => (show = !show);
-
-  $: toggleBtnText = show ? '-' : '+';
 </script>
 
 <div class="bar">
-  <h4>Step {step.orderNumber}</h4>
+  <h4>Step {index + 1}</h4>
   <div class="btns">
     {#if enableUp}
       <button on:click={() => dispatch('move-up', index)}>&uarr</button>
@@ -37,6 +38,7 @@
       <button on:click={() => dispatch('move-down', index)}>&darr</button>
     {/if}
     <button on:click={toggle}>{toggleBtnText}</button>
+    <button on:click={() => dispatch('remove-step', index)} disabled={!enableDelete}>x</button>
   </div>
 </div>
 {#if show}
