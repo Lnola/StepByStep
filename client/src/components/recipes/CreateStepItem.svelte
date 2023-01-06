@@ -7,12 +7,14 @@
   export let enableDown;
   export let step;
   export let index;
+  export let ingredients;
+  export let unitsOfMeasurement;
 
   const dispatch = createEventDispatcher();
 
   const addIngredient = e => {
     const newIngredient = {
-      unifOfMeasurmentId: '',
+      unitOfMeasurmentId: '',
       ingredientId: '',
       amount: '',
     };
@@ -38,7 +40,7 @@
   </div>
 </div>
 {#if show}
-  <CreateStepForm on:add-ingredient={addIngredient} {step} />
+  <CreateStepForm on:add-ingredient={addIngredient} {step} {ingredients} {unitsOfMeasurement} />
 {/if}
 
 <style>

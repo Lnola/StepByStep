@@ -3,15 +3,17 @@
   import { createEventDispatcher } from 'svelte';
 
   export let step;
+  export let ingredients;
+  export let unitsOfMeasurement;
 
   const dispatch = createEventDispatcher();
 </script>
 
 <label class="item" for="description">Description: </label>
-<input class="item" name="description" value={step.description} placeholder="Step description" />
+<input class="item" name="description" placeholder="Step description" bind:value={step.description}/>
 <label class="item" for="time">Time: </label>
-<input class="item" name="time" value={step.time} placeholder="Step time" />
-<CreateIngredientList ingredients={step.ingredients} />
+<input class="item" name="time" placeholder="Step time" bind:value={step.time}/>
+<CreateIngredientList stepIngredients={step.ingredients} {ingredients} {unitsOfMeasurement} />
 <button class="item" on:click={() => dispatch('add-ingredient', step)}>Add Ingredient</button>
 
 <style>

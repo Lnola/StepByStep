@@ -1,12 +1,14 @@
 <script>
   import CreateIngredientItem from './CreateIngredientItem.svelte';
 
+  export let stepIngredients;
   export let ingredients;
+  export let unitsOfMeasurement;
 </script>
 
 <h6>Ingredients:</h6>
-{#each ingredients as ingredient}
+{#each stepIngredients as ingredient}
   <div>
-    <CreateIngredientItem {ingredient} />
+    <CreateIngredientItem {ingredient} {ingredients} {unitsOfMeasurement} />
   </div>
 {/each}
