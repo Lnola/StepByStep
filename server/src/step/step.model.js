@@ -28,7 +28,7 @@ class Step extends Model {
   }
 
   static associate({ StepIngredient, Recipe }) {
-    this.hasMany(StepIngredient, { foreignKey: { name: 'stepId', field: 'stepId' } });
+    this.hasMany(StepIngredient, { foreignKey: { name: 'stepId', field: 'stepId' }, onDelete: 'cascade', hooks: true });
     this.belongsTo(Recipe, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
   }
 

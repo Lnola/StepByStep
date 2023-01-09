@@ -6,6 +6,7 @@
 
   let recipes = [];
   let published = 0;
+  const deletable = true;
 
   const categories = [
     { id: 1, name: 'Published' },
@@ -24,7 +25,7 @@
 
 <main>
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {published} />
+  <Recipes {recipes} {published} {deletable} />
 </main>
 
 <style>

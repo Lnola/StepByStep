@@ -6,4 +6,4 @@ const path = '/steps';
 
 router.post('/', createStep);
 
-export { router, path };
+export default { path, router };

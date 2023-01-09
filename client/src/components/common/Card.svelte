@@ -1,17 +1,36 @@
 <script>
   import { slide } from 'svelte/transition';
+  import { deleteRecipe, togglePublish } from '@/utils/scripts/helpers';
   export let cover;
   export let title;
   export let rating;
   export let time;
+  export let deletable;
+  export let id;
+  export let isPublished;
 
   let extended = false;
+  let publishText = '';
+
+  if (deletable && isPublished) {
+    publishText = 'Unpublish';
+  } else {
+    publishText = 'Publish';
+  }
+
   function toggleExtended() {
     extended = !extended;
   }
 </script>
 
 <article in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
+  {#if deletable}
+    <button class="circle deleteButton" on:click={deleteRecipe(id)}><i class="fa-solid fa-trash" /></button>
+    <button class="circle publish" on:click={togglePublish(id, isPublished)}
+      >{publishText}</button
+    >
+  {/if}
+
   <img alt="recipeCover" src={cover} />
   <h3 class="title">{title}</h3>
   <button on:click={toggleExtended}>
@@ -54,6 +73,20 @@
     z-index: 1;
   }
 
+  .circle.deleteButton {
+    bottom: 4%;
+    left: 83%;
+    border: none;
+  }
+
+  .circle.publish {
+    bottom: 4%;
+    left: 57%;
+    width: 80px;
+    border: none;
+    border-radius: 30px;
+  }
+
   .circle {
     position: absolute;
     bottom: 4%;
@@ -61,8 +94,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 6vh;
-    height: 6vh;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: var(--color-secondary);
     font-size: medium;
