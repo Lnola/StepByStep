@@ -12,6 +12,12 @@ const urls = {
   get deleteRecipe() {
     return this.root + '/delete';
   },
+  get publishRecipe() {
+    return this.root + '/publish';
+  },
+  get unpublishRecipe() {
+    return this.root + '/unpublish';
+  },
 };
 
 const fetchPublished = () => {
@@ -26,8 +32,18 @@ const deleteRecipe = recipeId => {
   return request.post(urls.deleteRecipe, recipeId).then(extractData);
 };
 
+const publishRecipe = recipeId => {
+  return request.post(urls.publishRecipe, recipeId).then(extractData);
+};
+
+const unpublishRecipe = recipeId => {
+  return request.post(urls.unpublishRecipe, recipeId).then(extractData);
+};
+
 export default {
   fetchPublished,
   fetchUserRecipes,
   deleteRecipe,
+  publishRecipe,
+  unpublishRecipe,
 };

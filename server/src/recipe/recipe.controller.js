@@ -48,9 +48,7 @@ const deleteRecipe = async (req, res, next) => {
   const recipeId = await req.body.recipeId;
 
   try {
-    const recipe = await Recipe.findOne({
-      where: { id: recipeId },
-    });
+    const recipe = await Recipe.findOne({ where: { id: recipeId } });
     if (recipe) {
       await recipe.destroy();
       return res.status(OK).send();
@@ -60,4 +58,26 @@ const deleteRecipe = async (req, res, next) => {
   }
 };
 
-export { listPublishedRecipes, listUserRecipes, createRecipe, deleteRecipe };
+const publishRecipe = async (req, res, next) => {
+  const recipeId = req.body.recipeId;
+
+  try {
+    await Recipe.update({ isPublished: true }, { where: { id: recipeId } });
+    return res.status(OK).send();
+  } catch (err) {
+    return next(new Error());
+  }
+};
+
+const unpublishRecipe = async (req, res, next) => {
+  const recipeId = req.body.recipeId;
+
+  try {
+    await Recipe.update({ isPublished: false }, { where: { id: recipeId } });
+    return res.status(OK).send();
+  } catch (err) {
+    return next(new Error());
+  }
+};
+
+export { listPublishedRecipes, listUserRecipes, createRecipe, deleteRecipe, publishRecipe, unpublishRecipe };
