@@ -44,4 +44,20 @@ const createRecipe = async (req, res, next) => {
   }
 };
 
-export { listPublishedRecipes, listUserRecipes, createRecipe };
+const deleteRecipe = async (req, res, next) => {
+  const recipeId = await req.body.recipeId;
+
+  try {
+    const recipe = await Recipe.findOne({
+      where: { id: recipeId },
+    });
+    if (recipe) {
+      await recipe.destroy();
+      return res.status(OK).send();
+    }
+  } catch (err) {
+    return next(new Error());
+  }
+};
+
+export { listPublishedRecipes, listUserRecipes, createRecipe, deleteRecipe };

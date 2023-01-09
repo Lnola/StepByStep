@@ -6,4 +6,4 @@ const path = '/ingredients';
 
 router.get('/', getIngredients);
 
-export { router, path };
+export default { path, router };

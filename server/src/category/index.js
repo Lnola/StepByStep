@@ -5,4 +5,4 @@ const router = Router();
 const path = '/categories';
 router.get('/list', list);
 
-export default { router, path };
+export default { path, router };

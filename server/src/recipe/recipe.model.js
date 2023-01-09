@@ -64,9 +64,9 @@ class Recipe extends Model {
   }
 
   static associate({ Comment, Rating, User, Category, Step }) {
-    this.hasMany(Comment, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
-    this.hasMany(Rating, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
-    this.hasMany(Step, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
+    this.hasMany(Comment, { foreignKey: { name: 'recipeId', field: 'recipeId' }, onDelete: 'cascade', hooks: true });
+    this.hasMany(Rating, { foreignKey: { name: 'recipeId', field: 'recipeId' }, onDelete: 'cascade', hooks: true });
+    this.hasMany(Step, { foreignKey: { name: 'recipeId', field: 'recipeId' }, onDelete: 'cascade', hooks: true });
     this.belongsTo(User, { foreignKey: { name: 'userId', field: 'userId' } });
     this.belongsTo(Category, { foreignKey: { name: 'categoryId', field: 'categoryId' } });
   }
