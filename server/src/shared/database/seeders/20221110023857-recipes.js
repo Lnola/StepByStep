@@ -19,20 +19,20 @@ module.exports = {
       createRecipe(
         'Varivo',
         false,
-        5,
         'https://image.dnevnik.hr/media/images/1920x1080/Feb2021/62032174-varivo-leca-rucak.jpg',
+        5,
       ),
       createRecipe(
         'Spaghetti Carbonara',
         true,
-        7,
         'https://images.kitchenstories.io/wagtailOriginalImages/R2568-photo-final-_0.jpg',
+        7,
       ),
       createRecipe(
         'Hamburger',
         true,
-        4,
         'https://cdn.vox-cdn.com/thumbor/fIkgtG0ZrwPYf3MI_flSGiLTv9M=/0x50:960x590/1600x900/cdn.vox-cdn.com/uploads/chorus_image/image/50320797/13419042_1359144147435857_8887026700437396746_n.0.jpg',
+        4,
       ),
     ];
     return queryInterface.bulkInsert(TABLE_NAME, recipes);

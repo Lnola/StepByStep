@@ -4,12 +4,13 @@
   export let category = null;
   export let published = null;
   export let recipes;
+  export let deletable;
 </script>
 
 <section>
-  {#each recipes as { name, isPublished, categoryId, avgRating, preparationTime, imageUrl }}
+  {#each recipes as { id, name, isPublished, categoryId, avgRating, preparationTime, imageUrl }}
     {#if category === categoryId || category === 0 || published === isPublished || published === 0}
-      <Card cover={imageUrl} title={name} rating={avgRating} time={preparationTime} />
+      <Card cover={imageUrl} title={name} rating={avgRating} time={preparationTime} {deletable} {id} />
     {/if}
   {/each}
 </section>

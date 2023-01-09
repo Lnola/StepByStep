@@ -1,9 +1,12 @@
 <script>
   import { slide } from 'svelte/transition';
+  import { deleteRecipe } from '@/utils/scripts/deleteRecipe';
   export let cover;
   export let title;
   export let rating;
   export let time;
+  export let deletable;
+  export let id;
 
   let extended = false;
   function toggleExtended() {
@@ -12,6 +15,9 @@
 </script>
 
 <article in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
+  {#if deletable}
+    <button class="circle deleteButton" on:click={deleteRecipe(id)}><i class="fa-solid fa-trash" /></button>
+  {/if}
   <img alt="recipeCover" src={cover} />
   <h3 class="title">{title}</h3>
   <button on:click={toggleExtended}>
@@ -54,6 +60,12 @@
     z-index: 1;
   }
 
+  .circle.deleteButton {
+    bottom: 4%;
+    left: 83%;
+    border: none;
+  }
+
   .circle {
     position: absolute;
     bottom: 4%;
@@ -61,8 +73,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 6vh;
-    height: 6vh;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: var(--color-secondary);
     font-size: medium;
