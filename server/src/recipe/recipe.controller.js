@@ -34,4 +34,14 @@ const listUserRecipes = async (req, res, next) => {
   }
 };
 
-export { listPublishedRecipes, listUserRecipes };
+const createRecipe = async (req, res, next) => {
+  try {
+    const recipe = await Recipe.create(req.body);
+    res.json({ recipeId: recipe.id });
+  } catch (err) {
+    // TODO: catch more specific error
+    next(new Error());
+  }
+};
+
+export { listPublishedRecipes, listUserRecipes, createRecipe };
