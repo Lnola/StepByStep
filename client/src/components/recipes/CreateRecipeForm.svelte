@@ -20,8 +20,8 @@
     // TODO: currently, if fetch fails, categories are set to [], but in the future this should inform user about error!
     // TODO: currently, if fetch fails, ingredients and units are set to [], but in the future this should inform user about error! (same story as categories)
     categories = await categoriesApi.fetchAll().catch(() => []);
-    ingredients = await ingredientApi.getIngredients().catch(() => []);
-    unitsOfMeasurement = await unitOfMeasurementApi.getUnitsOfMeasurement().catch(() => []);
+    ingredients = await ingredientApi.fetchAll().catch(() => []);
+    unitsOfMeasurement = await unitOfMeasurementApi.fetchAll().catch(() => []);
   });
 </script>
 

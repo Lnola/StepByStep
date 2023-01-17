@@ -3,13 +3,13 @@ import request from './request';
 
 const urls = {
   root: '/ingredients',
-  get getIngredients() {
+  get fetchAll() {
     return this.root;
-  }
+  },
 };
 
-const getIngredients = () => {
-  return request.get(urls.getIngredients).then(extractData);
-}
+const fetchAll = () => {
+  return request.get(urls.fetchAll).then(extractData);
+};
 
-export default { getIngredients };
+export default { fetchAll };
