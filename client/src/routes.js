@@ -3,6 +3,7 @@ import Auth from './components/auth/Auth.svelte';
 import RecipesPublished from './components/recipes/RecipesPublished.svelte';
 import RecipesUser from './components/recipes/RecipesUser.svelte';
 import { isLoggedIn } from './stores/auth';
+import CreateRecipe from './components/recipes/CreateRecipe.svelte';
 import { isAuthRoute, isRoute, redirect } from './utils/router/routing';
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
     path: '/recipes/user',
     name: 'UserRecipes',
     component: RecipesUser,
+  },
+  {
+    path: '/recipes/create',
+    name: 'CreateRecipe',
+    component: CreateRecipe
   },
 ];
 

@@ -1,3 +1,7 @@
+import request from './request';
+
 const extractData = res => res.data;
 
-export { extractData };
+const fetchAll = (url) => request.get(url).then(extractData);
+
+export { extractData, fetchAll };
