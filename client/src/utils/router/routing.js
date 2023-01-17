@@ -35,3 +35,9 @@ export const isAuthRoute = () => {
   if (!route) return false;
   return route.name === 'Auth';
 };
+
+export const isAdminRoute = () => {
+  const route = findRouteByPathname();
+  if (!route) return false;
+  return route.isAdmin;
+};

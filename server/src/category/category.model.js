@@ -16,8 +16,8 @@ class Category extends Model {
     };
   }
 
-  static associate({ Recipe }) {
-    this.hasMany(Recipe, { foreignKey: { name: 'categoryId', field: 'categoryId' } });
+  static associate({ Recipe, RecipeCategory }) {
+    this.belongsToMany(Recipe, { through: RecipeCategory });
   }
 
   static dbOptions() {
