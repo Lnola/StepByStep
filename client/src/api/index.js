@@ -1,3 +1,3 @@
 export { default as authApi } from './auth';
-export { default as unitsOfMeasurementApi } from './unitsOfMeasurement';
-export { default as ingredientsApi } from './ingredients';
+export { default as unitOfMeasurementApi } from './unitOfMeasurement';
+export { default as ingredientApi } from './ingredient';
