@@ -59,11 +59,12 @@ class Recipe extends Model {
     };
   }
 
-  static associate({ Comment, Rating, User, Category, Step }) {
+  static associate({ Comment, Rating, User, Category, RecipeCategory, Step }) {
     this.hasMany(Comment, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
     this.hasMany(Rating, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
     this.hasMany(Step, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
     this.belongsTo(User, { foreignKey: { name: 'userId', field: 'userId' } });
+    this.belongsToMany(Category, { through: RecipeCategory });
   }
 
   static scopes({ Category, Rating, Step }) {

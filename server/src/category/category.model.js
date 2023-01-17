@@ -16,6 +16,10 @@ class Category extends Model {
     };
   }
 
+  static associate({ Recipe, RecipeCategory }) {
+    this.belongsToMany(Recipe, { through: RecipeCategory });
+  }
+
   static dbOptions() {
     return {
       modelName: 'category',
