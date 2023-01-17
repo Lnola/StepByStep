@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import Recipes from './RecipesList.svelte';
   import Filter from '@/components/common/Filter.svelte';
-  import { recipesApi } from '@/api';
+  import { recipeApi } from '@/api';
 
   let recipes = [];
   let published = 0;
@@ -19,7 +19,7 @@
   }
 
   onMount(async () => {
-    recipes = await recipesApi.fetchUserRecipes();
+    recipes = await recipeApi.fetchByUser();
   });
 </script>
 

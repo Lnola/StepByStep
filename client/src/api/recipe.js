@@ -3,11 +3,11 @@ import request from './request';
 
 const urls = {
   root: '/recipes',
-  get listPublishedRecipes() {
+  get fetchPublished() {
     return this.root + '/published';
   },
-  get listUserRecipes() {
-    return this.root + '/userRecipes';
+  get fetchByUser() {
+    return this.root + '/user';
   },
   get deleteRecipe() {
     return this.root + '/delete';
@@ -15,11 +15,11 @@ const urls = {
 };
 
 const fetchPublished = () => {
-  return request.get(urls.listPublishedRecipes).then(extractData);
+  return request.get(urls.fetchPublished).then(extractData);
 };
 
-const fetchUserRecipes = () => {
-  return request.get(urls.listUserRecipes).then(extractData);
+const fetchByUser = () => {
+  return request.get(urls.fetchByUser).then(extractData);
 };
 
 const deleteRecipe = recipeId => {
@@ -28,6 +28,6 @@ const deleteRecipe = recipeId => {
 
 export default {
   fetchPublished,
-  fetchUserRecipes,
+  fetchByUser,
   deleteRecipe,
 };
