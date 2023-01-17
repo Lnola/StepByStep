@@ -1,12 +1,13 @@
+import { OK } from 'http-status';
 import { Step } from '@/shared/database/index';
 
-const createStep = async (req, res, next) => {
+const create = async (req, res, next) => {
   try {
     const step = await Step.create(req.body);
-    res.json({ stepId: step.id });
+    return res.status(OK).json({ stepId: step.id });
   } catch (err) {
-    next(new Error());
+    return next(new Error());
   }
 };
 
-export { createStep };
+export { create };
