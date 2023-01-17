@@ -1,8 +1,8 @@
-import { isAuthRoute, isRoute, redirect } from './utils/router/routing';
+import { isAdminRoute, isAuthRoute, isRoute, redirect } from './utils/router/routing';
 import Auth from './components/auth/Auth.svelte';
 import CreateRecipe from './components/recipes/CreateRecipe.svelte';
 import Home from './components/home/Home.svelte';
-import { isLoggedIn } from './stores/auth';
+import { isAdmin, isLoggedIn } from './stores/auth';
 import RecipesPublished from './components/recipes/RecipesPublished.svelte';
 import RecipesUser from './components/recipes/RecipesUser.svelte';
 
@@ -44,6 +44,10 @@ const beforeRoute = () => {
   }
 
   if (isLoggedIn() && isAuthRoute()) {
+    return redirect('Home');
+  }
+
+  if (isAdminRoute() && !isAdmin()) {
     return redirect('Home');
   }
 };

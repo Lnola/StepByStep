@@ -11,6 +11,12 @@ export const isLoggedIn = () => {
   return !!val;
 };
 
+export const isAdmin = () => {
+  let val;
+  user.subscribe(value => (val = value));
+  return val && val.role.name === 'admin';
+};
+
 export const logout = async () => {
   await authApi.logout();
   user.set(null);

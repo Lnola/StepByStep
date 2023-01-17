@@ -14,6 +14,7 @@ module.exports = {
       createCategory('vegetables'),
       createCategory('asian'),
       createCategory('italian'),
+      createCategory('fast food'),
     ];
     return queryInterface.bulkInsert(TABLE_NAME, categories);
   },
