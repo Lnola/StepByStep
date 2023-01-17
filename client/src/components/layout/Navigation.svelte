@@ -16,7 +16,7 @@
   <section class="mobile-container">
     <Button on:click={() => redirect('Home')} inline><i class="fa-solid fa-house" /></Button>
     <Button on:click={() => redirect('Recipes')} inline><i class="fa-solid fa-burger" /></Button>
-    <Button on:click={() => redirect('Home')} inline><i class="fa-solid fa-upload" /></Button>
+    <Button on:click={() => redirect('CreateRecipe')} inline><i class="fa-solid fa-upload" /></Button>
   </section>
 </nav>
 
