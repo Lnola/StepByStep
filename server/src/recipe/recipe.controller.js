@@ -4,7 +4,7 @@ import errorMessages from '@/shared/constants/errorMessages';
 import HttpError from '@/shared/error/httpError';
 import { Recipe } from '@/shared/database/index';
 
-const listPublishedRecipes = async (_req, res, next) => {
+const fetchPublished = async (_req, res, next) => {
   try {
     const recipes = await Recipe.scope(['defaultScope', 'published']).findAll();
     return res.status(OK).json(recipes);
@@ -14,7 +14,7 @@ const listPublishedRecipes = async (_req, res, next) => {
   }
 };
 
-const listUserRecipes = async (req, res, next) => {
+const fetchByUser = async (req, res, next) => {
   const userId = req.user.id;
   try {
     const recipes = await Recipe.findAll({ where: { userId } });
@@ -26,14 +26,13 @@ const listUserRecipes = async (req, res, next) => {
   }
 };
 
-const createRecipe = async (req, res, next) => {
+const create = async (req, res, next) => {
   try {
     const recipe = await Recipe.create(req.body);
     return res.status(OK).json({ recipeId: recipe.id });
   } catch (err) {
-    // TODO: catch more specific error
     return next(new Error());
   }
 };
 
-export { listPublishedRecipes, listUserRecipes, createRecipe };
+export { fetchPublished, fetchByUser, create };
