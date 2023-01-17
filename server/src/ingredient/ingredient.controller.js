@@ -1,8 +1,8 @@
 import { Ingredient } from '@/shared/database/index';
 
-const getIngredients = async (_, res) => {
+const fetchAll = async (_, res) => {
   const ingredients = await Ingredient.findAll();
   return res.json(ingredients);
 };
 
-export { getIngredients };
+export { fetchAll };
