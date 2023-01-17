@@ -35,8 +35,9 @@ const routes = [
 ];
 
 const beforeRoute = () => {
-  const { pathname } = location;
-  if (!isRoute(pathname)) return redirect('Home');
+  if (!isRoute()) {
+    return redirect('Home');
+  }
 
   if (!isLoggedIn() && !isAuthRoute()) {
     return redirect('Auth');
