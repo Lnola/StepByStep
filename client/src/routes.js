@@ -1,10 +1,10 @@
-import Home from './components/home/Home.svelte';
+import { isAuthRoute, isRoute, redirect } from './utils/router/routing';
 import Auth from './components/auth/Auth.svelte';
 import CreateRecipe from './components/recipes/CreateRecipe.svelte';
-import { isAuthRoute, isRoute, redirect } from './utils/router/routing';
+import Home from './components/home/Home.svelte';
+import { isLoggedIn } from './stores/auth';
 import RecipesPublished from './components/recipes/RecipesPublished.svelte';
 import RecipesUser from './components/recipes/RecipesUser.svelte';
-import { isLoggedIn } from './stores/auth';
 
 const routes = [
   {
