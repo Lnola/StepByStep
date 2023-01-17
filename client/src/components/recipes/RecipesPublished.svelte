@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import Filter from '@/components/common/Filter.svelte';
   import Recipes from './RecipesList.svelte';
-  import { recipesApi, categoriesApi } from '@/api';
+  import { recipeApi, categoryApi } from '@/api';
 
   let category = 0;
   let recipes = [];
@@ -13,8 +13,8 @@
   }
 
   onMount(async () => {
-    recipes = await recipesApi.fetchPublished();
-    categories = await categoriesApi.fetchAll();
+    recipes = await recipeApi.fetchPublished();
+    categories = await categoryApi.fetchAll();
   });
 </script>
 

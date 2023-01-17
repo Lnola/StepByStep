@@ -1,8 +1,9 @@
-import { list } from './category.controller';
+import { fetchAll } from './category.controller';
 import { Router } from 'express';
 
 const router = Router();
 const path = '/categories';
-router.get('/list', list);
+
+router.get('/', fetchAll);
 
 export default { router, path };

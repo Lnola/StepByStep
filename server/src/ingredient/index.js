@@ -1,9 +1,9 @@
-import { getIngredients } from './ingredient.controller';
+import { fetchAll } from './ingredient.controller';
 import { Router } from 'express';
 
 const router = Router();
 const path = '/ingredients';
 
-router.get('/', getIngredients);
+router.get('/', fetchAll);
 
 export default { router, path };

@@ -1,7 +1,27 @@
 import routes from '@/routes';
 
-export const isRoute = pathname => {
-  return !!routes.find(it => it.path === pathname);
+const findRouteByPathname = () => {
+  const { pathname } = location;
+  const route = routes.find(it => {
+    if (!it.path.includes('/:')) return it.path === pathname;
+
+    const splitPath = it.path.split('/');
+    const splitPathname = pathname.split('/');
+    if (splitPath.length !== splitPathname.length) return false;
+
+    const areArraysEqual = splitPath.every((el, index) => {
+      if (el.includes(':')) return true;
+      return el === splitPathname[index];
+    });
+
+    return areArraysEqual;
+  });
+
+  return route;
+};
+
+export const isRoute = () => {
+  return !!findRouteByPathname();
 };
 
 export const redirect = name => {
@@ -11,7 +31,13 @@ export const redirect = name => {
 };
 
 export const isAuthRoute = () => {
-  const { pathname } = location;
-  const route = routes.find(it => it.path === pathname);
+  const route = findRouteByPathname();
+  if (!route) return false;
   return route.name === 'Auth';
+};
+
+export const isAdminRoute = () => {
+  const route = findRouteByPathname();
+  if (!route) return false;
+  return route.isAdmin;
 };

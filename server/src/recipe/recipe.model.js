@@ -55,20 +55,16 @@ class Recipe extends Model {
           type: INTEGER,
           allowNull: false,
         },
-        categoryId: {
-          type: INTEGER,
-          allowNull: false,
-        },
       },
     };
   }
 
-  static associate({ Comment, Rating, User, Category, Step }) {
+  static associate({ Comment, Rating, User, Category, RecipeCategory, Step }) {
     this.hasMany(Comment, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
     this.hasMany(Rating, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
     this.hasMany(Step, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
     this.belongsTo(User, { foreignKey: { name: 'userId', field: 'userId' } });
-    this.belongsTo(Category, { foreignKey: { name: 'categoryId', field: 'categoryId' } });
+    this.belongsToMany(Category, { through: RecipeCategory });
   }
 
   static scopes({ Category, Rating, Step }) {

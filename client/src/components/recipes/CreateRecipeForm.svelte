@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { categoriesApi, ingredientsApi, unitsOfMeasurementApi } from '@/api/index';
+  import { categoryApi, ingredientApi, unitOfMeasurementApi } from '@/api/index';
   import CreateStepsList from './CreateStepsList.svelte';
 
   let recipeForm = {
@@ -17,11 +17,9 @@
   const handleFormSubmit = e => {};
 
   onMount(async () => {
-    // TODO: currently, if fetch fails, categories are set to [], but in the future this should inform user about error!
-    // TODO: currently, if fetch fails, ingredients and units are set to [], but in the future this should inform user about error! (same story as categories)
-    categories = await categoriesApi.fetchAll().catch(() => []);
-    ingredients = await ingredientsApi.fetchAll().catch(() => []);
-    unitsOfMeasurement = await unitsOfMeasurementApi.fetchAll().catch(() => []);
+    categories = await categoryApi.fetchAll();
+    ingredients = await ingredientApi.fetchAll();
+    unitsOfMeasurement = await unitOfMeasurementApi.fetchAll();
   });
 </script>
 
