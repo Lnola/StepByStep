@@ -55,10 +55,6 @@ class Recipe extends Model {
           type: INTEGER,
           allowNull: false,
         },
-        categoryId: {
-          type: INTEGER,
-          allowNull: false,
-        },
       },
     };
   }
@@ -68,7 +64,6 @@ class Recipe extends Model {
     this.hasMany(Rating, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
     this.hasMany(Step, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
     this.belongsTo(User, { foreignKey: { name: 'userId', field: 'userId' } });
-    this.belongsTo(Category, { foreignKey: { name: 'categoryId', field: 'categoryId' } });
   }
 
   static scopes({ Category, Rating, Step }) {

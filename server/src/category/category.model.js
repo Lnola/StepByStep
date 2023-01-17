@@ -16,10 +16,6 @@ class Category extends Model {
     };
   }
 
-  static associate({ Recipe }) {
-    this.hasMany(Recipe, { foreignKey: { name: 'categoryId', field: 'categoryId' } });
-  }
-
   static dbOptions() {
     return {
       modelName: 'category',
