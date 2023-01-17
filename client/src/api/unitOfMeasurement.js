@@ -3,13 +3,10 @@ import request from './request';
 
 const urls = {
   root: '/units-of-measurement',
-  get fetchAll() {
-    return this.root;
-  },
 };
 
 const fetchAll = () => {
-  return request.get(urls.fetchAll).then(extractData);
+  return request.get(urls.root).then(extractData);
 };
 
 export default { fetchAll };
