@@ -2,7 +2,22 @@ import routes from '@/routes';
 
 const findRouteByPathname = () => {
   const { pathname } = location;
-  routes.find(it => it.path === pathname);
+  const route = routes.find(it => {
+    if (!it.path.includes('/:')) return it.path === pathname;
+
+    const splitPath = it.path.split('/');
+    const splitPathname = pathname.split('/');
+    if (splitPath.length !== splitPathname.length) return false;
+
+    const areArraysEqual = splitPath.every((el, index) => {
+      if (el.includes(':')) return true;
+      return el === splitPathname[index];
+    });
+
+    return areArraysEqual;
+  });
+
+  return route;
 };
 
 export const isRoute = () => {
