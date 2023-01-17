@@ -1,20 +1,14 @@
-import {
-  createRecipe,
-  deleteRecipe,
-  listPublishedRecipes,
-  listUserRecipes,
-  publishRecipe,
-  unpublishRecipe,
-} from './recipe.controller';
+import { create, deleteRecipe, fetchByUser, fetchPublished, publishRecipe, unpublishRecipe } from './recipe.controller';
 import { Router } from 'express';
 
 const router = Router();
 const path = '/recipes';
+
 router
-  .get('/published', listPublishedRecipes)
-  .get('/userRecipes', listUserRecipes)
-  .post('/', createRecipe)
   .post('/delete', deleteRecipe)
+  .get('/published', fetchPublished)
+  .get('/user', fetchByUser)
+  .post('/', create)
   .post('/publish', publishRecipe)
   .post('/unpublish', unpublishRecipe);
 

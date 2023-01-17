@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import errorHandler from '@/shared/error/errorHandler';
 import express from 'express';
 import router from '@/router';
@@ -6,6 +7,7 @@ import sequelize from '@/shared/database/index';
 const app = express();
 const port = process.env.PORT || 3001;
 
+app.use(cookieParser());
 app.use(express.json());
 app.use('/api', router);
 
