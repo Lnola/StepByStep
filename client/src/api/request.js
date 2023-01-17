@@ -1,6 +1,6 @@
-import { logout } from '@/stores/auth';
 import axios from 'axios';
 import { StatusCodes } from 'http-status-codes';
+import { logout } from '@/stores/auth';
 
 const { FORBIDDEN } = StatusCodes;
 
@@ -16,10 +16,7 @@ const isAuthError = err => [FORBIDDEN].includes(err.response.status);
 request.interceptors.response.use(
   res => res,
   err => {
-    if (isAuthError(err)) {
-      logout();
-    }
-
+    if (isAuthError(err)) logout();
     throw err;
   },
 );
