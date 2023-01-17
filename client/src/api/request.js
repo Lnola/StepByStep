@@ -16,10 +16,7 @@ const isAuthError = err => [FORBIDDEN].includes(err.response.status);
 request.interceptors.response.use(
   res => res,
   err => {
-    if (isAuthError(err)) {
-      logout();
-    }
-
+    if (isAuthError(err)) logout();
     throw err;
   },
 );

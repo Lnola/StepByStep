@@ -1,20 +1,23 @@
-import { Router } from 'express';
-
-// eslint-disable-next-line sort-imports
+import authenticate from './shared/auth/authenticate';
 import category from './category/index';
 import ingredient from './ingredient/index';
 import recipe from './recipe/index';
+import refresh from './shared/auth/refresh';
+import { Router } from 'express';
 import step from './step/index';
 import unitOfMeasurement from './unitOfMeasurement/index';
 import user from './user/index';
 
 const router = Router();
 
-router.use(category.path, category.router);
-router.use(ingredient.path, ingredient.router);
-router.use(recipe.path, recipe.router);
-router.use(step.path, step.router);
-router.use(unitOfMeasurement.path, unitOfMeasurement.router);
-router.use(user.path, user.router);
+router
+  .use(user.path, user.router)
+  .use(authenticate)
+  .use(refresh)
+  .use(category.path, category.router)
+  .use(ingredient.path, ingredient.router)
+  .use(recipe.path, recipe.router)
+  .use(step.path, step.router)
+  .use(unitOfMeasurement.path, unitOfMeasurement.router);
 
 export default router;
