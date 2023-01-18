@@ -22,7 +22,9 @@
         </div>
       {/each}
 
-      <StepButton type="submit">{buttonLabel}</StepButton>
+      <div class="submit">
+        <StepButton type="submit">{buttonLabel}</StepButton>
+      </div>
       <p>
         {callToActionLabel}
         <StepButton on:click={() => dispatch('swap')} inline>{actionlabel}</StepButton>
@@ -52,5 +54,9 @@
 
   .input {
     margin-bottom: 20px;
+  }
+
+  :global(.submit > button) {
+    width: 100%;
   }
 </style>
