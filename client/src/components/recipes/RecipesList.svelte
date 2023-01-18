@@ -1,9 +1,13 @@
 <script>
   import Card from '@/components/common/Card.svelte';
+  import { createEventDispatcher } from 'svelte';
 
   export let category = null;
   export let published = null;
   export let recipes;
+  export let deletable;
+
+  const dispatch = createEventDispatcher();
 
   const isCategoryMatch = (categories, category) => {
     const categoryIds = categories.map(({ id }) => id);
@@ -20,9 +24,16 @@
 </script>
 
 <section>
-  {#each recipes as { name, isPublished, categories, avgRating, preparationTime, imageUrl }}
+  {#each recipes as { id, name, isPublished, categories, avgRating, preparationTime, imageUrl }}
     {#if isCategoryMatch(categories, category) || isPublishedMatch(isPublished, published)}
-      <Card cover={imageUrl} title={name} rating={avgRating} time={preparationTime} />
+      <Card
+        cover={imageUrl}
+        title={name}
+        rating={avgRating}
+        time={preparationTime}
+        {deletable}
+        on:remove={() => dispatch('remove', { id })}
+      />
     {/if}
   {/each}
 </section>

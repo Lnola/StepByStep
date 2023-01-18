@@ -9,6 +9,9 @@ const urls = {
   get fetchByUser() {
     return this.root + '/user';
   },
+  remove(id) {
+    return `${this.root}/${id}`;
+  },
 };
 
 const fetchPublished = () => {
@@ -19,7 +22,12 @@ const fetchByUser = () => {
   return request.get(urls.fetchByUser).then(extractData);
 };
 
+const remove = id => {
+  return request.delete(urls.remove(id));
+};
+
 export default {
   fetchPublished,
   fetchByUser,
+  remove,
 };

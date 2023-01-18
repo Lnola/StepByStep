@@ -6,4 +6,4 @@ const path = '/units-of-measurement';
 
 router.get('/', fetchAll);
 
-export default { router, path };
+export default { path, router };
