@@ -21,11 +21,18 @@
   onMount(async () => {
     recipes = await recipeApi.fetchByUser();
   });
+
+  const remove = async ({ detail: { id } }) => {
+    if (id) {
+      await recipeApi.remove(id);
+      recipes = await recipeApi.fetchByUser();
+    }
+  };
 </script>
 
 <main>
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {published} {deletable} />
+  <Recipes {recipes} {published} {deletable} on:click={remove} />
 </main>
 
 <style>

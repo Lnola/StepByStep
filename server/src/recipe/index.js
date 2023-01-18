@@ -4,6 +4,6 @@ import { Router } from 'express';
 const router = Router();
 const path = '/recipes';
 
-router.post('/delete', deleteRecipe).get('/published', fetchPublished).get('/user', fetchByUser).post('/', create);
+router.get('/published', fetchPublished).get('/user', fetchByUser).post('/', create).delete('/delete', deleteRecipe);
 
 export default { path, router };

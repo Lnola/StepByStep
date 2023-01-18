@@ -9,7 +9,7 @@ const urls = {
   get fetchByUser() {
     return this.root + '/user';
   },
-  get deleteRecipe() {
+  get remove() {
     return this.root + '/delete';
   },
 };
@@ -22,12 +22,12 @@ const fetchByUser = () => {
   return request.get(urls.fetchByUser).then(extractData);
 };
 
-const deleteRecipe = recipeId => {
-  return request.post(urls.deleteRecipe, recipeId).then(extractData);
+const remove = recipeId => {
+  return request.delete(urls.remove, { data: { recipeId } });
 };
 
 export default {
   fetchPublished,
   fetchByUser,
-  deleteRecipe,
+  remove,
 };

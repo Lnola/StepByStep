@@ -36,17 +36,15 @@ const create = async (req, res, next) => {
 };
 
 const deleteRecipe = async (req, res, next) => {
-  const recipeId = await req.body.recipeId;
-
+  const recipeId = req.body.recipeId;
   try {
-    const recipe = await Recipe.findOne({
-      where: { id: recipeId },
-    });
+    const recipe = await Recipe.findByPk(recipeId);
     if (recipe) {
       await recipe.destroy();
-      return res.status(OK).send();
-    }
+      return res.sendStatus(OK);
+    } else if (!recipe) return new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR);
   } catch (err) {
+    if (err instanceof DatabaseError) return next(new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR));
     return next(new Error());
   }
 };
