@@ -1,4 +1,4 @@
-import { create, fetchByUser, fetchPublished, publishRecipe, remove, unpublishRecipe } from './recipe.controller';
+import { create, fetchByUser, fetchPublished, remove, updateIsPublished } from './recipe.controller';
 import { Router } from 'express';
 
 const router = Router();
@@ -8,8 +8,7 @@ router
   .get('/published', fetchPublished)
   .get('/user', fetchByUser)
   .post('/', create)
-  .post('/publish', publishRecipe)
-  .post('/unpublish', unpublishRecipe)
+  .post('/togglePublish', updateIsPublished)
   .delete('/:id', remove);
 
 export default { path, router };

@@ -21,6 +21,8 @@
     const isPublishedNotSelected = published === 0;
     return doPublishedMatch || isPublishedNotSelected;
   };
+
+  
 </script>
 
 <section>
@@ -32,9 +34,9 @@
         rating={avgRating}
         time={preparationTime}
         {deletable}
-        {id}
         {isPublished}
         on:remove={() => dispatch('remove', { id })}
+        on:update={() => dispatch('update', { id, isPublished })}
       />
     {/if}
   {/each}

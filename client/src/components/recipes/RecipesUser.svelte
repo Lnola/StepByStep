@@ -27,11 +27,16 @@
     await recipeApi.remove(id);
     recipes = await recipeApi.fetchByUser();
   };
+
+  const togglePublish = async ({ detail: { id, isPublished } }) => {
+    await recipeApi.togglePublishRecipe(id, isPublished);
+    recipes = await recipeApi.fetchByUser();
+  };
 </script>
 
 <main>
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {published} {deletable} on:remove={remove} />
+  <Recipes {recipes} {published} {deletable} on:remove={remove} on:update={togglePublish} />
 </main>
 
 <style>

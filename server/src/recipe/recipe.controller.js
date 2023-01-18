@@ -35,25 +35,14 @@ const create = async (req, res, next) => {
   }
 };
 
-const publishRecipe = async (req, res, next) => {
-  const recipeId = req.body.recipeId;
+const updateIsPublished = async (req, res, next) => {
+  const { recipeId, isPublished } = req.body;
 
   try {
-    await Recipe.update({ isPublished: true }, { where: { id: recipeId } });
-    return res.status(OK).send();
+    await Recipe.update({ isPublished: !isPublished }, { where: { id: recipeId } });
+    return res.sendStatus(OK);
   } catch (err) {
-    return next(new Error());
-  }
-};
-
-const unpublishRecipe = async (req, res, next) => {
-  const recipeId = req.body.recipeId;
-
-  try {
-    await Recipe.update({ isPublished: false }, { where: { id: recipeId } });
-    return res.status(OK).send();
-  } catch (err) {
-    return next(new Error());
+    return next(new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR));
   }
 };
 
@@ -69,4 +58,4 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { fetchPublished, fetchByUser, create, publishRecipe, unpublishRecipe, remove };
+export { fetchPublished, fetchByUser, create, updateIsPublished, remove };

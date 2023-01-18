@@ -1,25 +1,17 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
-  import { togglePublish } from '@/utils/scripts/helpers';
   export let cover;
   export let title;
   export let rating;
   export let time;
   export let deletable;
-  export let id;
   export let isPublished;
 
   const dispatch = createEventDispatcher();
 
   let extended = false;
-  let publishText = '';
-
-  if (deletable && isPublished) {
-    publishText = 'Unpublish';
-  } else {
-    publishText = 'Publish';
-  }
+  $: publishText = deletable && isPublished ? 'Unpublish' : 'Publish';
 
   function toggleExtended() {
     extended = !extended;
@@ -29,7 +21,7 @@
 <article in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
   {#if deletable}
     <button class="circle delete" on:click={() => dispatch('remove')}><i class="fa-solid fa-trash" /></button>
-    <button class="circle publish" on:click={togglePublish(id, isPublished)}>{publishText}</button>
+    <button class="circle publish" on:click={() => dispatch('update')}>{publishText}</button>
   {/if}
 
   <img alt="recipeCover" src={cover} />
