@@ -8,7 +8,7 @@
     <div class="links">
       <Button on:click={() => redirect('Home')} inline>Naslovnica</Button>
       <Button on:click={() => redirect('Recipes')} inline>Svi recepti</Button>
-      <Button on:click={() => redirect('Home')} inline>Objavi recept</Button>
+      <Button on:click={() => redirect('CreateRecipe')} inline>Objavi recept</Button>
       <Button on:click={() => redirect('Home')} inline>Profil</Button>
     </div>
   </section>

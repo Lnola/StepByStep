@@ -3,16 +3,39 @@
 </script>
 
 <div class="container">
-  <div>
-    <h2>Create recipe</h2>
-    <CreateRecipeForm />
-  </div>
+  <h2>
+    <span class="title-part primary">Create</span>
+    <span class="title-part secondary">your</span>
+    <span class="title-part primary">recipe!</span>
+  </h2>
+  <CreateRecipeForm />
 </div>
 
 <style>
   .container {
     display: flex;
     justify-content: center;
-    margin-bottom: 12vh;
+    align-content: center;
+    flex-direction: column;
+    margin: 10vh 20vw;
+    text-align: center;
+    /* background-color: var(--color-primary); */
+  }
+
+  .title-part {
+    /* display: block; */
+    font-size: smaller;
+    text-align: center;
+    margin: 1vh 0;
+    padding: 0;
+  }
+
+  /* .primary {
+    color: var(--color-primary);
+  } */
+
+  .secondary {
+    color: var(--color-accent);
+    font-size: larger;
   }
 </style>
