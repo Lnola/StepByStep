@@ -28,7 +28,7 @@
     recipes = await recipeApi.fetchByUser();
   };
 
-  const togglePublish = async ({ detail: { id, isPublished } }) => {
+  const updateIsPublished = async ({ detail: { id, isPublished } }) => {
     await recipeApi.updateIsPublished(id, isPublished);
     const recipe = recipes.find(recipe => recipe.id === id);
     recipe.isPublished = !recipe.isPublished;
@@ -38,7 +38,7 @@
 
 <main>
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {published} {shouldDisplayBonusActions} on:remove={remove} on:update={togglePublish} />
+  <Recipes {recipes} {published} {shouldDisplayBonusActions} on:remove={remove} on:update={updateIsPublished} />
 </main>
 
 <style>
