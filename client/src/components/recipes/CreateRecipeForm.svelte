@@ -59,7 +59,7 @@
   />
 </fieldset>
 
-<div class="item">
+<div>
   <input type="radio" name="isPublished" value={false} bind:group={recipeForm.isPublished} />Private
   <input type="radio" name="isPublished" value={true} bind:group={recipeForm.isPublished} />Public
 </div>
@@ -67,7 +67,7 @@
 <fieldset class="fieldset">
   <legend>Categories</legend>
   <CategoriesList categories={recipeForm.categories} on:remove-category={e => handleCategorySelection(e.detail)} />
-  <select class="item" name="categoryId">
+  <select name="categoryId">
     <option selected disabled value="">Select category</option>
     {#each categories as category}
       <option value={category.id} on:click={handleCategorySelection}>{category.name}</option>
@@ -75,8 +75,12 @@
   </select>
 </fieldset>
 
-<CreateStepsList bind:steps={recipeForm.steps} {ingredients} {unitsOfMeasurement} />
-  <button class="item" on:click={handleFormSubmit}>Create recipe</button>
+<fieldset class="fieldset">
+  <legend>Recipe steps</legend>
+  <CreateStepsList bind:steps={recipeForm.steps} {ingredients} {unitsOfMeasurement} />
+</fieldset>
+
+<button class="item" on:click={handleFormSubmit}>Create recipe</button>
 
 <style>
   .fieldset {

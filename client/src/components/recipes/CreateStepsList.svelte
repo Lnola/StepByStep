@@ -1,5 +1,6 @@
 <script>
   import CreateStepItem from './CreateStepItem.svelte';
+  import settings from '@/settings/settings.json';
 
   export let steps;
   export let ingredients;
@@ -19,8 +20,7 @@
   };
 
   const removeStep = e => {
-    // TODO: Confirm message as the constant (eg DELETE_STEP_CONFIRM)
-    const response = confirm('Are you sure you want to delete this step?');
+    const response = confirm(settings.messages.deleteStep);
 
     if (response) {
       let index = e.detail;
