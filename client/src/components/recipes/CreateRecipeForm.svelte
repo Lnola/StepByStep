@@ -2,12 +2,15 @@
   import { onMount } from 'svelte';
   import { categoryApi, ingredientApi, unitOfMeasurementApi } from '@/api/index';
   import CreateStepsList from './CreateStepsList.svelte';
+  import CategoriesList from './CategoriesList.svelte';
+  import settings from '@/settings/settings.json';
 
   let recipeForm = {
     name: '',
     description: '',
     isPublished: false,
-    categoryId: '',
+    imageUrl: '',
+    categories: [],
     steps: [],
   };
   let categories = [];
@@ -15,6 +18,16 @@
   let unitsOfMeasurement = [];
 
   const handleFormSubmit = e => {};
+
+  const handleCategorySelection = e => {
+    const lenBefore = recipeForm.categories.length;
+    recipeForm.categories = recipeForm.categories.filter(elem => elem.id !== e.target.value);
+    const lenAfter = recipeForm.categories.length;
+
+    if (lenAfter === lenBefore) {
+      recipeForm.categories.push({ id: e.target.value, text: e.target.text });
+    }
+  };
 
   onMount(async () => {
     categories = await categoryApi.fetchAll();
@@ -25,26 +38,45 @@
 
 <fieldset class="fieldset">
   <legend>Recipe name</legend>
-  <input class="input" name="name" placeholder="Give your recipe a name" bind:value={recipeForm.name} />
+  <input
+    class="input"
+    name="name"
+    placeholder="Give your recipe a name"
+    minlength={settings.minLength.recipeName}
+    bind:value={recipeForm.name}
+  />
 </fieldset>
 
 <fieldset class="fieldset">
   <legend>Recipe description!</legend>
-  <textarea class="input" rows="4" name="description" placeholder="Describe your secret recipe!" bind:value={recipeForm.description}></textarea>
+  <textarea
+    class="input"
+    rows="4"
+    name="description"
+    placeholder="Describe your secret recipe!"
+    minlength={settings.minLength.description}
+    bind:value={recipeForm.description}
+  />
 </fieldset>
 
 <div class="item">
   <input type="radio" name="isPublished" value={false} bind:group={recipeForm.isPublished} />Private
   <input type="radio" name="isPublished" value={true} bind:group={recipeForm.isPublished} />Public
 </div>
-<select class="item" name="categoryId" bind:value={recipeForm.categoryId}>
-  <option selected disabled value="">Select category</option>
-  {#each categories as category}
-    <option value={category.id}>{category.name}</option>
-  {/each}
-</select>
+
+<fieldset class="fieldset">
+  <legend>Categories</legend>
+  <CategoriesList categories={recipeForm.categories} on:remove-category={e => handleCategorySelection(e.detail)} />
+  <select class="item" name="categoryId">
+    <option selected disabled value="">Select category</option>
+    {#each categories as category}
+      <option value={category.id} on:click={handleCategorySelection}>{category.name}</option>
+    {/each}
+  </select>
+</fieldset>
+
 <CreateStepsList bind:steps={recipeForm.steps} {ingredients} {unitsOfMeasurement} />
-<button class="item" on:click={handleFormSubmit}>Create recipe</button>
+  <button class="item" on:click={handleFormSubmit}>Create recipe</button>
 
 <style>
   .fieldset {

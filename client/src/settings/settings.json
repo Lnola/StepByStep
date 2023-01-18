@@ -1,0 +1,6 @@
+{
+  "minLength": {
+    "recipeName": 10,
+    "description": 30
+  }
+}
