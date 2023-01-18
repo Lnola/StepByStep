@@ -7,6 +7,7 @@
   let category = 0;
   let recipes = [];
   let categories;
+  const shouldDisplayBonusActions = false;
 
   function updateCategory({ detail: { value } }) {
     category = value;
@@ -20,7 +21,7 @@
 
 <main>
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {category} />
+  <Recipes {recipes} {category} {shouldDisplayBonusActions} />
 </main>
 
 <style>

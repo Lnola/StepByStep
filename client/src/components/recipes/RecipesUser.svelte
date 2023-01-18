@@ -6,6 +6,7 @@
 
   let recipes = [];
   let published = 0;
+  const shouldDisplayBonusActions = true;
 
   const categories = [
     { id: 1, name: 'Published' },
@@ -20,11 +21,24 @@
   onMount(async () => {
     recipes = await recipeApi.fetchByUser();
   });
+
+  const remove = async ({ detail: { id } }) => {
+    if (!id) return alert('Delete failed, try again');
+    await recipeApi.remove(id);
+    recipes = await recipeApi.fetchByUser();
+  };
+
+  const updateIsPublished = async ({ detail: { id, isPublished } }) => {
+    await recipeApi.updateIsPublished(id, isPublished);
+    const recipe = recipes.find(recipe => recipe.id === id);
+    recipe.isPublished = !recipe.isPublished;
+    recipes = [...recipes];
+  };
 </script>
 
 <main>
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {published} />
+  <Recipes {recipes} {published} {shouldDisplayBonusActions} on:remove={remove} on:update={updateIsPublished} />
 </main>
 
 <style>

@@ -22,22 +22,30 @@
 <div>
   <label for={label}>{label}:</label>
   <input bind:value on:input={handleInputType} use:validate={value} class:error-input={isError} {name} {placeholder} />
-  {#if isError}
-    <span class="error-info">{$validity.message}</span>
-  {/if}
+  <span class="error-info">{isError ? $validity.message : ''}</span>
 </div>
 
 <style>
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
   input {
+    padding: 12px;
+    border: 1px solid var(--color-accent);
+    border-radius: 16px;
     outline: none;
-    border-width: 2px;
+    font-family: 'Poppins';
   }
 
   .error-input {
-    border-color: red;
+    border-color: var(--color-error);
   }
 
   .error-info {
-    color: red;
+    height: 0.75rem;
+    color: var(--color-error);
+    font-size: 0.75rem;
   }
 </style>

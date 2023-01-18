@@ -1,17 +1,31 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
   export let cover;
   export let title;
   export let rating;
   export let time;
+  export let shouldDisplayBonusActions;
+  export let isPublished;
+
+  const dispatch = createEventDispatcher();
 
   let extended = false;
+  $: publishText = shouldDisplayBonusActions && isPublished ? 'Unpublish' : 'Publish';
+
   function toggleExtended() {
     extended = !extended;
   }
 </script>
 
 <article in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
+  {#if shouldDisplayBonusActions}
+    <div class="bonusActions">
+      <button class="circle publish" on:click={() => dispatch('update')}>{publishText}</button>
+      <button class="circle delete" on:click={() => dispatch('remove')}><i class="fa-solid fa-trash" /></button>
+    </div>
+  {/if}
+
   <img alt="recipeCover" src={cover} />
   <h3 class="title">{title}</h3>
   <button on:click={toggleExtended}>
@@ -54,15 +68,42 @@
     z-index: 1;
   }
 
+  .bonusActions {
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    height: 50px;
+    width: 200px;
+    bottom: 7.5px;
+    right: 10px;
+  }
+
+  .circle.delete {
+    position: unset;
+    border: none;
+  }
+
+  .circle.publish {
+    position: unset;
+    padding: 10px;
+    margin-right: 5px;
+    border: none;
+    width: auto;
+    border-radius: 30px;
+  }
+
   .circle {
     position: absolute;
-    bottom: 4%;
-    left: 4%;
+    bottom: 10px;
+    left: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 6vh;
-    height: 6vh;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: var(--color-secondary);
     font-size: medium;
