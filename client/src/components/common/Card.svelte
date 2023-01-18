@@ -1,6 +1,7 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
-  import { deleteRecipe, togglePublish } from '@/utils/scripts/helpers';
+  import { togglePublish } from '@/utils/scripts/helpers';
   export let cover;
   export let title;
   export let rating;
@@ -8,6 +9,8 @@
   export let deletable;
   export let id;
   export let isPublished;
+
+  const dispatch = createEventDispatcher();
 
   let extended = false;
   let publishText = '';
@@ -25,10 +28,8 @@
 
 <article in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
   {#if deletable}
-    <button class="circle deleteButton" on:click={deleteRecipe(id)}><i class="fa-solid fa-trash" /></button>
-    <button class="circle publish" on:click={togglePublish(id, isPublished)}
-      >{publishText}</button
-    >
+    <button class="circle delete" on:click={() => dispatch('remove')}><i class="fa-solid fa-trash" /></button>
+    <button class="circle publish" on:click={togglePublish(id, isPublished)}>{publishText}</button>
   {/if}
 
   <img alt="recipeCover" src={cover} />
@@ -73,9 +74,10 @@
     z-index: 1;
   }
 
-  .circle.deleteButton {
-    bottom: 4%;
-    left: 83%;
+  .circle.delete {
+    bottom: 10px;
+    left: unset;
+    right: 10px;
     border: none;
   }
 
@@ -89,8 +91,8 @@
 
   .circle {
     position: absolute;
-    bottom: 4%;
-    left: 4%;
+    bottom: 10px;
+    left: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
