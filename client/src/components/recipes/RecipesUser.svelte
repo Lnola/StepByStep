@@ -6,7 +6,7 @@
 
   let recipes = [];
   let published = 0;
-  const deletable = true;
+  const shouldDisplayBonusActions = true;
 
   const categories = [
     { id: 1, name: 'Published' },
@@ -29,14 +29,16 @@
   };
 
   const togglePublish = async ({ detail: { id, isPublished } }) => {
-    await recipeApi.togglePublishRecipe(id, isPublished);
-    recipes = await recipeApi.fetchByUser();
+    await recipeApi.updateIsPublished(id, isPublished);
+    const recipe = recipes.find(recipe => recipe.id === id);
+    recipe.isPublished = !recipe.isPublished;
+    recipes = [...recipes];
   };
 </script>
 
 <main>
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {published} {deletable} on:remove={remove} on:update={togglePublish} />
+  <Recipes {recipes} {published} {shouldDisplayBonusActions} on:remove={remove} on:update={togglePublish} />
 </main>
 
 <style>

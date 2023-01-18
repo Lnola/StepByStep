@@ -8,7 +8,7 @@ router
   .get('/published', fetchPublished)
   .get('/user', fetchByUser)
   .post('/', create)
-  .post('/togglePublish', updateIsPublished)
+  .post('/update-published/:id', updateIsPublished)
   .delete('/:id', remove);
 
 export default { path, router };

@@ -36,10 +36,11 @@ const create = async (req, res, next) => {
 };
 
 const updateIsPublished = async (req, res, next) => {
-  const { recipeId, isPublished } = req.body;
+  const { isPublished } = req.body;
+  const { id } = req.params;
 
   try {
-    await Recipe.update({ isPublished: !isPublished }, { where: { id: recipeId } });
+    await Recipe.update({ isPublished: !isPublished }, { where: { id } });
     return res.sendStatus(OK);
   } catch (err) {
     return next(new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR));

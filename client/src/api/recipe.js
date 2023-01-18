@@ -12,8 +12,8 @@ const urls = {
   remove(id) {
     return `${this.root}/${id}`;
   },
-  get togglePublishRecipe() {
-    return this.root + '/togglePublish';
+  updateIsPublished(id) {
+    return `${this.root}/update-published/${id}`;
   },
 };
 
@@ -25,8 +25,8 @@ const fetchByUser = () => {
   return request.get(urls.fetchByUser).then(extractData);
 };
 
-const togglePublishRecipe = (recipeId, isPublished) => {
-  return request.post(urls.togglePublishRecipe, { recipeId, isPublished }).then(extractData);
+const updateIsPublished = (id, isPublished) => {
+  return request.post(urls.updateIsPublished(id), { isPublished });
 };
 
 const remove = id => {
@@ -36,6 +36,6 @@ const remove = id => {
 export default {
   fetchPublished,
   fetchByUser,
-  togglePublishRecipe,
+  updateIsPublished,
   remove,
 };
