@@ -28,16 +28,24 @@
 </div>
 
 <style>
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
   input {
+    padding: 12px;
+    border: 1px solid var(--color-accent);
+    border-radius: 16px;
     outline: none;
-    border-width: 2px;
+    font-family: 'Poppins';
   }
 
   .error-input {
-    border-color: red;
+    border-color: var(--color-error);
   }
 
   .error-info {
-    color: red;
+    color: var(--color-error);
   }
 </style>
