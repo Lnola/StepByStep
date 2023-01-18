@@ -18,7 +18,7 @@
   {/if}
   {#each categories as category}
     <div class="category">
-      <span class="item">{category.text}</span>
+      <span class="item">{category.name}</span>
       <button class="item btn" value={category.id} on:click={handleRemoveCategory}>x</button>
     </div>
   {/each}

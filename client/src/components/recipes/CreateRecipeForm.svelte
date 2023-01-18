@@ -20,12 +20,15 @@
   const handleFormSubmit = e => {};
 
   const handleCategorySelection = e => {
+    const category = categories.find(elem => elem.id === parseInt(e.target.value));
+    if (category === undefined) return;
+
     const lenBefore = recipeForm.categories.length;
     recipeForm.categories = recipeForm.categories.filter(elem => elem.id !== e.target.value);
     const lenAfter = recipeForm.categories.length;
 
     if (lenAfter === lenBefore) {
-      recipeForm.categories.push({ id: e.target.value, text: e.target.text });
+      recipeForm.categories.push({ id: e.target.value, name: category.name });
     }
   };
 
@@ -67,10 +70,10 @@
 <fieldset class="fieldset">
   <legend>Categories</legend>
   <CategoriesList categories={recipeForm.categories} on:remove-category={e => handleCategorySelection(e.detail)} />
-  <select name="categoryId">
+  <select name="categoryId" on:change={handleCategorySelection}>
     <option selected disabled value="">Select category</option>
     {#each categories as category}
-      <option value={category.id} on:click={handleCategorySelection}>{category.name}</option>
+      <option value={category.id}>{category.name}</option>
     {/each}
   </select>
 </fieldset>

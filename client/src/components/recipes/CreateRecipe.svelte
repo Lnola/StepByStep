@@ -17,22 +17,16 @@
     justify-content: center;
     align-content: center;
     flex-direction: column;
-    margin: 10vh 20vw;
+    margin: 10vh 10vw;
     text-align: center;
-    /* background-color: var(--color-primary); */
   }
 
   .title-part {
-    /* display: block; */
     font-size: smaller;
     text-align: center;
     margin: 1vh 0;
     padding: 0;
   }
-
-  /* .primary {
-    color: var(--color-primary);
-  } */
 
   .secondary {
     color: var(--color-accent);
