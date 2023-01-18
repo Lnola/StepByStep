@@ -32,8 +32,7 @@
         rating={avgRating}
         time={preparationTime}
         {deletable}
-        {id}
-        on:click={dispatch('click', { id })}
+        on:remove={() => dispatch('remove', { id })}
       />
     {/if}
   {/each}

@@ -23,16 +23,15 @@
   });
 
   const remove = async ({ detail: { id } }) => {
-    if (id) {
-      await recipeApi.remove(id);
-      recipes = await recipeApi.fetchByUser();
-    }
+    if (!id) return alert('Delete failed, try again');
+    await recipeApi.remove(id);
+    recipes = await recipeApi.fetchByUser();
   };
 </script>
 
 <main>
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {published} {deletable} on:click={remove} />
+  <Recipes {recipes} {published} {deletable} on:remove={remove} />
 </main>
 
 <style>

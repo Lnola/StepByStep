@@ -6,7 +6,6 @@
   export let rating;
   export let time;
   export let deletable;
-  export let id;
 
   const dispatch = createEventDispatcher();
 
@@ -18,9 +17,9 @@
 
 <article in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
   {#if deletable}
-    <button class="circle deleteButton" on:click={() => dispatch('click', { id })}
-      ><i class="fa-solid fa-trash" /></button
-    >
+    <button class="circle delete" on:click={() => dispatch('remove')}>
+      <i class="fa-solid fa-trash" />
+    </button>
   {/if}
   <img alt="recipeCover" src={cover} />
   <h3 class="title">{title}</h3>
@@ -64,7 +63,7 @@
     z-index: 1;
   }
 
-  .circle.deleteButton {
+  .circle.delete {
     bottom: 10px;
     left: unset;
     right: 10px;
