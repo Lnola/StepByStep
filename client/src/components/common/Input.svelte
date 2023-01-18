@@ -22,9 +22,7 @@
 <div>
   <label for={label}>{label}:</label>
   <input bind:value on:input={handleInputType} use:validate={value} class:error-input={isError} {name} {placeholder} />
-  {#if isError}
-    <span class="error-info">{$validity.message}</span>
-  {/if}
+  <span class="error-info">{isError ? $validity.message : ''}</span>
 </div>
 
 <style>
@@ -46,6 +44,7 @@
   }
 
   .error-info {
+    height: 0.75rem;
     color: var(--color-error);
     font-size: 0.75rem;
   }
