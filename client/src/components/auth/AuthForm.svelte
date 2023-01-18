@@ -53,7 +53,7 @@
   }
 
   .input {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
 
   :global(.submit > button) {
