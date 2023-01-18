@@ -9,8 +9,8 @@ const urls = {
   get fetchByUser() {
     return this.root + '/user';
   },
-  get remove() {
-    return this.root + '/delete';
+  remove(id) {
+    return `${this.root}/${id}`;
   },
 };
 
@@ -22,8 +22,8 @@ const fetchByUser = () => {
   return request.get(urls.fetchByUser).then(extractData);
 };
 
-const remove = recipeId => {
-  return request.delete(urls.remove, { data: { recipeId } });
+const remove = id => {
+  return request.delete(urls.remove(id));
 };
 
 export default {
