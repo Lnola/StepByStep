@@ -35,6 +35,18 @@ const create = async (req, res, next) => {
   }
 };
 
+const updateIsPublished = async (req, res, next) => {
+  const { isPublished } = req.body;
+  const { id } = req.params;
+
+  try {
+    await Recipe.update({ isPublished: !isPublished }, { where: { id } });
+    return res.sendStatus(OK);
+  } catch (err) {
+    return next(new Error());
+  }
+};
+
 const remove = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -47,4 +59,4 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { fetchPublished, fetchByUser, create, remove };
+export { fetchPublished, fetchByUser, create, updateIsPublished, remove };

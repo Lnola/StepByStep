@@ -5,7 +5,7 @@
   export let category = null;
   export let published = null;
   export let recipes;
-  export let deletable;
+  export let shouldDisplayBonusActions;
 
   const dispatch = createEventDispatcher();
 
@@ -31,8 +31,10 @@
         title={name}
         rating={avgRating}
         time={preparationTime}
-        {deletable}
+        {shouldDisplayBonusActions}
+        {isPublished}
         on:remove={() => dispatch('remove', { id })}
+        on:update={() => dispatch('update', { id, isPublished })}
       />
     {/if}
   {/each}

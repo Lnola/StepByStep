@@ -12,6 +12,9 @@ const urls = {
   remove(id) {
     return `${this.root}/${id}`;
   },
+  updateIsPublished(id) {
+    return `${this.root}/update-published/${id}`;
+  },
 };
 
 const fetchPublished = () => {
@@ -22,6 +25,10 @@ const fetchByUser = () => {
   return request.get(urls.fetchByUser).then(extractData);
 };
 
+const updateIsPublished = (id, isPublished) => {
+  return request.post(urls.updateIsPublished(id), { isPublished });
+};
+
 const remove = id => {
   return request.delete(urls.remove(id));
 };
@@ -29,5 +36,6 @@ const remove = id => {
 export default {
   fetchPublished,
   fetchByUser,
+  updateIsPublished,
   remove,
 };
