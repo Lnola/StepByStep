@@ -43,7 +43,7 @@ const updateIsPublished = async (req, res, next) => {
     await Recipe.update({ isPublished: !isPublished }, { where: { id } });
     return res.sendStatus(OK);
   } catch (err) {
-    return next(new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR));
+    return next(new Error());
   }
 };
 
