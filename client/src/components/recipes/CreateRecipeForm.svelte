@@ -48,10 +48,18 @@
       validators: [selectionRequiredValidator(selectors.category)],
     },
     imageUrl: '',
-    steps: [],
+    steps: {
+      value: [],
+      type: 'list',
+      label: 'Recipe steps',
+      placeholder: 'Enter your recipe steps!',
+      validators: [],
+    },
   };
 
-  const handleFormSubmit = e => {};
+  const handleFormSubmit = e => {
+    console.log(recipeForm);
+  };
 
   onMount(async () => {
     recipeForm.categories.selector.source = await categoryApi.fetchAll();
@@ -62,12 +70,14 @@
 
 <FieldsetInput
   bind:value={recipeForm.name.value}
+  on:valid={({ detail }) => (recipeForm.name.valid = detail.valid)}
   label={recipeForm.name.label}
   placeholder={recipeForm.name.placeholder}
   validators={recipeForm.name.validators}
 />
 <FieldsetInput
   bind:value={recipeForm.description.value}
+  on:valid={({ detail }) => (recipeForm.description.valid = detail.valid)}
   type={recipeForm.description.type}
   label={recipeForm.description.label}
   placeholder={recipeForm.description.placeholder}
@@ -75,13 +85,9 @@
   validators={recipeForm.description.validators}
 />
 
-<div>
-  <input type="radio" name="isPublished" value={false} bind:group={recipeForm.isPublished} />Private
-  <input type="radio" name="isPublished" value={true} bind:group={recipeForm.isPublished} />Public
-</div>
-
 <FieldsetInput
   bind:selector={recipeForm.categories.selector}
+  on:valid={({ detail }) => (recipeForm.categories.valid = detail.valid)}
   type={recipeForm.categories.type}
   label={recipeForm.categories.label}
   placeholder={recipeForm.categories.placeholder}
@@ -89,9 +95,22 @@
 />
 
 <fieldset class="fieldset">
-  <legend>Recipe steps</legend>
-  <CreateStepsList bind:steps={recipeForm.steps} {ingredients} {unitsOfMeasurement} />
+  <legend>{recipeForm.steps.label}</legend>
+  <CreateStepsList bind:steps={recipeForm.steps.value} {ingredients} {unitsOfMeasurement} />
 </fieldset>
+
+<!-- <FieldsetInput
+  bind:value={recipeForm.steps.value}
+  type={recipeForm.steps.type}
+  label={recipeForm.steps.label}
+  placeholder={recipeForm.steps.placeholder}
+  validators={recipeForm.steps.validators}
+/> -->
+
+<div>
+  <input type="radio" name="isPublished" value={false} bind:group={recipeForm.isPublished} />Private
+  <input type="radio" name="isPublished" value={true} bind:group={recipeForm.isPublished} />Public
+</div>
 
 <button class="item" on:click={handleFormSubmit}>Create recipe</button>
 

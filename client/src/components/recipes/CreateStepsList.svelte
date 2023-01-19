@@ -1,6 +1,8 @@
 <script>
   import CreateStepItem from './CreateStepItem.svelte';
   import settings from '@/settings/settings.json';
+  import { minLengthValidator, requiredValidator, selectionRequiredValidator } from '@/utils/validation/validators';
+    import { onMount } from 'svelte';
 
   export let steps;
   export let ingredients;
@@ -9,11 +11,40 @@
   $: numOfSteps = steps.length;
   $: showStepIndex = numOfSteps - 1;
 
+  // const ingredientSel: {
+  //     value: [],
+  //     type: 'category',
+  //     forgive: true,
+  //     source: categories,
+  //     defaultSelection: 'Select category',
+  //   }
+
   const addStep = e => {
     const newStep = {
-      description: '',
-      time: '',
-      ingredients: [],
+      description: {
+        value: '',
+        type: 'textarea',
+        valid: false,
+        label: 'Step description',
+        placeholder: 'Describe your step here!',
+        validators: [requiredValidator(), minLengthValidator(settings.minLength.description)],
+      },
+      time: {
+        value: '',
+        type: 'number',
+        valid: false,
+        label: 'Step time',
+        placeholder: '',
+        validators: [],
+      },
+      ingredients: {
+        value: [],
+        type: 'list',
+        valid: false,
+        label: 'Step ingredients',
+        placeholder: 'Select your step ingredients!',
+        validators: [selectionRequiredValidator(null)]
+      },
     };
 
     steps = [...steps, newStep];
@@ -49,7 +80,7 @@
   };
 
   // This will force user to have at least one step for each recipe
-  addStep();
+  onMount(addStep);
 </script>
 
 {#each steps as step, index}
@@ -61,7 +92,7 @@
     enableUp={index > 0}
     enableDown={index < numOfSteps - 1}
     enableDelete={numOfSteps > 1}
-    {step}
+    step={step}
     {index}
     {ingredients}
     {unitsOfMeasurement}

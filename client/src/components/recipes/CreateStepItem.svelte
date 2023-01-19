@@ -22,15 +22,15 @@
       amount: '',
     };
 
-    step.ingredients = [...step.ingredients, newIngredient];
+    step.value.ingredients = [...step.value.ingredients, newIngredient];
   };
 
   const toggle = () => (show = !show);
 </script>
 
 <div class="bar">
-  <h4>Step {index + 1}</h4>
-  <div class="btns">
+  <h4 class="bar-item title">Step {index + 1}</h4>
+  <div class="bar-item btns">
     {#if enableUp}
       <button on:click={() => dispatch('move-up', index)}>&uarr</button>
     {/if}
@@ -42,7 +42,9 @@
   </div>
 </div>
 {#if show}
-  <CreateStepForm on:add-ingredient={addIngredient} {step} {ingredients} {unitsOfMeasurement} />
+  <div class="bar-content">
+    <CreateStepForm on:add-ingredient={addIngredient} {step} {ingredients} {unitsOfMeasurement} />
+  </div>
 {/if}
 
 <style>
@@ -50,6 +52,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* border: 1px solid var(--color-primary); */
+    border-radius: 25px;
+    background-color: var(--color-accent);
+    box-shadow: black;
+    margin-top: 1vh;
+  }
+
+  .bar-item {
+    margin: 1vh 10vw;
+  }
+
+  .title {
+    color: var(--color-primary);
   }
 
   .btns {
