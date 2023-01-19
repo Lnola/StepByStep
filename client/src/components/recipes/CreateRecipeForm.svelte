@@ -2,81 +2,91 @@
   import { onMount } from 'svelte';
   import { categoryApi, ingredientApi, unitOfMeasurementApi } from '@/api/index';
   import CreateStepsList from './CreateStepsList.svelte';
-  import CategoriesList from './CategoriesList.svelte';
   import settings from '@/settings/settings.json';
+  import { minLengthValidator, requiredValidator, selectionRequiredValidator } from '@/utils/validation/validators';
+  import FieldsetInput from '../common/FieldsetInput.svelte';
 
-  let recipeForm = {
-    name: '',
-    description: '',
-    isPublished: false,
-    imageUrl: '',
-    categories: [],
-    steps: [],
-  };
   let categories = [];
   let ingredients = [];
   let unitsOfMeasurement = [];
 
-  const handleFormSubmit = e => {};
+  const selectors = {
+    category: {
+      value: [],
+      type: 'category',
+      forgive: true,
+      source: categories,
+      defaultSelection: 'Select category',
+    },
+  }; 
 
-  const handleCategorySelection = e => {
-    const category = categories.find(elem => elem.id === parseInt(e.target.value));
-    if (category === undefined) return;
-
-    const lenBefore = recipeForm.categories.length;
-    recipeForm.categories = recipeForm.categories.filter(elem => elem.id !== e.target.value);
-    const lenAfter = recipeForm.categories.length;
-
-    if (lenAfter === lenBefore) {
-      recipeForm.categories.push({ id: e.target.value, name: category.name });
-    }
+  const recipeForm = {
+    name: {
+      value: '',
+      type: 'text',
+      valid: false,
+      label: 'Recipe name',
+      placeholder: 'Give your recipe a name',
+      validators: [requiredValidator()],
+    },
+    description: {
+      value: '',
+      type: 'textarea',
+      valid: false,
+      label: 'Recipe description!',
+      placeholder: 'Describe your secret recipe!',
+      validators: [requiredValidator(), minLengthValidator(settings.minLength.description)],
+    },
+    isPublished: false,
+    categories: { 
+      // value: selectors.category.value, // TODO: see how to bind this with selector.value, not important
+      type: 'select',
+      valid: false,
+      label: 'Categories',
+      placeholder: 'What category is your recipe?',
+      selector: selectors.category,
+      validators: [selectionRequiredValidator(selectors.category)],
+    },
+    imageUrl: '',
+    steps: [],
   };
 
+  const handleFormSubmit = e => {};
+
   onMount(async () => {
-    categories = await categoryApi.fetchAll();
+    recipeForm.categories.selector.source = await categoryApi.fetchAll();
     ingredients = await ingredientApi.fetchAll();
     unitsOfMeasurement = await unitOfMeasurementApi.fetchAll();
   });
 </script>
 
-<fieldset class="fieldset">
-  <legend>Recipe name</legend>
-  <input
-    class="input"
-    name="name"
-    placeholder="Give your recipe a name"
-    minlength={settings.minLength.recipeName}
-    bind:value={recipeForm.name}
-  />
-</fieldset>
-
-<fieldset class="fieldset">
-  <legend>Recipe description!</legend>
-  <textarea
-    class="input"
-    rows="4"
-    name="description"
-    placeholder="Describe your secret recipe!"
-    minlength={settings.minLength.description}
-    bind:value={recipeForm.description}
-  />
-</fieldset>
+<FieldsetInput
+  bind:value={recipeForm.name.value}
+  label={recipeForm.name.label}
+  placeholder={recipeForm.name.placeholder}
+  validators={recipeForm.name.validators}
+/>
+<FieldsetInput
+  bind:value={recipeForm.description.value}
+  type={recipeForm.description.type}
+  label={recipeForm.description.label}
+  placeholder={recipeForm.description.placeholder}
+  rows={settings.descriptionRows.large}
+  validators={recipeForm.description.validators}
+/>
 
 <div>
   <input type="radio" name="isPublished" value={false} bind:group={recipeForm.isPublished} />Private
   <input type="radio" name="isPublished" value={true} bind:group={recipeForm.isPublished} />Public
 </div>
 
-<fieldset class="fieldset">
-  <legend>Categories</legend>
-  <CategoriesList categories={recipeForm.categories} on:remove-category={e => handleCategorySelection(e.detail)} />
-  <select name="categoryId" on:change={handleCategorySelection}>
-    <option selected disabled value="">Select category</option>
-    {#each categories as category}
-      <option value={category.id}>{category.name}</option>
-    {/each}
-  </select>
-</fieldset>
+<FieldsetInput
+  bind:selector={recipeForm.categories.selector}
+  type={recipeForm.categories.type}
+  label={recipeForm.categories.label}
+  placeholder={recipeForm.categories.placeholder}
+  validators={recipeForm.categories.validators}
+/>
 
 <fieldset class="fieldset">
   <legend>Recipe steps</legend>
@@ -94,19 +104,5 @@
     text-align: left;
     font-size: small;
     color: var(--color-accent);
-  }
-
-  .input {
-    width: 100%;
-    resize: vertical;
-    min-height: 3vh;
-    max-height: fit-content;
-    border: none;
-    outline: none;
-  }
-
-  .input::placeholder {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: small;
   }
 </style>
