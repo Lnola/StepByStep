@@ -1,36 +1,52 @@
 <script>
-  export let time;
-  let hours;
-  let minutes;
-  let seconds;
+  import { maxValueValidator, minValueValidator, timeRequiredValidator } from '@/utils/validation/validators';
+  import Validation from './Validation.svelte';
 
-  $: time = setTime(hours, minutes, seconds);
+  export let value;
+  export let label;
 
-  const setTime = (h, m, s) => {
-    const d = new Date();
-    d.setHours(h, m, s);
-    return d;
-  };
+  let hours = 0;
+  let minutes = 0;
+  let seconds = 0;
+  let validators = [
+    timeRequiredValidator(),
+    minValueValidator(0, 'hours'),
+    minValueValidator(0, 'minutes'),
+    minValueValidator(0, 'seconds'),
+    maxValueValidator(23, "hours"),
+    maxValueValidator(59, "minutes"),
+    maxValueValidator(59, "seconds"),
+  ];
+
+  $: value = { hours, minutes, seconds };
 </script>
 
-<fieldset class="time">
-  <legend>How long does this step take?</legend>
-  <input class="item" type="number" placeholder="hh" min="0" max="23" bind:value={hours} />
-  <input class="item" type="number" placeholder="mm" min="0" max="59" bind:value={minutes} />
-  <input class="item" type="number" placeholder="ss" min="0" max="59" bind:value={seconds} />
+<fieldset class="fieldset">
+  <legend>{label}</legend>
+  <div class="time">
+    <input class="item" type="number" placeholder="hh" bind:value={hours} />
+    <input class="item" type="number" placeholder="mm" bind:value={minutes} />
+    <input class="item" type="number" placeholder="ss" bind:value={seconds} />
+  </div>
+  <Validation bind:value on:valid {validators} />
 </fieldset>
 
 <style>
+  .fieldset {
+    border: 2px solid var(--color-accent);
+    border-radius: 5px;
+    padding: 1vh;
+    margin: 2vh 0;
+    margin-top: 0;
+    text-align: left;
+    font-size: small;
+    color: var(--color-accent);
+  }
+
   .time {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    border: 2px solid var(--color-primary);
-    border-radius: 5px;
-    padding: 1vh;
-    margin: 2vh 0;
-    font-size: small;
-    color: var(--color-accent);
     max-width: 100%;
   }
 
@@ -41,7 +57,9 @@
     text-align: center;
     padding: 0;
     margin: 0 1vw;
-    border: 1px solid var(--color-primary);
+    border: 1px solid var(--color-accent);
     border-radius: 5px;
+    outline: none;
+    background-color: var(--color-primary);
   }
 </style>

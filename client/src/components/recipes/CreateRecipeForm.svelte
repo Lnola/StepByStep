@@ -39,7 +39,6 @@
     },
     isPublished: false,
     categories: { 
-      // value: selectors.category.value, // TODO: see how to bind this with selector.value, not important
       type: 'select',
       valid: false,
       label: 'Categories',
@@ -98,14 +97,6 @@
   <legend>{recipeForm.steps.label}</legend>
   <CreateStepsList bind:steps={recipeForm.steps.value} {ingredients} {unitsOfMeasurement} />
 </fieldset>
-
-<!-- <FieldsetInput
-  bind:value={recipeForm.steps.value}
-  type={recipeForm.steps.type}
-  label={recipeForm.steps.label}
-  placeholder={recipeForm.steps.placeholder}
-  validators={recipeForm.steps.validators}
-/> -->
 
 <div>
   <input type="radio" name="isPublished" value={false} bind:group={recipeForm.isPublished} />Private

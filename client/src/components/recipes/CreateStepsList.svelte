@@ -34,7 +34,7 @@
         type: 'number',
         valid: false,
         label: 'Step time',
-        placeholder: '',
+        placeholder: 'How long does this step take?',
         validators: [],
       },
       ingredients: {

@@ -22,4 +22,33 @@ function selectionRequiredValidator(selector) {
   };
 }
 
-export { requiredValidator, minLengthValidator, maxLengthValidator, selectionRequiredValidator };
+function timeRequiredValidator() {
+  return function timeRequired({ hours, minutes, seconds }) {
+    if (hours === undefined || hours === null || hours === '') return 'Field hours is required';
+    if (minutes === undefined || minutes === null || minutes === '') return 'Field minutes is required';
+    if (seconds === undefined || seconds === null || seconds === '') return 'Field seconds is required';
+    return true;
+  };
+}
+
+function minValueValidator(min, fieldName) {
+  return function minValue(value) {
+    return value[fieldName] >= min || `Field ${fieldName} must be greater or equal to ${min}`;
+  };
+}
+
+function maxValueValidator(max, fieldName) {
+  return function maxValue(value) {
+    return value[fieldName] <= max || `Field ${fieldName} must be less or equal than ${max}`;
+  };
+}
+
+export {
+  requiredValidator,
+  minLengthValidator,
+  maxLengthValidator,
+  selectionRequiredValidator,
+  timeRequiredValidator,
+  minValueValidator,
+  maxValueValidator,
+};

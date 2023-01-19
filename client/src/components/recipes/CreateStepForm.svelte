@@ -2,12 +2,13 @@
   import CreateIngredientList from './CreateIngredientList.svelte';
   import { createEventDispatcher } from 'svelte';
   import TimeInput from '../common/TimeInput.svelte';
-  import settings from '@/settings/settings.json';
   import Validation from '../common/Validation.svelte';
 
   export let step;
   export let ingredients;
   export let unitsOfMeasurement;
+
+  console.log(step);
 
   const dispatch = createEventDispatcher();
 </script>
@@ -24,14 +25,13 @@
     />
     <Validation
       bind:value={step.description.value}
-      on:valid={({ detail }) => (step.description.valid = detail.valid)}
       validators={step.description.validators}
     />
   </fieldset>
 
-  <!-- <TimeInput bind:time={step.time} />
+  <TimeInput bind:value={step.time.value} on:valid={({ detail }) => (step.time.valid = detail.valid)} label={step.time.label} />
   
-  <CreateIngredientList stepIngredients={step.ingredients} {ingredients} {unitsOfMeasurement} /> -->
+  <!-- <CreateIngredientList stepIngredients={step.ingredients} {ingredients} {unitsOfMeasurement} /> -->
 
   <button class="item" on:click={() => dispatch('add-ingredient', step)}>Add ingredient</button>
 </div>
