@@ -59,4 +59,16 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { fetchPublished, fetchByUser, create, updateIsPublished, remove };
+const showRecipe = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const recipe = await Recipe.findByPk(id);
+    if (!recipe) return new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR);
+    return res.status(OK).json(recipe);
+  } catch (err) {
+    next(new Error());
+  }
+};
+
+export { fetchPublished, fetchByUser, create, updateIsPublished, remove, showRecipe };

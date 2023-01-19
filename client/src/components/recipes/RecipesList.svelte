@@ -27,6 +27,7 @@
   {#each recipes as { id, name, isPublished, categories, avgRating, preparationTime, imageUrl }}
     {#if isCategoryMatch(categories, category) || isPublishedMatch(isPublished, published)}
       <Card
+        recipeId={id}
         cover={imageUrl}
         title={name}
         rating={avgRating}

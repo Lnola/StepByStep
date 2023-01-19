@@ -1,6 +1,9 @@
 <script>
+  import routes from '@/routes';
+  import { redirect } from '@/utils/router/routing';
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
+  export let recipeId;
   export let cover;
   export let title;
   export let rating;
@@ -15,6 +18,10 @@
 
   function toggleExtended() {
     extended = !extended;
+  }
+
+  function showRecipeRedirect() {
+    window.location = '/recipes/show-recipe/' + recipeId;
   }
 </script>
 
@@ -33,6 +40,7 @@
     <span class="circle rating {extended && 'extend'}">{rating}/5</span>
     <span class="circle time {extended && 'extend'}">{time} min</span>
   </button>
+  <button class="details" on:click={showRecipeRedirect}>{recipeId}</button>
 </article>
 
 <style>
@@ -111,7 +119,7 @@
   }
 
   .info {
-    z-index: 2;
+    z-index: 3;
   }
 
   .rating {
@@ -129,11 +137,28 @@
     z-index: 0;
   }
 
-  .info.extend {
-    transform: translateX(240%);
+  .details {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+    font-size: medium;
+    transition: 0.5s;
+    z-index: 2;
+    font-size: small;
   }
 
   .rating.extend {
     transform: translateX(120%);
+  }
+
+  .info.extend {
+    transform: translateX(240%);
   }
 </style>
