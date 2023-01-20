@@ -20,13 +20,12 @@
 
 <article in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
   {#if shouldDisplayBonusActions}
-    <div class="bonusActions">
+    <div class="bonus-actions">
       <button class="circle publish" on:click={() => dispatch('update')}>{publishText}</button>
       <button class="circle delete" on:click={() => dispatch('remove')}><i class="fa-solid fa-trash" /></button>
     </div>
   {/if}
-
-  <img alt="recipeCover" src={cover} />
+  <button class="details" on:click={() => dispatch('details')}><img alt="recipeCover" src={cover} /></button>
   <h3 class="title">{title}</h3>
   <button on:click={toggleExtended}>
     <span class="circle info {extended && 'extend'}"><i class="fa-solid fa-info" /></span>
@@ -45,6 +44,13 @@
     border-radius: 15px;
     background-color: var(--color-accent);
     z-index: 0;
+  }
+
+  .details {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    padding: 0;
   }
 
   img {
@@ -68,7 +74,7 @@
     z-index: 1;
   }
 
-  .bonusActions {
+  .bonus-actions {
     padding: 0;
     margin: 0;
     align-items: center;
@@ -111,7 +117,7 @@
   }
 
   .info {
-    z-index: 2;
+    z-index: 3;
   }
 
   .rating {
@@ -129,11 +135,11 @@
     z-index: 0;
   }
 
-  .info.extend {
-    transform: translateX(240%);
-  }
-
   .rating.extend {
     transform: translateX(120%);
+  }
+
+  .info.extend {
+    transform: translateX(240%);
   }
 </style>

@@ -1,11 +1,12 @@
 <script>
   import Card from '@/components/common/Card.svelte';
+  import { redirect } from '@/utils/router/routing';
   import { createEventDispatcher } from 'svelte';
 
   export let category = null;
   export let published = null;
   export let recipes;
-  export let shouldDisplayBonusActions;
+  export let shouldDisplayBonusActions = false;
 
   const dispatch = createEventDispatcher();
 
@@ -21,6 +22,10 @@
     const isPublishedNotSelected = published === 0;
     return doPublishedMatch || isPublishedNotSelected;
   };
+
+  function viewRecipeRedirect(recipeId) {
+    redirect('ViewRecipe', recipeId);
+  }
 </script>
 
 <section>
@@ -35,6 +40,7 @@
         {isPublished}
         on:remove={() => dispatch('remove', { id })}
         on:update={() => dispatch('update', { id, isPublished })}
+        on:details={() => viewRecipeRedirect(id)}
       />
     {/if}
   {/each}
