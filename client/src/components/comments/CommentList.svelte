@@ -25,7 +25,12 @@
     {:else}
       <section class="wrapper">
         {#each comments as comment}
-          <CommentView user={comment.user.fullName} text={comment.text} />
+          <CommentView
+            user={comment.user.fullName}
+            text={comment.text}
+            id={comment.id}
+            on:deleted={() => fetchComments()}
+          />
         {/each}
       </section>
     {/if}
