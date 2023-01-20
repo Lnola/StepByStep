@@ -16,7 +16,8 @@
   };
 
   const fetchUserRecipeRating = async () => {
-    rating = await ratingApi.fetchByRecipe(recipeId);
+    const data = await ratingApi.fetchByRecipe(recipeId);
+    rating = data.value;
   };
 
   onMount(async () => {
