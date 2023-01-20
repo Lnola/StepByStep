@@ -21,7 +21,7 @@ const create = async (req, res, next) => {
     const userId = req.user.id;
     const newComment = { text, recipeId, userId, createdAt: new Date() };
     await Comment.create(newComment);
-    return res.status(OK);
+    return res.sendStatus(OK);
   } catch (err) {
     return next(new Error());
   }
