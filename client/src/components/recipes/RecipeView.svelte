@@ -18,7 +18,13 @@
   let holderMeassure = {};
   let obj2 = [];
   let timeArray = [];
-  var x;
+  let x;
+  let shouldTimerStart = false;
+
+  const startTimer = () => {
+    shouldTimerStart = true;
+    timer();
+  };
 
   onMount(async () => {
     let path = window.location.pathname;
@@ -59,16 +65,16 @@
     let minutes = parseInt(timeArray[1]);
     let seconds = parseInt(timeArray[2]) + 2;
 
-    var countDownDate = new Date(new Date().getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
+    let countDownDate = new Date(new Date().getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
 
     x = setInterval(function () {
-      var now = new Date().getTime();
+      let now = new Date().getTime();
 
-      var distance = countDownDate - now;
+      let distance = countDownDate - now;
 
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       document.getElementById('timer').innerHTML = hours + 'h ' + minutes + 'm ' + seconds + 's ';
 
@@ -86,7 +92,7 @@
     step = steps[counter];
     timeArray = step.time.split(':');
     clearInterval(x);
-    timer();
+    shouldTimerStart = false;
   }
 
   function nextStep() {
@@ -96,7 +102,7 @@
     step = steps[counter];
     timeArray = step.time.split(':');
     clearInterval(x);
-    timer();
+    shouldTimerStart = false;
   }
 </script>
 
@@ -108,7 +114,7 @@
       on:click={() => {
         showModal = true;
         clearInterval(x);
-        timer();
+        shouldTimerStart = false;
       }}
     />
   </div>
@@ -137,7 +143,13 @@
       }}
     >
       <h3 class="modal-fields">{counter + 1}. step</h3>
-      <div class="modal-fields" style="padding-bottom: 20px;"><span id="timer" /></div>
+      <div class="modal-fields" style="padding-bottom: 20px;">
+        {#if shouldTimerStart}
+          <span id="timer" />
+        {:else}
+          <button on:click={startTimer} class="start-button">Start timer</button>
+        {/if}
+      </div>
       {#each step.stepIngredients as stepIngerdient}
         <div class="modal-fields">
           {stepIngerdient.ingredient.name}
@@ -260,5 +272,18 @@
     font-weight: bold;
     padding-top: 10px;
     padding-bottom: 5px;
+  }
+
+  .start-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 1.25rem;
+  }
+
+  #timer {
+    font-size: 1.5rem;
   }
 </style>
