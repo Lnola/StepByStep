@@ -3,19 +3,15 @@ import request from './request';
 
 const urls = {
   root: '/comments',
-
   get fetchByRecipe() {
     return this.root + '/recipe';
   },
-
   get fetchByUser() {
     return this.root + '/user';
   },
-
   remove(id) {
     return `${this.root}/${id}`;
   },
-
   updateIsPublished(id) {
     return `${this.root}/update-published/${id}`;
   },
