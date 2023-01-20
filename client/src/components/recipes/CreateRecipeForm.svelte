@@ -47,7 +47,14 @@
       selector: selectors.category,
       validators: [selectionRequiredValidator(selectors.category)],
     },
-    imageUrl: '',
+    imageUrl: {
+      value: '',
+      type: 'text',
+      valid: false,
+      label: 'Recipe image',
+      placeholder: 'Paste your recipe image link here',
+      validators: [],
+    },
     steps: {
       value: [],
       type: 'list',
@@ -99,7 +106,15 @@
   <CreateStepsList bind:steps={recipeForm.steps.value} {ingredients} {unitsOfMeasurement} />
 </fieldset>
 
-<div>
+<FieldsetInput
+  bind:value={recipeForm.imageUrl.value}
+  on:valid={({ detail }) => (recipeForm.imageUrl.valid = detail.valid)}
+  label={recipeForm.imageUrl.label}
+  placeholder={recipeForm.imageUrl.placeholder}
+  validators={recipeForm.imageUrl.validators}
+/>
+
+<div class="radio-btns">
   <input class="radio" type="radio" name="isPublished" value={false} bind:group={recipeForm.isPublished} />Private
   <input class="radio" type="radio" name="isPublished" value={true} bind:group={recipeForm.isPublished} />Public
 </div>
@@ -117,7 +132,7 @@
     color: var(--color-accent);
   }
 
-  .radio {
-
+  .radio-btns {
+    margin-bottom: 2vh;
   }
 </style>

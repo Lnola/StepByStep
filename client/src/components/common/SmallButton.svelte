@@ -22,15 +22,4 @@
     text-align: center;
     margin: 0 0.5vw;
   }
-
-  /* .inline {
-    width: initial;
-    font-family: var(--font-family);
-    font-size: 1rem;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    color: var(--color-primary);
-    cursor: pointer;
-  } */
 </style>
