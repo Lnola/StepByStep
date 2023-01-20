@@ -62,8 +62,6 @@
   };
 
   const moveStepDown = e => {
-    // To move step down, it's like moving the next step up, same thing;
-    // so we use index of next step, which is e.detail + 1
     moveHelper(e.detail, 1);
   };
 
@@ -77,7 +75,6 @@
     showStepIndex = offset === 0 ? stepIndex - 1 : stepIndex;
   };
 
-  // This will force user to have at least one step for each recipe
   onMount(addStep);
 </script>
 
@@ -89,7 +86,6 @@
     show={index === showStepIndex}
     enableUp={index > 0}
     enableDown={index < numOfSteps - 1}
-    enableDelete={numOfSteps > 1}
     {step}
     {index}
     {ingredients}

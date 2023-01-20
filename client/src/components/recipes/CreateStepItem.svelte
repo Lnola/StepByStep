@@ -6,7 +6,6 @@
   export let show;
   export let enableUp;
   export let enableDown;
-  export let enableDelete;
   export let step;
   export let index;
   export let ingredients;
