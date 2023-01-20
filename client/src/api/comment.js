@@ -13,7 +13,6 @@ const fetchByRecipe = recipeId => {
 };
 
 const create = (params = {}) => {
-  console.log(params);
   return request.post(urls.root, params);
 };
 

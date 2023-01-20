@@ -23,7 +23,6 @@ const create = async (req, res, next) => {
     await Comment.create(newComment);
     return res.status(OK);
   } catch (err) {
-    console.log(err);
     return next(new Error());
   }
 };
