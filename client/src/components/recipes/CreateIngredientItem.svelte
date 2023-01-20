@@ -21,10 +21,7 @@
     />
   </div>
   <div class="item">
-    <input class="amount"
-        bind:value={ingredient.amount.value}
-        placeholder={ingredient.amount.placeholder}
-      />
+    <input class="amount" bind:value={ingredient.amount.value} placeholder={ingredient.amount.placeholder} />
   </div>
   <div class="item item-error">
     <Validation

@@ -30,7 +30,6 @@
 
   .secondary {
     color: var(--color-accent);
-    /* font-size: larger; */
     font-weight: bolder;
   }
 </style>

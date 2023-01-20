@@ -11,7 +11,7 @@
 
   const addIngredient = e => {
     if (!checkValidity()) {
-      alert("Please make sure that all of the previous ingredients are valid");
+      alert('Please make sure that all of the previous ingredients are valid');
       return;
     }
 
@@ -21,7 +21,7 @@
         type: 'number',
         valid: false,
         validators: [requiredValidator()],
-        defaultSelector: 'Select unit'
+        defaultSelector: 'Select unit',
       },
       ingredientId: {
         value: '',
@@ -55,7 +55,7 @@
 </script>
 
 <fieldset class="fieldset">
-  <legend>Ingredients</legend>
+  <legend>*Ingredients</legend>
   {#if stepIngredients.length === 0}
     <span>Select your recipe ingredients here!</span>
   {/if}
@@ -81,7 +81,7 @@
 
   .btn {
     background-color: var(--color-accent);
-    color : var(--color-white);
+    color: var(--color-white);
     border: none;
     border-radius: 25px;
     padding: 2vw;

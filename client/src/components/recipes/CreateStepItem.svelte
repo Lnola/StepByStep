@@ -1,7 +1,7 @@
 <script>
   import CreateStepForm from './CreateStepForm.svelte';
   import { createEventDispatcher } from 'svelte';
-    import SmallButton from '../common/SmallButton.svelte';
+  import SmallButton from '../common/SmallButton.svelte';
 
   export let show;
   export let enableUp;
@@ -23,16 +23,12 @@
   <h4 class="bar-item title">Step {index + 1}</h4>
   <div class="bar-item btns">
     {#if enableUp}
-      <!-- <button on:click={() => dispatch('move-up', index)}>&uarr</button> -->
       <SmallButton on:click={() => dispatch('move-up', index)}>&uarr</SmallButton>
     {/if}
     {#if enableDown}
       <SmallButton on:click={() => dispatch('move-down', index)}>&darr</SmallButton>
-      <!-- <button on:click={() => dispatch('move-down', index)}>&darr</button> -->
     {/if}
-    <!-- <button on:click={toggle}>{toggleBtnText}</button> -->
     <SmallButton on:click={toggle}>{toggleBtnText}</SmallButton>
-    <!-- <button on:click={() => dispatch('remove-step', index)} disabled={!enableDelete}>x</button> -->
     <SmallButton on:click={() => dispatch('remove-step', index)} disabled={!enableDelete}>x</SmallButton>
   </div>
 </div>
@@ -47,7 +43,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* border: 1px solid var(--color-primary); */
     border-radius: 25px;
     background-color: var(--color-accent);
     box-shadow: black;
