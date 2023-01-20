@@ -17,6 +17,8 @@
   let holderIngredient = {};
   let holderMeassure = {};
   let obj2 = [];
+  let timeArray = [];
+  var x;
 
   onMount(async () => {
     let path = window.location.pathname;
@@ -49,13 +51,42 @@
     cover = recipe.imageUrl;
     rating = recipe.avgRating;
     prepTime = recipe.preparationTime;
+    timeArray = step.time.split(':');
   });
+
+  function timer() {
+    let hours = parseInt(timeArray[0]);
+    let minutes = parseInt(timeArray[1]);
+    let seconds = parseInt(timeArray[2]) + 2;
+
+    var countDownDate = new Date(new Date().getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
+
+    x = setInterval(function () {
+      var now = new Date().getTime();
+
+      var distance = countDownDate - now;
+
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('timer').innerHTML = hours + 'h ' + minutes + 'm ' + seconds + 's ';
+
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById('timer').innerHTML = 'EXPIRED';
+      }
+    }, 1000);
+  }
 
   function prevStep() {
     if (counter > 0) {
       counter--;
     }
     step = steps[counter];
+    timeArray = step.time.split(':');
+    clearInterval(x);
+    timer();
   }
 
   function nextStep() {
@@ -63,13 +94,23 @@
       counter++;
     }
     step = steps[counter];
+    timeArray = step.time.split(':');
+    clearInterval(x);
+    timer();
   }
 </script>
 
 <main>
   <div class="cover">
     <img alt="recipeCover" src={cover} />
-    <button class="play-button fas fa-play" on:click={() => (showModal = true)} />
+    <button
+      class="play-button fas fa-play"
+      on:click={() => {
+        showModal = true;
+        clearInterval(x);
+        timer();
+      }}
+    />
   </div>
   <div class="title">{name}</div>
   <div class="container">
@@ -89,9 +130,14 @@
   <div class="description">{description}</div>
 
   {#if showModal && steps.length > 0}
-    <RecipeViewModal on:close={() => (showModal = false)}>
+    <RecipeViewModal
+      on:close={() => {
+        showModal = false;
+        clearInterval(x);
+      }}
+    >
       <h3 class="modal-fields">{counter + 1}. korak</h3>
-      <div class="modal-fields">{step.time}</div>
+      <div class="modal-fields"><span id="timer" /></div>
       {#each step.stepIngredients as stepIngerdient}
         <div class="modal-fields">
           {stepIngerdient.ingredient.name}
@@ -107,7 +153,12 @@
     </RecipeViewModal>
   {/if}
   {#if showModal && steps.length == 0}
-    <RecipeViewModal on:close={() => (showModal = false)}>
+    <RecipeViewModal
+      on:close={() => {
+        showModal = false;
+        clearInterval(x);
+      }}
+    >
       <h2 style="text-align:center">Koraci nisu dodani za ovaj recept!</h2>
     </RecipeViewModal>
   {/if}
