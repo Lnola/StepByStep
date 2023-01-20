@@ -123,7 +123,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 8vh 0;
+    padding: 8vh 0 16vh 0;
   }
 
   img {

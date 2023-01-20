@@ -3,8 +3,8 @@ import request from './request';
 
 const urls = {
   root: '/comments',
-  get fetchByRecipe() {
-    return this.root + '/recipe';
+  fetchByRecipe(recipeId) {
+    return `${this.root}/recipe/${recipeId}`;
   },
   get fetchByUser() {
     return this.root + '/user';
@@ -17,8 +17,8 @@ const urls = {
   },
 };
 
-const fetchByRecipe = () => {
-  return request.get(urls.fetchByRecipe).then(extractData);
+const fetchByRecipe = recipeId => {
+  return request.get(urls.fetchByRecipe(recipeId)).then(extractData);
 };
 
 const fetchByUser = () => {
