@@ -55,10 +55,10 @@ class User extends Model {
   }
 
   static associate({ Comment, Rating, Recipe, Role }) {
-    this.hasMany(Comment, { foreignKey: { name: 'userId', field: 'userId' } });
-    this.hasMany(Rating, { foreignKey: { name: 'userId', field: 'userId' } });
-    this.hasMany(Recipe, { foreignKey: { name: 'userId', field: 'userId' } });
-    this.belongsTo(Role, { foreignKey: { name: 'roleId', field: 'roleId' } });
+    this.hasMany(Comment, { foreignKey: { name: 'userId', field: 'userId' }, onDelete: 'cascade' });
+    this.hasMany(Rating, { foreignKey: { name: 'userId', field: 'userId' }, onDelete: 'cascade' });
+    this.hasMany(Recipe, { foreignKey: { name: 'userId', field: 'userId' }, onDelete: 'cascade' });
+    this.belongsTo(Role, { foreignKey: { name: 'roleId', field: 'roleId' }, onDelete: 'cascade' });
   }
 
   static scopes({ Role }) {
