@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { recipeApi } from '@/api';
   import { redirect } from '@/utils/router/routing';
+  import { commentApi } from '@/api';
 
   let recipe;
   let name;
@@ -9,6 +10,7 @@
   let cover;
   let rating;
   let prepTime;
+  let comments;
 
   onMount(async () => {
     let path = window.location.pathname;
@@ -19,6 +21,7 @@
     cover = recipe.imageUrl;
     rating = recipe.avgRating;
     prepTime = recipe.preparationTime;
+    comments = await commentApi.fetchByRecipe();
   });
 
   function reproduction() {
@@ -26,10 +29,19 @@
   }
 
   const grades = ['very bad', 'bad', 'good', 'very good', 'excellent'];
-  let selected;
+  let selected = "";
 
   function saveRate() {
-    // spremiti komentar i ocjenu u bazu
+    if(comment.value.length == 0) {
+			alert("Comment is not added.")
+		}
+		else if(selected == "") {
+			alert("Rate is not selected.")
+		}
+		else {
+			//dodati spremanje u bazu
+			alert("Feedback is sent.")
+		}
   }
 </script>
 
@@ -44,8 +56,16 @@
     <div class="rating">{rating}</div>
   </div>
   <div class="description">{description}</div>
+  <div class="comments">
+    <label class="title">Comments</label>
+    {#each comments as comment}
+      <div class="comment">
+        <label>{comment.text}</label>
+      </div>
+    {/each}
+  </div>
   <div class="feedback">
-    <textarea placeholder="Leave a comment."></textarea>
+    <textarea id="comment" placeholder="Leave a comment."></textarea>
     {#each grades as grade}
       <label>
         <input type="radio" value={grade} bind:group={selected}>
