@@ -1,8 +1,8 @@
+import { Comment, User } from '@/shared/database/index';
 import { NOT_FOUND, OK } from 'http-status';
 import { DatabaseError } from 'sequelize';
 import errorMessages from '@/shared/constants/errorMessages';
 import HttpError from '@/shared/error/httpError';
-import { User } from '@/shared/database/index';
 
 const fetchAllUsers = async (req, res, next) => {
   try {
@@ -26,4 +26,16 @@ const removeUser = async (req, res, next) => {
   }
 };
 
-export { removeUser, fetchAllUsers };
+const removeComment = async (req, res, next) => {
+  const { commentId } = req.params;
+  try {
+    const comment = await Comment.findByPk(commentId);
+    if (!comment) return next(new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR));
+    await comment.destroy();
+    return res.sendStatus(OK);
+  } catch (error) {
+    return next(new Error());
+  }
+};
+
+export { removeComment, removeUser, fetchAllUsers };
