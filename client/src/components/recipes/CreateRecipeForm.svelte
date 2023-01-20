@@ -80,19 +80,20 @@
       return;
     }
 
-    const response = confirm('Are you sure you want to create this recipe?');
+    const response = confirm(settings.messages.createRecipe);
     if (!response) return;
 
     try {
       const recipe = await recipeApi.create(prepareDataForRecipe());
 
-      recipeForm.steps.value.forEach(async (step, index) => {
-        await stepApi.create(prepareDataForStep(step, index + 1, recipe.recipeId));
-      });
+      const steps = [];
+      recipeForm.steps.value.forEach((step, index) => steps.push(prepareDataForStep(step, index + 1, recipe.recipeId)));
 
-      setTimeout(() => redirect('Home'), 1500); // timeout because of authError
+      await stepApi.create(steps);
+
+      redirect('Home');
     } catch (err) {
-      alert('Greška prilikom stvaranja recepta');
+      alert(settings.messages.unknownError);
     }
   };
 
@@ -153,7 +154,7 @@
     });
 
     return {
-      step: {
+      data: {
         description: step.description.value,
         time: time,
         orderNumber: orderNumber,
