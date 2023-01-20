@@ -14,7 +14,7 @@ const fetchAllUsers = async (req, res, next) => {
   }
 };
 
-const deleteUser = async (req, res, next) => {
+const removeUser = async (req, res, next) => {
   const { userId } = req.params;
   try {
     const user = await User.findByPk(userId);
@@ -26,4 +26,4 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-export { deleteUser, fetchAllUsers };
+export { removeUser, fetchAllUsers };

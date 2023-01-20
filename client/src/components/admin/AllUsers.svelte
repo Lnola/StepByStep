@@ -10,7 +10,7 @@
 
   const remove = async userId => {
     if (!userId) return alert('Delete failed, try again');
-    await adminApi.deleteUser(userId);
+    await adminApi.removeUser(userId);
     users = await adminApi.fetchAllUsers();
   };
 </script>

@@ -6,7 +6,7 @@ const urls = {
   get fetchAllUsers() {
     return this.root + '/users';
   },
-  deleteUser(userId) {
+  removeUser(userId) {
     return `${this.root}/users/${userId}`;
   },
 };
@@ -15,8 +15,8 @@ const fetchAllUsers = () => {
   return request.get(urls.fetchAllUsers).then(extractData);
 };
 
-const deleteUser = userId => {
-  return request.delete(urls.deleteUser(userId));
+const removeUser = userId => {
+  return request.delete(urls.removeUser(userId));
 };
 
-export default { fetchAllUsers, deleteUser };
+export default { fetchAllUsers, removeUser };
