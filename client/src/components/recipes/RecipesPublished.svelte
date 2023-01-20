@@ -3,12 +3,12 @@
   import Filter from '@/components/common/Filter.svelte';
   import Recipes from './RecipesList.svelte';
   import { recipeApi, categoryApi } from '@/api';
+  import { isAdmin } from '@/stores/auth';
 
   let category = 0;
   let recipes = [];
   let categories;
-  let userRole = JSON.parse(localStorage.getItem('user')).role.name;
-  const shouldDisplayBonusActions = userRole === 'admin' ? true : false;
+  const shouldDisplayBonusActions = isAdmin();
 
   function updateCategory({ detail: { value } }) {
     category = value;
