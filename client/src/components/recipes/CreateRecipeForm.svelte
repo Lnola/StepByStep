@@ -1,11 +1,12 @@
 <script>
   import { onMount } from 'svelte';
-  import { categoryApi, ingredientApi, unitOfMeasurementApi } from '@/api/index';
+  import { categoryApi, ingredientApi, recipeApi, stepApi, unitOfMeasurementApi } from '@/api/index';
   import CreateStepsList from './CreateStepsList.svelte';
   import settings from '@/settings/settings.json';
   import { minLengthValidator, requiredValidator, selectionRequiredValidator } from '@/utils/validation/validators';
   import FieldsetInput from '../common/FieldsetInput.svelte';
   import Button from '../common/Button.svelte';
+  import { redirect } from '@/utils/router/routing';
 
   let categories = [];
   let ingredients = [];
@@ -72,13 +73,7 @@
     },
   };
 
-  const handleFormSubmit = e => {
-    // console.log(recipeForm.name);
-    // console.log(recipeForm.description);
-    // console.log(recipeForm.categories);
-    console.log(recipeForm.steps);
-    // console.log(recipeForm.imageUrl);
-
+  const handleFormSubmit = async (e) => {
     const message = validateForm();
     if (message !== '') {
       alert(message);
@@ -86,7 +81,19 @@
     }
 
     const response = confirm('Are you sure you want to create this recipe?');
-    if (!response.ok) return;
+    if (!response) return;
+
+    try {
+      const recipe = await recipeApi.create(prepareDataForRecipe());
+
+      recipeForm.steps.value.forEach(async (step, index) => {
+        await stepApi.create(prepareDataForStep(step, index + 1, recipe.recipeId));
+      });
+
+      setTimeout(() => redirect('Home'), 1500); // timeout because of authError
+    } catch (err) {
+      alert('Greška prilikom stvaranja recepta');
+    }
   };
 
   const validateForm = () => {
@@ -94,22 +101,66 @@
 
     if (!recipeForm.name.valid) message = 'Recipe name is not valid';
     else if (!recipeForm.description.valid) message = 'Recipe description is not valid';
-    else if (!recipeForm.categories.valid || recipeForm.categories.selector.forgive) message = 'Recipe categories are not valid';
+    else if (!recipeForm.categories.valid || recipeForm.categories.selector.forgive)
+      message = 'Recipe categories are not valid';
     else if (!recipeForm.steps.valid || recipeForm.steps.selector.forgive) message = 'Recipe steps are not valid';
     recipeForm.steps.value.forEach((step, index) => {
       if (message !== '') return;
       if (!step.description.valid) message = `Step ${index + 1} description is not valid`;
       else if (!step.time.valid) message = `Step ${index + 1} time is not valid`;
-      else if (!step.ingredients.valid || step.ingredients.selector.forgive) message = `Step ${index + 1} ingredients are not valid`;
+      else if (!step.ingredients.valid || step.ingredients.selector.forgive)
+        message = `Step ${index + 1} ingredients are not valid`;
       step.ingredients.value.forEach((ingredient, index) => {
         if (message !== '') return;
-        if (!ingredient.ingredientId.valid) message = `Step ${index + 1}, ingredient ${index + 1}, ingredient name is not valid`;
-        else if (!ingredient.amount.valid) message = `Step ${index + 1}, ingredient ${index + 1}, ingredient amount is not valid`;
-        else if (!ingredient.unitOfMeasurementId.valid) `Step ${index + 1}, ingredient ${index + 1}, ingredient unit of measurement is not valid`;;
+        if (!ingredient.ingredientId.valid)
+          message = `Step ${index + 1}, ingredient ${index + 1}, ingredient name is not valid`;
+        else if (!ingredient.amount.valid)
+          message = `Step ${index + 1}, ingredient ${index + 1}, ingredient amount is not valid`;
+        else if (!ingredient.unitOfMeasurementId.valid)
+          `Step ${index + 1}, ingredient ${index + 1}, ingredient unit of measurement is not valid`;
       });
     });
 
     return message;
+  };
+
+  const prepareDataForRecipe = () => {
+    return {
+      recipe: {
+        name: recipeForm.name.value,
+        description: recipeForm.description.value,
+        isPublished: recipeForm.isPublished,
+        publishedAt: recipeForm.isPublished ? new Date() : null,
+        createdAt: new Date(),
+        userId: JSON.parse(localStorage.getItem('user')).id,
+        imageUrl: recipeForm.imageUrl.value,
+      },
+      categories: recipeForm.categories.selector.value.map(category => category.id),
+    };
+  };
+
+  const prepareDataForStep = (step, orderNumber, recipeId) => {
+    const timeObj = step.time.value;
+    const time = `${timeObj.hours}:${timeObj.minutes}:${timeObj.seconds}`;
+
+    const ingredients = [];
+    step.ingredients.value.forEach(ingredient => {
+      ingredients.push({
+        unitOfMeasurementId: ingredient.unitOfMeasurementId.value,
+        ingredientId: ingredient.ingredientId.value,
+        amount: parseInt(ingredient.amount.value),
+      });
+    });
+
+    return {
+      step: {
+        description: step.description.value,
+        time: time,
+        orderNumber: orderNumber,
+        recipeId: recipeId,
+      },
+      ingredients: ingredients,
+    };
   };
 
   onMount(async () => {

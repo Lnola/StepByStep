@@ -15,6 +15,9 @@ const urls = {
   updateIsPublished(id) {
     return `${this.root}/update-published/${id}`;
   },
+  get create() {
+    return this.root;
+  },
 };
 
 const fetchPublished = () => {
@@ -33,9 +36,14 @@ const remove = id => {
   return request.delete(urls.remove(id));
 };
 
+const create = recipe => {
+  return request.post(urls.create, recipe).then(extractData);
+};
+
 export default {
   fetchPublished,
   fetchByUser,
   updateIsPublished,
   remove,
+  create,
 };
