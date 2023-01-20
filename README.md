@@ -11,9 +11,20 @@ Recipe sharing and cooking application.
 
 ### Run the command
 
+Position yourselft in the root in the root of the project and run the command
+
 ```cmd
 $ docker compose up
 ```
+
+While the docker containers are running open a new terminal window, position yourself in the root of the `/server` folder and run the commands
+
+```cmd
+$ npm run db:migration:up
+$ npm run db:seed
+```
+
+You are ready to view the project. Open your browser on http://localhost:3000 and set your browser window to a mobile size for the designed experience.
 
 </br></br></br>
 
