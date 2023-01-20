@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { recipeApi } from '@/api';
-  import Modal from '../common/Modal.svelte';
+  import RecipeViewModal from './RecipeViewModal.svelte';
 
   let recipe;
   let steps = [];
@@ -13,6 +13,10 @@
   let showModal = false;
   let step;
   let counter = 0;
+  let totalIngredients = [];
+  let holderIngredient = {};
+  let holderMeassure = {};
+  let obj2 = [];
 
   onMount(async () => {
     let path = window.location.pathname;
@@ -20,6 +24,24 @@
     recipe = await recipeApi.fetchById(recipeId);
     steps = await recipeApi.fetchStepsByRecipeId(recipeId);
     if (steps.length > 0) {
+      steps.forEach(e => {
+        totalIngredients = totalIngredients.concat(e.stepIngredients);
+      });
+
+      totalIngredients.forEach(function (d) {
+        if (holderIngredient.hasOwnProperty(d.ingredient.name)) {
+          holderIngredient[d.ingredient.name] = holderIngredient[d.ingredient.name] + d.amount;
+        } else {
+          holderIngredient[d.ingredient.name] = d.amount;
+          holderMeassure[d.ingredient.name] = d.unitOfMeasurement.abbreviation;
+        }
+      });
+
+      for (let prop in holderIngredient) {
+        obj2.push({ name: prop, value: holderIngredient[prop], unitOfMeassure: holderMeassure[prop] });
+        obj2 = obj2;
+      }
+
       step = steps[0];
     }
     name = recipe.name;
@@ -27,6 +49,7 @@
     cover = recipe.imageUrl;
     rating = recipe.avgRating;
     prepTime = recipe.preparationTime;
+    console.log(obj2);
   });
 
   function prevStep() {
@@ -51,15 +74,24 @@
   </div>
   <div class="title">{name}</div>
   <div class="container">
-    <div class="time fas fa-clock">{prepTime} min</div>
-    <div class="rating fa fa-star">{rating}</div>
+    <div class="time fas fa-clock">&nbsp; {prepTime} min</div>
+    <div class="rating fa fa-star">&nbsp; {rating}</div>
+  </div>
+  <div class="resources">
+    <div class="resourcesTitle">SASTOJCI</div>
+    {#each obj2 as r}
+      <div>
+        {r.name}
+        {r.value}
+        {r.unitOfMeassure}
+      </div>
+    {/each}
   </div>
   <div class="description">{description}</div>
 
   {#if showModal && steps.length > 0}
-    <Modal on:close={() => (showModal = false)}>
-      <h2 class="modal-fields">{counter + 1}. korak</h2>
-      <div class="modal-fields">{step.description}</div>
+    <RecipeViewModal on:close={() => (showModal = false)}>
+      <h3 class="modal-fields">{counter + 1}. korak</h3>
       <div class="modal-fields">{step.time}</div>
       {#each step.stepIngredients as stepIngerdient}
         <div class="modal-fields">
@@ -68,16 +100,17 @@
           {stepIngerdient.unitOfMeasurement.abbreviation}
         </div>
       {/each}
+      <div class="modal-fields">{step.description}</div>
       <div class="modal-buttons">
         <button class="button-style fas fa-arrow-left" on:click={prevStep} />
         <button class="button-style fas fa-arrow-right" on:click={nextStep} />
       </div>
-    </Modal>
+    </RecipeViewModal>
   {/if}
   {#if showModal && steps.length == 0}
-    <Modal on:close={() => (showModal = false)}>
+    <RecipeViewModal on:close={() => (showModal = false)}>
       <h2 style="text-align:center">Koraci nisu dodani za ovaj recept!</h2>
-    </Modal>
+    </RecipeViewModal>
   {/if}
 </main>
 
@@ -124,6 +157,7 @@
     font-size: medium;
     padding-left: 7px;
     padding-right: 7px;
+    padding-top: 20px;
   }
 
   .play-button {
@@ -154,5 +188,27 @@
     color: var(--color-accent);
     border: solid var(--color-accent) 1px;
     background-color: var(--color-primary);
+  }
+
+  .button-style:hover {
+    background-color: var(--color-secondary);
+  }
+
+  .resources {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    justify-content: center;
+    padding: 5px;
+    font-size: 14pt;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .resourcesTitle {
+    font-size: 17pt;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 5px;
   }
 </style>
