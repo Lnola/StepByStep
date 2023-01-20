@@ -14,11 +14,15 @@
 <section class="comments">
   <div class="container">
     <h2 class="title">Comments</h2>
-    <section class="wrapper">
-      {#each comments as comment}
-        <CommentView user={comment.user.fullName} text={comment.text} />
-      {/each}
-    </section>
+    {#if !comments.length}
+      <p>Be the first to comment!</p>
+    {:else}
+      <section class="wrapper">
+        {#each comments as comment}
+          <CommentView user={comment.user.fullName} text={comment.text} />
+        {/each}
+      </section>
+    {/if}
   </div>
 </section>
 
