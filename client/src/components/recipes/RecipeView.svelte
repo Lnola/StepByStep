@@ -2,6 +2,11 @@
   import { onMount } from 'svelte';
   import { recipeApi } from '@/api';
   import RecipeViewModal from './RecipeViewModal.svelte';
+  import CommentList from '../comments/CommentList.svelte';
+  import RatingCreate from '../rating/RatingCreate.svelte';
+
+  const { pathname } = location;
+  const recipeId = pathname.substring(pathname.lastIndexOf('/') + 1);
 
   let steps = [];
   let recipe;
@@ -27,8 +32,6 @@
   };
 
   onMount(async () => {
-    let path = window.location.pathname;
-    let recipeId = path.substring(path.lastIndexOf('/') + 1);
     recipe = await recipeApi.fetchById(recipeId);
     steps = await recipeApi.fetchStepsByRecipeId(recipeId);
     if (steps.length > 0) {
@@ -118,23 +121,24 @@
       }}
     />
   </div>
-  <div class="title">{name}</div>
-  <div class="container">
-    <div class="time fas fa-clock">&nbsp; {prepTime} min</div>
-    <div class="rating fa fa-star">&nbsp; {rating}</div>
-  </div>
-  <div class="resources">
-    <div class="resourcesTitle">INGREDIENTS</div>
-    {#each obj2 as r}
-      <div>
-        {r.name}
-        {r.value}
-        {r.unitOfMeassure}
-      </div>
-    {/each}
-  </div>
-  <div class="description">{description}</div>
-
+  <section class="wrapper">
+    <div class="title">{name}</div>
+    <div class="container">
+      <div class="time fas fa-clock">&nbsp; {prepTime} min</div>
+      <div class="rating fa fa-star">&nbsp; {rating}</div>
+    </div>
+    <div class="resources">
+      <div class="resources-title">INGREDIENTS</div>
+      {#each obj2 as r}
+        <div>
+          {r.name}
+          {r.value}
+          {r.unitOfMeassure}
+        </div>
+      {/each}
+    </div>
+    <div class="description">{description}</div>
+  </section>
   {#if showModal && steps.length > 0}
     <RecipeViewModal
       on:close={() => {
@@ -174,6 +178,9 @@
       <h2 style="text-align:center">Steps have not been added for this recipe!</h2>
     </RecipeViewModal>
   {/if}
+
+  <RatingCreate {recipeId} />
+  <CommentList {recipeId} />
 </main>
 
 <style>
@@ -181,10 +188,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    height: 84vh;
-    margin-top: 8vh;
-    margin-bottom: 8vh;
+    padding: 8vh 0 16vh 0;
   }
 
   img {
@@ -193,11 +197,14 @@
     object-fit: cover;
   }
 
+  .wrapper {
+    padding: 0 24px;
+  }
+
   .container {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    padding-bottom: 10px;
   }
 
   .cover {
@@ -217,16 +224,16 @@
   .description {
     text-align: justify;
     font-size: medium;
-    padding-left: 7px;
-    padding-right: 7px;
-    padding-top: 20px;
+    margin: 20px 0;
   }
 
   .play-button {
     width: 100%;
     height: 75px;
     color: var(--color-accent);
-    border: solid var(--color-accent) 2px;
+    border: none;
+    border-top: solid var(--color-accent) 2px;
+    border-bottom: solid var(--color-accent) 2px;
     background-color: var(--color-primary);
   }
 
@@ -263,15 +270,13 @@
     justify-content: center;
     padding: 5px;
     font-size: 14pt;
-    margin-top: 20px;
+    margin-top: 28px;
     margin-bottom: 20px;
   }
 
-  .resourcesTitle {
-    font-size: 17pt;
+  .resources-title {
+    font-size: 1.5rem;
     font-weight: bold;
-    padding-top: 10px;
-    padding-bottom: 5px;
   }
 
   .start-button {

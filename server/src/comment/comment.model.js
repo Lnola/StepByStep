@@ -32,6 +32,14 @@ class Comment extends Model {
     this.belongsTo(Recipe, { foreignKey: { name: 'recipeId', field: 'recipeId' } });
   }
 
+  static scopes({ User }) {
+    return {
+      defaultScope: {
+        include: [User],
+      },
+    };
+  }
+
   static dbOptions() {
     return {
       modelName: 'comment',
