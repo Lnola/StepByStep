@@ -22,6 +22,14 @@
   let holderIngredient = {};
   let holderMeassure = {};
   let obj2 = [];
+  let timeArray = [];
+  let x;
+  let shouldTimerStart = false;
+
+  const startTimer = () => {
+    shouldTimerStart = true;
+    timer();
+  };
 
   onMount(async () => {
     recipe = await recipeApi.fetchById(recipeId);
@@ -52,13 +60,42 @@
     cover = recipe.imageUrl;
     rating = recipe.avgRating;
     prepTime = recipe.preparationTime;
+    timeArray = step.time.split(':');
   });
+
+  function timer() {
+    let hours = parseInt(timeArray[0]);
+    let minutes = parseInt(timeArray[1]);
+    let seconds = parseInt(timeArray[2]) + 2;
+
+    let countDownDate = new Date(new Date().getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
+
+    x = setInterval(function () {
+      let now = new Date().getTime();
+
+      let distance = countDownDate - now;
+
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('timer').innerHTML = hours + 'h ' + minutes + 'm ' + seconds + 's ';
+
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById('timer').innerHTML = 'EXPIRED';
+      }
+    }, 1000);
+  }
 
   function prevStep() {
     if (counter > 0) {
       counter--;
     }
     step = steps[counter];
+    timeArray = step.time.split(':');
+    clearInterval(x);
+    shouldTimerStart = false;
   }
 
   function nextStep() {
@@ -66,13 +103,23 @@
       counter++;
     }
     step = steps[counter];
+    timeArray = step.time.split(':');
+    clearInterval(x);
+    shouldTimerStart = false;
   }
 </script>
 
 <main>
   <div class="cover">
     <img alt="recipeCover" src={cover} />
-    <button class="play-button fas fa-play" on:click={() => (showModal = true)} />
+    <button
+      class="play-button fas fa-play"
+      on:click={() => {
+        showModal = true;
+        clearInterval(x);
+        shouldTimerStart = false;
+      }}
+    />
   </div>
   <section class="wrapper">
     <div class="title">{name}</div>
@@ -81,7 +128,7 @@
       <div class="rating fa fa-star">&nbsp; {rating}</div>
     </div>
     <div class="resources">
-      <div class="resources-title">SASTOJCI</div>
+      <div class="resources-title">INGREDIENTS</div>
       {#each obj2 as r}
         <div>
           {r.name}
@@ -93,9 +140,20 @@
     <div class="description">{description}</div>
   </section>
   {#if showModal && steps.length > 0}
-    <RecipeViewModal on:close={() => (showModal = false)}>
-      <h3 class="modal-fields">{counter + 1}. korak</h3>
-      <div class="modal-fields">{step.time}</div>
+    <RecipeViewModal
+      on:close={() => {
+        showModal = false;
+        clearInterval(x);
+      }}
+    >
+      <h3 class="modal-fields">{counter + 1}. step</h3>
+      <div class="modal-fields" style="padding-bottom: 20px;">
+        {#if shouldTimerStart}
+          <span id="timer" />
+        {:else}
+          <button on:click={startTimer} class="start-button">Start timer</button>
+        {/if}
+      </div>
       {#each step.stepIngredients as stepIngerdient}
         <div class="modal-fields">
           {stepIngerdient.ingredient.name}
@@ -103,7 +161,7 @@
           {stepIngerdient.unitOfMeasurement.abbreviation}
         </div>
       {/each}
-      <div class="modal-fields">{step.description}</div>
+      <div class="modal-fields" style="padding-top: 20px;">{step.description}</div>
       <div class="modal-buttons">
         <button class="button-style fas fa-arrow-left" on:click={prevStep} />
         <button class="button-style fas fa-arrow-right" on:click={nextStep} />
@@ -111,8 +169,13 @@
     </RecipeViewModal>
   {/if}
   {#if showModal && steps.length == 0}
-    <RecipeViewModal on:close={() => (showModal = false)}>
-      <h2 style="text-align:center">Koraci nisu dodani za ovaj recept!</h2>
+    <RecipeViewModal
+      on:close={() => {
+        showModal = false;
+        clearInterval(x);
+      }}
+    >
+      <h2 style="text-align:center">Steps have not been added for this recipe!</h2>
     </RecipeViewModal>
   {/if}
 
@@ -214,5 +277,18 @@
   .resources-title {
     font-size: 1.5rem;
     font-weight: bold;
+  }
+
+  .start-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 1.25rem;
+  }
+
+  #timer {
+    font-size: 1.5rem;
   }
 </style>
