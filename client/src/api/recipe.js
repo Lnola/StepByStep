@@ -15,8 +15,8 @@ const urls = {
   updateIsPublished(id) {
     return `${this.root}/update-published/${id}`;
   },
-  showRecipe(id) {
-    return `${this.root}/show-recipe/${id}`;
+  fetchById(id) {
+    return `${this.root}/${id}`;
   },
   fetchStepsByRecipeId(id) {
     return `${this.root}/${id}/steps`;
@@ -39,8 +39,8 @@ const remove = id => {
   return request.delete(urls.remove(id));
 };
 
-const showRecipe = (id) => {
-  return request.get(urls.showRecipe(id)).then(extractData);
+const fetchById = (id) => {
+  return request.get(urls.fetchById(id)).then(extractData);
 };
 
 const fetchStepsByRecipeId = (id) => {
@@ -52,6 +52,6 @@ export default {
   fetchByUser,
   updateIsPublished,
   remove,
-  showRecipe,
+  fetchById,
   fetchStepsByRecipeId,
 };

@@ -17,7 +17,7 @@
   onMount(async () => {
     let path = window.location.pathname;
     let recipeId = path.substring(path.lastIndexOf('/') + 1);
-    recipe = await recipeApi.showRecipe(recipeId);
+    recipe = await recipeApi.fetchById(recipeId);
     steps = await recipeApi.fetchStepsByRecipeId(recipeId);
     if (steps.length > 0) {
       step = steps[0];
@@ -27,8 +27,6 @@
     cover = recipe.imageUrl;
     rating = recipe.avgRating;
     prepTime = recipe.preparationTime;
-
-    console.log(steps);
   });
 
   function prevStep() {

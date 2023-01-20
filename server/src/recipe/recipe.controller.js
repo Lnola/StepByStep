@@ -59,7 +59,7 @@ const remove = async (req, res, next) => {
   }
 };
 
-const showRecipe = async (req, res, next) => {
+const fetchById = async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -92,4 +92,4 @@ const fetchStepsByRecipeId = async (req, res, next) => {
   }
 };
 
-export { fetchPublished, fetchByUser, create, updateIsPublished, remove, showRecipe, fetchStepsByRecipeId };
+export { fetchPublished, fetchByUser, create, updateIsPublished, remove, fetchById, fetchStepsByRecipeId };
