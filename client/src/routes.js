@@ -5,7 +5,7 @@ import Home from './components/home/Home.svelte';
 import { isAdmin, isLoggedIn } from './stores/auth';
 import RecipesPublished from './components/recipes/RecipesPublished.svelte';
 import RecipesUser from './components/recipes/RecipesUser.svelte';
-import AllUsers from './components/admin/AllUsers.svelte';
+import UserList from './components/admin/UserList.svelte';
 
 const routes = [
   {
@@ -35,8 +35,8 @@ const routes = [
   },
   {
     path: '/admin',
-    name: 'AllUsers',
-    component: AllUsers,
+    name: 'UserList',
+    component: UserList,
   },
 ];
 
