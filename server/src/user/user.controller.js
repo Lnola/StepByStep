@@ -28,7 +28,7 @@ const register = async (req, res, next) => {
     const tokens = await user.generateTokens();
     setAuthCookies(tokens, res);
 
-    return res.status(CREATED).json({ ...user.profile });
+    return res.status(CREATED).json({ ...user.profile, role });
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
       return next(new HttpError(CONFLICT, errorMessages.REGISTER_ERROR));
