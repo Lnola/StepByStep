@@ -3,12 +3,20 @@ import request from './request';
 
 const urls = {
   root: '/ratings',
+  fetchByRecipe(recipeId) {
+    return `${this.root}/recipe/${recipeId}`;
+  },
 };
 
-const fetchAll = () => {
-  return request.get(urls.root).then(extractData);
+const fetchByRecipe = recipeId => {
+  return request.get(urls.fetchByRecipe(recipeId)).then(extractData);
+};
+
+const create = (params = {}) => {
+  return request.post(urls.root, params);
 };
 
 export default {
-  fetchAll,
+  fetchByRecipe,
+  create,
 };
