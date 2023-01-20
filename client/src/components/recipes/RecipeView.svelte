@@ -118,7 +118,7 @@
     <div class="rating fa fa-star">&nbsp; {rating}</div>
   </div>
   <div class="resources">
-    <div class="resourcesTitle">SASTOJCI</div>
+    <div class="resourcesTitle">INGREDIENTS</div>
     {#each obj2 as r}
       <div>
         {r.name}
@@ -136,7 +136,7 @@
         clearInterval(x);
       }}
     >
-      <h3 class="modal-fields">{counter + 1}. korak</h3>
+      <h3 class="modal-fields">{counter + 1}. step</h3>
       <div class="modal-fields"><span id="timer" /></div>
       {#each step.stepIngredients as stepIngerdient}
         <div class="modal-fields">
@@ -159,7 +159,7 @@
         clearInterval(x);
       }}
     >
-      <h2 style="text-align:center">Koraci nisu dodani za ovaj recept!</h2>
+      <h2 style="text-align:center">Steps have not been added for this recipe!</h2>
     </RecipeViewModal>
   {/if}
 </main>
