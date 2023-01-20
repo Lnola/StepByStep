@@ -19,7 +19,8 @@
 
   const name = label;
 
-  const handleInputType = e => (e.target.type = type);
+  // const handleInputType = e => (e.target.type = type);
+  const handleInputType = e => {};
 </script>
 
 <fieldset class="fieldset" class:error-input={isError}>
@@ -57,6 +58,8 @@
     max-height: fit-content;
     border: none;
     outline: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
   }
 
   .input::placeholder {

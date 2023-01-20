@@ -29,7 +29,7 @@
       <SmallButton on:click={() => dispatch('move-down', index)}>&darr</SmallButton>
     {/if}
     <SmallButton on:click={toggle}>{toggleBtnText}</SmallButton>
-    <SmallButton on:click={() => dispatch('remove-step', index)} disabled={!enableDelete}>x</SmallButton>
+    <SmallButton on:click={() => dispatch('remove-step', index)}>x</SmallButton>
   </div>
 </div>
 {#if show}

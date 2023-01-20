@@ -4,10 +4,13 @@
   import { minLengthValidator, requiredValidator, selectionRequiredValidator } from '@/utils/validation/validators';
   import { onMount } from 'svelte';
   import Button from '../common/Button.svelte';
+  import Validation from '../common/Validation.svelte';
 
   export let steps;
   export let ingredients;
   export let unitsOfMeasurement;
+  export let selector;
+  export let validators;
 
   $: numOfSteps = steps.length;
   $: showStepIndex = numOfSteps - 1;
@@ -36,11 +39,13 @@
         valid: false,
         label: '*Step ingredients',
         placeholder: 'Select your step ingredients!',
-        validators: [selectionRequiredValidator(null)]
+        selector: selector.innerSelector,
+        validators: [selectionRequiredValidator(selector.innerSelector)],
       },
     };
 
     steps = [...steps, newStep];
+    selector.forgive = false;
   };
 
   const removeStep = e => {
@@ -85,10 +90,11 @@
     enableUp={index > 0}
     enableDown={index < numOfSteps - 1}
     enableDelete={numOfSteps > 1}
-    step={step}
+    {step}
     {index}
     {ingredients}
     {unitsOfMeasurement}
   />
 {/each}
+<Validation bind:value={steps} on:valid {validators} />
 <Button on:click={addStep}>Add step</Button>

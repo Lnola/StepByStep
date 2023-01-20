@@ -5,7 +5,7 @@
   import settings from '@/settings/settings.json';
   import { minLengthValidator, requiredValidator, selectionRequiredValidator } from '@/utils/validation/validators';
   import FieldsetInput from '../common/FieldsetInput.svelte';
-    import Button from '../common/Button.svelte';
+  import Button from '../common/Button.svelte';
 
   let categories = [];
   let ingredients = [];
@@ -19,7 +19,13 @@
       source: categories,
       defaultSelection: 'Select category',
     },
-  }; 
+    step: {
+      value: [],
+      type: 'step',
+      forgive: true,
+      innerSelector: { type: 'ingredient', forgive: true },
+    },
+  };
 
   const recipeForm = {
     name: {
@@ -39,7 +45,7 @@
       validators: [requiredValidator(), minLengthValidator(settings.minLength.description)],
     },
     isPublished: false,
-    categories: { 
+    categories: {
       type: 'select',
       valid: false,
       label: '*Categories',
@@ -58,14 +64,52 @@
     steps: {
       value: [],
       type: 'list',
+      valid: false,
       label: '*Recipe steps',
       placeholder: 'Enter your recipe steps!',
-      validators: [],
+      selector: selectors.step,
+      validators: [selectionRequiredValidator(selectors.step)],
     },
   };
 
   const handleFormSubmit = e => {
-    console.log(recipeForm);
+    // console.log(recipeForm.name);
+    // console.log(recipeForm.description);
+    // console.log(recipeForm.categories);
+    console.log(recipeForm.steps);
+    // console.log(recipeForm.imageUrl);
+
+    const message = validateForm();
+    if (message !== '') {
+      alert(message);
+      return;
+    }
+
+    const response = confirm('Are you sure you want to create this recipe?');
+    if (!response.ok) return;
+  };
+
+  const validateForm = () => {
+    let message = '';
+
+    if (!recipeForm.name.valid) message = 'Recipe name is not valid';
+    else if (!recipeForm.description.valid) message = 'Recipe description is not valid';
+    else if (!recipeForm.categories.valid || recipeForm.categories.selector.forgive) message = 'Recipe categories are not valid';
+    else if (!recipeForm.steps.valid || recipeForm.steps.selector.forgive) message = 'Recipe steps are not valid';
+    recipeForm.steps.value.forEach((step, index) => {
+      if (message !== '') return;
+      if (!step.description.valid) message = `Step ${index + 1} description is not valid`;
+      else if (!step.time.valid) message = `Step ${index + 1} time is not valid`;
+      else if (!step.ingredients.valid || step.ingredients.selector.forgive) message = `Step ${index + 1} ingredients are not valid`;
+      step.ingredients.value.forEach((ingredient, index) => {
+        if (message !== '') return;
+        if (!ingredient.ingredientId.valid) message = `Step ${index + 1}, ingredient ${index + 1}, ingredient name is not valid`;
+        else if (!ingredient.amount.valid) message = `Step ${index + 1}, ingredient ${index + 1}, ingredient amount is not valid`;
+        else if (!ingredient.unitOfMeasurementId.valid) `Step ${index + 1}, ingredient ${index + 1}, ingredient unit of measurement is not valid`;;
+      });
+    });
+
+    return message;
   };
 
   onMount(async () => {
@@ -103,7 +147,14 @@
 
 <fieldset class="fieldset">
   <legend>{recipeForm.steps.label}</legend>
-  <CreateStepsList bind:steps={recipeForm.steps.value} {ingredients} {unitsOfMeasurement} />
+  <CreateStepsList
+    bind:steps={recipeForm.steps.value}
+    bind:selector={recipeForm.steps.selector}
+    on:valid={({ detail }) => (recipeForm.steps.valid = detail.valid)}
+    {ingredients}
+    {unitsOfMeasurement}
+    validators={recipeForm.steps.validators}
+  />
 </fieldset>
 
 <FieldsetInput

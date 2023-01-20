@@ -3,6 +3,7 @@
   import CreateIngredientItem from './CreateIngredientItem.svelte';
 
   export let stepIngredients;
+  export let selector;
   export let ingredients;
   export let unitsOfMeasurement;
 
@@ -21,7 +22,7 @@
         type: 'number',
         valid: false,
         validators: [requiredValidator()],
-        defaultSelector: 'Select unit',
+        defaultSelector: '*Select unit',
       },
       ingredientId: {
         value: '',
@@ -35,13 +36,14 @@
         value: '',
         type: 'number',
         valid: false,
-        label: 'Amount',
+        label: '*Amount',
         placeholder: 'Amount',
         validators: [requiredValidator(), minValueValidator(0)],
       },
     };
 
     stepIngredients = [...stepIngredients, newIngredient];
+    selector.forgive = false;
   };
 
   const checkValidity = () => {

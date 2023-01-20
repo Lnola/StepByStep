@@ -13,7 +13,7 @@
   </select>
   <input class="item" type="text" name="amount" placeholder="amount" bind:value={ingredient.amount} />
   <select class="item" name="unitOfMeasurementId" bind:value={ingredient.unitOfMeasurementId}>
-    <option selected disabled value="">Select unit</option>
+    <option selected disabled value="">{unitsOfMeasurement.defaultSelector}</option>
     {#each unitsOfMeasurement as unitOfMeasurement}
       <option value={unitOfMeasurement.id}>{unitOfMeasurement.name}</option>
     {/each}

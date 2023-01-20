@@ -12,20 +12,31 @@
 <div class="bar-content">
   <fieldset class="fieldset">
     <legend>{step.description.label}</legend>
-    <textarea
-      bind:value={step.description.value}
-      class="input"
-      placeholder={step.description.placeholder}
-    />
+    <textarea bind:value={step.description.value} class="input" placeholder={step.description.placeholder} />
     <Validation
       bind:value={step.description.value}
+      on:valid={({ detail }) => (step.description.valid = detail.valid)}
       validators={step.description.validators}
     />
   </fieldset>
 
-  <TimeInput bind:value={step.time.value} on:valid={({ detail }) => (step.time.valid = detail.valid)} label={step.time.label} />
-  
-  <CreateIngredientList bind:stepIngredients={step.ingredients.value} {ingredients} {unitsOfMeasurement} />
+  <TimeInput
+    bind:value={step.time.value}
+    on:valid={({ detail }) => (step.time.valid = detail.valid)}
+    label={step.time.label}
+  />
+
+  <CreateIngredientList
+    bind:stepIngredients={step.ingredients.value}
+    selector={step.ingredients.selector}
+    {ingredients}
+    {unitsOfMeasurement}
+  />
+  <Validation
+    bind:value={step.ingredients.value}
+    on:valid={({ detail }) => (step.ingredients.valid = detail.valid)}
+    validators={step.ingredients.validators}
+  />
 </div>
 
 <style>
@@ -60,6 +71,8 @@
     border: none;
     outline: none;
     background-color: var(--color-primary);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
   }
 
   .input::placeholder {
