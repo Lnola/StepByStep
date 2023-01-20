@@ -1,9 +1,10 @@
-import { allUsers, deleteUser } from './admin-controller';
+import { allUsers, deleteUser } from './admin.controller';
+import admin from '@/shared/auth/admin';
 import { Router } from 'express';
 
 const router = Router();
 const path = '/admin';
 
-router.get('/', allUsers).delete('/:userId', deleteUser);
+router.use(admin).get('/', allUsers).delete('/:userId', deleteUser);
 
 export default { path, router };
