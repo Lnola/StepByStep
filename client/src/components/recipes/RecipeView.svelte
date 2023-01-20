@@ -29,19 +29,17 @@
   }
 
   const grades = ['very bad', 'bad', 'good', 'very good', 'excellent'];
-  let selected = "";
+  let selected = '';
 
   function saveRate() {
-    if(comment.value.length == 0) {
-			alert("Comment is not added.")
-		}
-		else if(selected == "") {
-			alert("Rate is not selected.")
-		}
-		else {
-			//dodati spremanje u bazu
-			alert("Feedback is sent.")
-		}
+    if (comment.value.length == 0) {
+      alert('Comment is not added.');
+    } else if (selected == '') {
+      alert('Rate is not selected.');
+    } else {
+      //dodati spremanje u bazu
+      alert('Feedback is sent.');
+    }
   }
 </script>
 
@@ -65,10 +63,10 @@
     {/each}
   </div>
   <div class="feedback">
-    <textarea id="comment" placeholder="Leave a comment."></textarea>
+    <textarea id="comment" placeholder="Leave a comment." />
     {#each grades as grade}
       <label>
-        <input type="radio" value={grade} bind:group={selected}>
+        <input type="radio" value={grade} bind:group={selected} />
         {grade}
       </label>
     {/each}
