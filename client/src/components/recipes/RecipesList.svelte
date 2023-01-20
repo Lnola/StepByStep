@@ -6,7 +6,7 @@
   export let category = null;
   export let published = null;
   export let recipes;
-  export let shouldDisplayBonusActions;
+  export let shouldDisplayBonusActions = false;
 
   const dispatch = createEventDispatcher();
 
@@ -32,7 +32,6 @@
   {#each recipes as { id, name, isPublished, categories, avgRating, preparationTime, imageUrl }}
     {#if isCategoryMatch(categories, category) || isPublishedMatch(isPublished, published)}
       <Card
-        on:details={viewRecipeRedirect(id)}
         cover={imageUrl}
         title={name}
         rating={avgRating}
@@ -41,6 +40,7 @@
         {isPublished}
         on:remove={() => dispatch('remove', { id })}
         on:update={() => dispatch('update', { id, isPublished })}
+        on:details={() => viewRecipeRedirect(id)}
       />
     {/if}
   {/each}
