@@ -1,13 +1,14 @@
 <script>
   import { maxValueValidator, minValueValidator, timeRequiredValidator } from '@/utils/validation/validators';
+    import { onMount } from 'svelte';
   import Validation from './Validation.svelte';
 
   export let value;
   export let label;
 
-  let hours = 0;
-  let minutes = 0;
-  let seconds = 0;
+  let hours;
+  let minutes;
+  let seconds;
   let validators = [
     timeRequiredValidator(),
     minValueValidator(0, 'hours'),
@@ -19,6 +20,12 @@
   ];
 
   $: value = { hours, minutes, seconds };
+
+  onMount(() => {
+    hours = 0;
+    minutes = 0;
+    seconds = 0;
+  })
 </script>
 
 <fieldset class="fieldset">

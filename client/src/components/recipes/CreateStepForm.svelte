@@ -1,16 +1,12 @@
 <script>
   import CreateIngredientList from './CreateIngredientList.svelte';
-  import { createEventDispatcher } from 'svelte';
   import TimeInput from '../common/TimeInput.svelte';
   import Validation from '../common/Validation.svelte';
+  import settings from '@/settings/settings.json';
 
   export let step;
   export let ingredients;
   export let unitsOfMeasurement;
-
-  console.log(step);
-
-  const dispatch = createEventDispatcher();
 </script>
 
 <div class="bar-content">
@@ -19,8 +15,6 @@
     <textarea
       bind:value={step.description.value}
       class="input"
-      rows="3"
-      name="description"
       placeholder={step.description.placeholder}
     />
     <Validation
@@ -31,9 +25,7 @@
 
   <TimeInput bind:value={step.time.value} on:valid={({ detail }) => (step.time.valid = detail.valid)} label={step.time.label} />
   
-  <!-- <CreateIngredientList stepIngredients={step.ingredients} {ingredients} {unitsOfMeasurement} /> -->
-
-  <button class="item" on:click={() => dispatch('add-ingredient', step)}>Add ingredient</button>
+  <CreateIngredientList bind:stepIngredients={step.ingredients.value} {ingredients} {unitsOfMeasurement} />
 </div>
 
 <style>

@@ -33,13 +33,21 @@ function timeRequiredValidator() {
 
 function minValueValidator(min, fieldName) {
   return function minValue(value) {
-    return value[fieldName] >= min || `Field ${fieldName} must be greater or equal to ${min}`;
+    let val = fieldName !== undefined ? value[fieldName] : value;
+    return val >= min || `Field ${fieldName} must be greater or equal to ${min}`;
   };
 }
 
 function maxValueValidator(max, fieldName) {
   return function maxValue(value) {
-    return value[fieldName] <= max || `Field ${fieldName} must be less or equal than ${max}`;
+    let val = fieldName !== undefined ? value[fieldName] : value;
+    return val <= max || `Field ${fieldName} must be less or equal than ${max}`;
+  };
+}
+
+function autocompleteValidator(source) {
+  return function autocomplete(value) {
+    return source.find(e => e === value) !== undefined || 'Invalid value';
   };
 }
 
@@ -51,4 +59,5 @@ export {
   timeRequiredValidator,
   minValueValidator,
   maxValueValidator,
+  autocompleteValidator
 };

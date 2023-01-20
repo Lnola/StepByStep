@@ -15,16 +15,6 @@
 
   const dispatch = createEventDispatcher();
 
-  const addIngredient = e => {
-    const newIngredient = {
-      unitOfMeasurmentId: '',
-      ingredientId: '',
-      amount: '',
-    };
-
-    step.value.ingredients = [...step.value.ingredients, newIngredient];
-  };
-
   const toggle = () => (show = !show);
 </script>
 
@@ -43,7 +33,7 @@
 </div>
 {#if show}
   <div class="bar-content">
-    <CreateStepForm on:add-ingredient={addIngredient} {step} {ingredients} {unitsOfMeasurement} />
+    <CreateStepForm bind:step {ingredients} {unitsOfMeasurement} />
   </div>
 {/if}
 
