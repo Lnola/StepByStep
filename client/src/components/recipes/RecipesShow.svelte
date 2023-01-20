@@ -24,6 +24,13 @@
   function reproduction() {
     // window.location = '/recipes/show-recipe/' + recipeId;
   }
+
+  const grades = ['very bad', 'bad', 'good', 'very good', 'excellent'];
+  let selected;
+
+  function saveRate() {
+    // spremiti komentar i ocjenu u bazu
+  }
 </script>
 
 <main>
@@ -37,6 +44,16 @@
     <div class="rating">{rating}</div>
   </div>
   <div class="description">{description}</div>
+  <div class="feedback">
+    <textarea placeholder="Leave a comment."></textarea>
+    {#each grades as grade}
+      <label>
+        <input type="radio" value={grade} bind:group={selected}>
+        {grade}
+      </label>
+    {/each}
+    <button on:click={saveRate}>Send feedback</button>
+  </div>
 </main>
 
 <style>
