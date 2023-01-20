@@ -40,7 +40,7 @@
     <span class="circle rating {extended && 'extend'}">{rating}/5</span>
     <span class="circle time {extended && 'extend'}">{time} min</span>
   </button>
-  <button class="details" on:click={showRecipeRedirect}>{recipeId}</button>
+  <button class="details fas fa-book-open" on:click={showRecipeRedirect} />
 </article>
 
 <style>
@@ -147,6 +147,7 @@
     width: 45px;
     height: 45px;
     border-radius: 50%;
+    border: none;
     background-color: var(--color-secondary);
     font-size: medium;
     transition: 0.5s;

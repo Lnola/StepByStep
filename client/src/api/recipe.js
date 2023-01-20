@@ -17,7 +17,10 @@ const urls = {
   },
   showRecipe(id) {
     return `${this.root}/show-recipe/${id}`;
-  }
+  },
+  fetchStepsByRecipeId(id) {
+    return `${this.root}/${id}/steps`;
+}
 };
 
 const fetchPublished = () => {
@@ -40,10 +43,15 @@ const showRecipe = (id) => {
   return request.get(urls.showRecipe(id)).then(extractData);
 };
 
+const fetchStepsByRecipeId = (id) => {
+  return request.get(urls.fetchStepsByRecipeId(id)).then(extractData);
+}
+
 export default {
   fetchPublished,
   fetchByUser,
   updateIsPublished,
   remove,
   showRecipe,
+  fetchStepsByRecipeId,
 };
