@@ -20,7 +20,6 @@ const fetchByUser = async (req, res, next) => {
     const recipes = await Recipe.findAll({ where: { userId } });
     return res.status(OK).json(recipes);
   } catch (err) {
-    console.log(err);
     if (err instanceof DatabaseError) return next(new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR));
     return next(new Error());
   }
