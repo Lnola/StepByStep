@@ -1,6 +1,7 @@
 <script>
   import Button from '@/components/common/Button.svelte';
   import { redirect } from '@/utils/router/routing';
+  import { isAdmin } from '@/stores/auth';
 </script>
 
 <nav>
@@ -17,6 +18,9 @@
     <Button on:click={() => redirect('Home')} inline><i class="fa-solid fa-house" /></Button>
     <Button on:click={() => redirect('Recipes')} inline><i class="fa-solid fa-burger" /></Button>
     <Button on:click={() => redirect('CreateRecipe')} inline><i class="fa-solid fa-upload" /></Button>
+    {#if isAdmin()}
+      <Button on:click={() => redirect('UserList')} inline><i class="fa-solid fa-user" /></Button>
+    {/if}
   </section>
 </nav>
 
