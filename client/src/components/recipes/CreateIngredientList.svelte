@@ -64,7 +64,7 @@
       <CreateIngredientItem bind:ingredient {ingredients} {unitsOfMeasurement} />
     </div>
   {/each}
-  <button class="item" on:click={addIngredient}>Add ingredient</button>
+  <button class="btn" on:click={addIngredient}>Add ingredient</button>
 </fieldset>
 
 <style>
@@ -74,8 +74,17 @@
     padding: 1vh;
     margin: 2vh 0;
     margin-top: 0;
-    text-align: left;
+    text-align: center;
     font-size: small;
     color: var(--color-accent);
+  }
+
+  .btn {
+    background-color: var(--color-accent);
+    color : var(--color-white);
+    border: none;
+    border-radius: 25px;
+    padding: 2vw;
+    margin-top: 2vh;
   }
 </style>

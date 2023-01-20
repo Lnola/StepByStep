@@ -5,6 +5,7 @@
   import settings from '@/settings/settings.json';
   import { minLengthValidator, requiredValidator, selectionRequiredValidator } from '@/utils/validation/validators';
   import FieldsetInput from '../common/FieldsetInput.svelte';
+    import Button from '../common/Button.svelte';
 
   let categories = [];
   let ingredients = [];
@@ -99,11 +100,11 @@
 </fieldset>
 
 <div>
-  <input type="radio" name="isPublished" value={false} bind:group={recipeForm.isPublished} />Private
-  <input type="radio" name="isPublished" value={true} bind:group={recipeForm.isPublished} />Public
+  <input class="radio" type="radio" name="isPublished" value={false} bind:group={recipeForm.isPublished} />Private
+  <input class="radio" type="radio" name="isPublished" value={true} bind:group={recipeForm.isPublished} />Public
 </div>
 
-<button class="item" on:click={handleFormSubmit}>Create recipe</button>
+<Button on:click={handleFormSubmit}>Create recipe</Button>
 
 <style>
   .fieldset {
@@ -111,8 +112,12 @@
     border-radius: 5px;
     padding: 1vh;
     margin: 2vh 0;
-    text-align: left;
+    text-align: center;
     font-size: small;
     color: var(--color-accent);
+  }
+
+  .radio {
+
   }
 </style>

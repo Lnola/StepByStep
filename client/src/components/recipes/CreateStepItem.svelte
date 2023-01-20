@@ -1,6 +1,7 @@
 <script>
   import CreateStepForm from './CreateStepForm.svelte';
   import { createEventDispatcher } from 'svelte';
+    import SmallButton from '../common/SmallButton.svelte';
 
   export let show;
   export let enableUp;
@@ -22,13 +23,17 @@
   <h4 class="bar-item title">Step {index + 1}</h4>
   <div class="bar-item btns">
     {#if enableUp}
-      <button on:click={() => dispatch('move-up', index)}>&uarr</button>
+      <!-- <button on:click={() => dispatch('move-up', index)}>&uarr</button> -->
+      <SmallButton on:click={() => dispatch('move-up', index)}>&uarr</SmallButton>
     {/if}
     {#if enableDown}
-      <button on:click={() => dispatch('move-down', index)}>&darr</button>
+      <SmallButton on:click={() => dispatch('move-down', index)}>&darr</SmallButton>
+      <!-- <button on:click={() => dispatch('move-down', index)}>&darr</button> -->
     {/if}
-    <button on:click={toggle}>{toggleBtnText}</button>
-    <button on:click={() => dispatch('remove-step', index)} disabled={!enableDelete}>x</button>
+    <!-- <button on:click={toggle}>{toggleBtnText}</button> -->
+    <SmallButton on:click={toggle}>{toggleBtnText}</SmallButton>
+    <!-- <button on:click={() => dispatch('remove-step', index)} disabled={!enableDelete}>x</button> -->
+    <SmallButton on:click={() => dispatch('remove-step', index)} disabled={!enableDelete}>x</SmallButton>
   </div>
 </div>
 {#if show}

@@ -43,7 +43,7 @@
   {/each}
 </div>
 <div class="select">
-  <select class="select" on:change={handleItemSelection}>
+  <select class="select-item" on:change={handleItemSelection}>
     <option id="defaultSelection" selected disabled value="">{selector.defaultSelection}</option>
     {#each selector.source as category}
       <option value={category.id}>{category.name}</option>
@@ -80,6 +80,13 @@
     padding: 0;
   }
 
+  .select-item {
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-accent);
+    border-radius: 25px;
+    padding: 0.5rem;
+  }
+
   .btn {
     position: relative;
     top: 0.1vh;
@@ -89,5 +96,9 @@
     padding: 0;
     margin: 0;
     font-size: xx-small;
+    border: 1px solid var(--color-accent);
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    color: var(--color-accent);
   }
 </style>

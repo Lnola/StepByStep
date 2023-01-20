@@ -2,7 +2,8 @@
   import CreateStepItem from './CreateStepItem.svelte';
   import settings from '@/settings/settings.json';
   import { minLengthValidator, requiredValidator, selectionRequiredValidator } from '@/utils/validation/validators';
-    import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
+  import Button from '../common/Button.svelte';
 
   export let steps;
   export let ingredients;
@@ -10,14 +11,6 @@
 
   $: numOfSteps = steps.length;
   $: showStepIndex = numOfSteps - 1;
-
-  // const ingredientSel: {
-  //     value: [],
-  //     type: 'category',
-  //     forgive: true,
-  //     source: categories,
-  //     defaultSelection: 'Select category',
-  //   }
 
   const addStep = e => {
     const newStep = {
@@ -98,4 +91,4 @@
     {unitsOfMeasurement}
   />
 {/each}
-<button on:click={addStep}>Add step</button>
+<Button on:click={addStep}>Add step</Button>
