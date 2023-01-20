@@ -137,7 +137,7 @@
       }}
     >
       <h3 class="modal-fields">{counter + 1}. step</h3>
-      <div class="modal-fields"><span id="timer" /></div>
+      <div class="modal-fields" style="padding-bottom: 20px;"><span id="timer" /></div>
       {#each step.stepIngredients as stepIngerdient}
         <div class="modal-fields">
           {stepIngerdient.ingredient.name}
@@ -145,7 +145,7 @@
           {stepIngerdient.unitOfMeasurement.abbreviation}
         </div>
       {/each}
-      <div class="modal-fields">{step.description}</div>
+      <div class="modal-fields" style="padding-top: 20px;">{step.description}</div>
       <div class="modal-buttons">
         <button class="button-style fas fa-arrow-left" on:click={prevStep} />
         <button class="button-style fas fa-arrow-right" on:click={nextStep} />
