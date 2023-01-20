@@ -107,6 +107,47 @@
     clearInterval(x);
     shouldTimerStart = false;
   }
+  var keys = { 37: 1, 38: 1, 39: 1, 40: 1 };
+
+  function preventDefault(e) {
+    e.preventDefault();
+  }
+
+  function preventDefaultForScrollKeys(e) {
+    if (keys[e.keyCode]) {
+      preventDefault(e);
+      return false;
+    }
+  }
+  var supportsPassive = false;
+  try {
+    window.addEventListener(
+      'test',
+      null,
+      Object.defineProperty({}, 'passive', {
+        get: function () {
+          supportsPassive = true;
+        },
+      }),
+    );
+  } catch (e) {}
+
+  var wheelOpt = supportsPassive ? { passive: false } : false;
+  var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
+  function disableScroll() {
+    window.addEventListener('DOMMouseScroll', preventDefault, false);
+    window.addEventListener(wheelEvent, preventDefault, wheelOpt);
+    window.addEventListener('touchmove', preventDefault, wheelOpt);
+    window.addEventListener('keydown', preventDefaultForScrollKeys, false);
+  }
+
+  function enableScroll() {
+    window.removeEventListener('DOMMouseScroll', preventDefault, false);
+    window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
+    window.removeEventListener('touchmove', preventDefault, wheelOpt);
+    window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+  }
 </script>
 
 <main>
@@ -115,6 +156,7 @@
     <button
       class="play-button fas fa-play"
       on:click={() => {
+        disableScroll();
         showModal = true;
         clearInterval(x);
         shouldTimerStart = false;
@@ -137,11 +179,13 @@
         </div>
       {/each}
     </div>
+    <div class="resources resources-title">DESCRIPTION</div>
     <div class="description">{description}</div>
   </section>
   {#if showModal && steps.length > 0}
     <RecipeViewModal
       on:close={() => {
+        enableScroll();
         showModal = false;
         clearInterval(x);
       }}
@@ -154,6 +198,7 @@
           <button on:click={startTimer} class="start-button">Start timer</button>
         {/if}
       </div>
+      <div class="modal-title">Ingredients</div>
       {#each step.stepIngredients as stepIngerdient}
         <div class="modal-fields">
           {stepIngerdient.ingredient.name}
@@ -161,7 +206,8 @@
           {stepIngerdient.unitOfMeasurement.abbreviation}
         </div>
       {/each}
-      <div class="modal-fields" style="padding-top: 20px;">{step.description}</div>
+      <div class="modal-title">Description</div>
+      <div class="modal-fields step-description">{step.description}</div>
       <div class="modal-buttons">
         <button class="button-style fas fa-arrow-left" on:click={prevStep} />
         <button class="button-style fas fa-arrow-right" on:click={nextStep} />
@@ -189,6 +235,7 @@
     flex-direction: column;
     align-items: center;
     padding: 8vh 0 16vh 0;
+    overflow-y: auto;
   }
 
   img {
@@ -290,5 +337,19 @@
 
   #timer {
     font-size: 1.5rem;
+  }
+
+  .modal-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14pt;
+    padding: 15px;
+  }
+
+  .step-description {
+    padding-top: 10px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 </style>
