@@ -2,16 +2,22 @@
   import { onMount } from 'svelte';
   import { commentApi } from '@/api';
   import CommentView from './CommentView.svelte';
+  import CommentCreate from '../comments/CommentCreate.svelte';
 
   export let recipeId;
   let comments = [];
 
-  onMount(async () => {
+  const fetchComments = async () => {
     comments = await commentApi.fetchByRecipe(recipeId);
+  };
+
+  onMount(async () => {
+    await fetchComments();
   });
 </script>
 
 <section class="comments">
+  <CommentCreate {recipeId} on:created={() => fetchComments()} />
   <div class="container">
     <h2 class="title">Comments</h2>
     {#if !comments.length}

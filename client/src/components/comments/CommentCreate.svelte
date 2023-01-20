@@ -1,12 +1,17 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
   import { commentApi } from '@/api';
+
+  const dispatch = createEventDispatcher();
 
   export let recipeId;
   let text;
+
   const submit = async () => {
     try {
       await commentApi.create({ recipeId, text });
       text = '';
+      dispatch('created');
     } catch {
       alert('There was an error posting your comment. Try again!');
     }
