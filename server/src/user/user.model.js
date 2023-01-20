@@ -55,9 +55,9 @@ class User extends Model {
   }
 
   static associate({ Comment, Rating, Recipe, Role }) {
-    this.hasMany(Comment, { foreignKey: { name: 'userId', field: 'userId' } });
-    this.hasMany(Rating, { foreignKey: { name: 'userId', field: 'userId' } });
-    this.hasMany(Recipe, { foreignKey: { name: 'userId', field: 'userId' } });
+    this.hasMany(Comment, { foreignKey: { name: 'userId', field: 'userId' }, onDelete: 'cascade', hooks: true });
+    this.hasMany(Rating, { foreignKey: { name: 'userId', field: 'userId' }, onDelete: 'cascade', hooks: true });
+    this.hasMany(Recipe, { foreignKey: { name: 'userId', field: 'userId' }, onDelete: 'cascade', hooks: true });
     this.belongsTo(Role, { foreignKey: { name: 'roleId', field: 'roleId' } });
   }
 

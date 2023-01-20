@@ -1,3 +1,4 @@
+import admin from './admin/index';
 import authenticate from './shared/auth/authenticate';
 import category from './category/index';
 import ingredient from './ingredient/index';
@@ -18,6 +19,7 @@ router
   .use(ingredient.path, ingredient.router)
   .use(recipe.path, recipe.router)
   .use(step.path, step.router)
-  .use(unitOfMeasurement.path, unitOfMeasurement.router);
+  .use(unitOfMeasurement.path, unitOfMeasurement.router)
+  .use(admin.path, admin.router);
 
 export default router;

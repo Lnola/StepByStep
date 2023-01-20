@@ -5,3 +5,4 @@ export { default as ingredientApi } from './ingredient';
 export { default as ratingApi } from './rating';
 export { default as recipeApi } from './recipe';
 export { default as unitOfMeasurementApi } from './unitOfMeasurement';
+export { default as adminApi } from './admin';
