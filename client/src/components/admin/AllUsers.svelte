@@ -1,8 +1,11 @@
 <script>
   import { onMount } from 'svelte';
   import { adminApi } from '@/api';
+  import { redirect } from '@/utils/router/routing';
 
   let users = [];
+  let userRole = JSON.parse(localStorage.getItem('user')).role.name;
+  if (userRole !== 'admin') redirect('/');
 
   onMount(async () => {
     users = await adminApi.allUsers();

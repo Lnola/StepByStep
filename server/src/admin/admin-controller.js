@@ -27,7 +27,7 @@ const deleteUser = async (req, res, next) => {
       const user = await User.findByPk(userId);
       if (!user) return next(new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR));
       await user.destroy();
-      return res.status(OK);
+      return res.sendStatus(OK);
     } else {
       return next(new HttpError(FORBIDDEN, errorMessages.FORBIDDEN_ERROR));
     }
