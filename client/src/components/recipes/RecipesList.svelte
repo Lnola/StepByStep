@@ -23,8 +23,8 @@
     return doPublishedMatch || isPublishedNotSelected;
   };
 
-  function showRecipeRedirect(recipeId) {
-    redirect('ShowRecipe', recipeId);
+  function viewRecipeRedirect(recipeId) {
+    redirect('ViewRecipe', recipeId);
   }
 </script>
 
@@ -32,7 +32,7 @@
   {#each recipes as { id, name, isPublished, categories, avgRating, preparationTime, imageUrl }}
     {#if isCategoryMatch(categories, category) || isPublishedMatch(isPublished, published)}
       <Card
-        on:click={showRecipeRedirect(id)}
+        on:details={viewRecipeRedirect(id)}
         cover={imageUrl}
         title={name}
         rating={avgRating}

@@ -1,4 +1,4 @@
-import { create, fetchByUser, fetchPublished, remove, showRecipe, updateIsPublished } from './recipe.controller';
+import { create, fetchById, fetchByUser, fetchPublished, remove, updateIsPublished } from './recipe.controller';
 import { Router } from 'express';
 
 const router = Router();
@@ -7,7 +7,7 @@ const path = '/recipes';
 router
   .get('/published', fetchPublished)
   .get('/user', fetchByUser)
-  .get('/show-recipe/:id', showRecipe)
+  .get('/:id', fetchById)
   .post('/', create)
   .post('/update-published/:id', updateIsPublished)
   .delete('/:id', remove);

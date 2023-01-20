@@ -25,7 +25,7 @@
       <button class="circle delete" on:click={() => dispatch('remove')}><i class="fa-solid fa-trash" /></button>
     </div>
   {/if}
-  <button class="details" on:click={() => dispatch('update')}><img alt="recipeCover" src={cover} /></button>
+  <button class="details" on:click={() => dispatch('details')}><img alt="recipeCover" src={cover} /></button>
   <h3 class="title">{title}</h3>
   <button on:click={toggleExtended}>
     <span class="circle info {extended && 'extend'}"><i class="fa-solid fa-info" /></span>
