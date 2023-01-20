@@ -3,8 +3,8 @@
   import { recipeApi } from '@/api';
   import RecipeViewModal from './RecipeViewModal.svelte';
 
-  let recipe;
   let steps = [];
+  let recipe;
   let name;
   let description;
   let cover;

@@ -3,25 +3,30 @@
   import Filter from '@/components/common/Filter.svelte';
   import Recipes from './RecipesList.svelte';
   import { recipeApi, categoryApi } from '@/api';
+  import { isAdmin } from '@/stores/auth';
 
   let category = 0;
   let recipes = [];
   let categories;
-  const shouldDisplayBonusActions = false;
+  const shouldDisplayBonusActions = isAdmin();
 
   function updateCategory({ detail: { value } }) {
     category = value;
   }
 
-  onMount(async () => {
+  const fetchRecipesAndCategories = async () => {
     recipes = await recipeApi.fetchPublished();
     categories = await categoryApi.fetchAll();
+  };
+
+  onMount(async () => {
+    await fetchRecipesAndCategories();
   });
 </script>
 
 <main>
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {category} {shouldDisplayBonusActions} />
+  <Recipes {recipes} {category} {shouldDisplayBonusActions} on:refetch={() => fetchRecipesAndCategories()} />
 </main>
 
 <style>

@@ -20,7 +20,7 @@
 
 <article in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
   {#if shouldDisplayBonusActions}
-    <div class="bonusActions">
+    <div class="bonus-actions">
       <button class="circle publish" on:click={() => dispatch('update')}>{publishText}</button>
       <button class="circle delete" on:click={() => dispatch('remove')}><i class="fa-solid fa-trash" /></button>
     </div>
@@ -46,6 +46,13 @@
     z-index: 0;
   }
 
+  .details {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    padding: 0;
+  }
+
   img {
     height: 100%;
     width: 100%;
@@ -67,7 +74,7 @@
     z-index: 1;
   }
 
-  .bonusActions {
+  .bonus-actions {
     padding: 0;
     margin: 0;
     align-items: center;
@@ -126,11 +133,6 @@
     text-align: center;
     line-height: 100%;
     z-index: 0;
-  }
-
-  .details {
-    border: 0;
-    padding: 0;
   }
 
   .rating.extend {
