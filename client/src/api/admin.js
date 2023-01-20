@@ -9,6 +9,9 @@ const urls = {
   removeUser(userId) {
     return `${this.root}/users/${userId}`;
   },
+  removeComment(commentId) {
+    return `${this.root}/comment/${commentId}`;
+  },
 };
 
 const fetchAllUsers = () => {
@@ -19,4 +22,8 @@ const removeUser = userId => {
   return request.delete(urls.removeUser(userId));
 };
 
-export default { fetchAllUsers, removeUser };
+const removeComment = commentId => {
+  return request.delete(urls.removeComment(commentId));
+};
+
+export default { fetchAllUsers, removeComment, removeUser };
