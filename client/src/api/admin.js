@@ -3,17 +3,20 @@ import request from './request';
 
 const urls = {
   root: '/admin',
+  get fetchAllUsers() {
+    return this.root + '/users';
+  },
   deleteUser(userId) {
-    return `${this.root}/${userId}`;
+    return `${this.root}/users/${userId}`;
   },
 };
 
-const allUsers = () => {
-  return request.get(urls.root).then(extractData);
+const fetchAllUsers = () => {
+  return request.get(urls.fetchAllUsers).then(extractData);
 };
 
 const deleteUser = userId => {
   return request.delete(urls.deleteUser(userId));
 };
 
-export default { allUsers, deleteUser };
+export default { fetchAllUsers, deleteUser };

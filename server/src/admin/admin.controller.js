@@ -4,7 +4,7 @@ import errorMessages from '@/shared/constants/errorMessages';
 import HttpError from '@/shared/error/httpError';
 import { User } from '@/shared/database/index';
 
-const allUsers = async (req, res, next) => {
+const fetchAllUsers = async (req, res, next) => {
   try {
     const users = await User.findAll();
     return res.status(OK).json(users);
@@ -26,4 +26,4 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-export { allUsers, deleteUser };
+export { deleteUser, fetchAllUsers };
