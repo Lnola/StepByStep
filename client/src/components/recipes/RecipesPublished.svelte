@@ -14,28 +14,19 @@
     category = value;
   }
 
-  onMount(async () => {
+  const fetchRecipesAndCategories = async () => {
     recipes = await recipeApi.fetchPublished();
     categories = await categoryApi.fetchAll();
+  };
+
+  onMount(async () => {
+    await fetchRecipesAndCategories();
   });
-
-  const remove = async ({ detail: { id } }) => {
-    if (!id) return alert('Delete failed, try again');
-    await recipeApi.remove(id);
-    recipes = await recipeApi.fetchPublished();
-  };
-
-  const updateIsPublished = async ({ detail: { id, isPublished } }) => {
-    await recipeApi.updateIsPublished(id, isPublished);
-    const recipe = recipes.find(recipe => recipe.id === id);
-    recipe.isPublished = !recipe.isPublished;
-    recipes = await recipeApi.fetchPublished();
-  };
 </script>
 
 <main>
   <Filter {categories} on:update={updateCategory} />
-  <Recipes {recipes} {category} {shouldDisplayBonusActions} on:remove={remove} on:update={updateIsPublished} />
+  <Recipes {recipes} {category} {shouldDisplayBonusActions} on:refetch={() => fetchRecipesAndCategories()} />
 </main>
 
 <style>
