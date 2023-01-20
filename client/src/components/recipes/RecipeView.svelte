@@ -49,7 +49,6 @@
     cover = recipe.imageUrl;
     rating = recipe.avgRating;
     prepTime = recipe.preparationTime;
-    console.log(obj2);
   });
 
   function prevStep() {

@@ -86,7 +86,6 @@ const fetchStepsByRecipeId = async (req, res, next) => {
     });
     return res.status(OK).json(steps);
   } catch (err) {
-    console.log(err);
     if (err instanceof DatabaseError) return next(new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR));
     return next(new Error());
   }

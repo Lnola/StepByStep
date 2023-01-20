@@ -13,7 +13,6 @@
     }
 
     if (e.key === 'Tab') {
-      // trap focus
       const nodes = modal.querySelectorAll('*');
       const tabbable = Array.from(nodes).filter(n => n.tabIndex >= 0);
 
@@ -44,7 +43,6 @@
 <div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
   <slot name="header" />
   <slot />
-  <!-- svelte-ignore a11y-autofocus -->
 </div>
 
 <style>
