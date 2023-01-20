@@ -6,3 +6,4 @@ export { default as ratingApi } from './rating';
 export { default as recipeApi } from './recipe';
 export { default as unitOfMeasurementApi } from './unitOfMeasurement';
 export { default as adminApi } from './admin';
+export { default as stepApi} from './step';

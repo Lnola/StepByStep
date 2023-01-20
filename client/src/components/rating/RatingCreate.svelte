@@ -17,7 +17,7 @@
 
   const fetchUserRecipeRating = async () => {
     const data = await ratingApi.fetchByRecipe(recipeId);
-    rating = data.value;
+    rating = (data && data.value) || 0;
   };
 
   onMount(async () => {

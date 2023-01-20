@@ -1,5 +1,5 @@
 import { NOT_FOUND, OK } from 'http-status';
-import { Recipe, Step, StepIngredient } from '@/shared/database/index';
+import { Recipe, RecipeCategory, Step, StepIngredient } from '@/shared/database/index';
 import { DatabaseError } from 'sequelize';
 import errorMessages from '@/shared/constants/errorMessages';
 import HttpError from '@/shared/error/httpError';
@@ -27,7 +27,14 @@ const fetchByUser = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const recipe = await Recipe.create(req.body);
+    const recipe = await Recipe.create(req.body.recipe);
+
+    await RecipeCategory.bulkCreate(
+      req.body.categories.map(categoryId => {
+        return { categoryId, recipeId: recipe.id };
+      }),
+    );
+
     return res.status(OK).json({ recipeId: recipe.id });
   } catch (err) {
     return next(new Error());

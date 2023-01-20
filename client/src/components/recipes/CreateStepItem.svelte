@@ -1,11 +1,11 @@
 <script>
   import CreateStepForm from './CreateStepForm.svelte';
   import { createEventDispatcher } from 'svelte';
+  import SmallButton from '../common/SmallButton.svelte';
 
   export let show;
   export let enableUp;
   export let enableDown;
-  export let enableDelete;
   export let step;
   export let index;
   export let ingredients;
@@ -15,34 +15,26 @@
 
   const dispatch = createEventDispatcher();
 
-  const addIngredient = e => {
-    const newIngredient = {
-      unitOfMeasurmentId: '',
-      ingredientId: '',
-      amount: '',
-    };
-
-    step.ingredients = [...step.ingredients, newIngredient];
-  };
-
   const toggle = () => (show = !show);
 </script>
 
 <div class="bar">
-  <h4>Step {index + 1}</h4>
-  <div class="btns">
+  <h4 class="bar-item title">Step {index + 1}</h4>
+  <div class="bar-item btns">
     {#if enableUp}
-      <button on:click={() => dispatch('move-up', index)}>&uarr</button>
+      <SmallButton on:click={() => dispatch('move-up', index)}>&uarr</SmallButton>
     {/if}
     {#if enableDown}
-      <button on:click={() => dispatch('move-down', index)}>&darr</button>
+      <SmallButton on:click={() => dispatch('move-down', index)}>&darr</SmallButton>
     {/if}
-    <button on:click={toggle}>{toggleBtnText}</button>
-    <button on:click={() => dispatch('remove-step', index)} disabled={!enableDelete}>x</button>
+    <SmallButton on:click={toggle}>{toggleBtnText}</SmallButton>
+    <SmallButton on:click={() => dispatch('remove-step', index)}>x</SmallButton>
   </div>
 </div>
 {#if show}
-  <CreateStepForm on:add-ingredient={addIngredient} {step} {ingredients} {unitsOfMeasurement} />
+  <div class="bar-content">
+    <CreateStepForm bind:step {ingredients} {unitsOfMeasurement} />
+  </div>
 {/if}
 
 <style>
@@ -50,6 +42,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 25px;
+    background-color: var(--color-accent);
+    box-shadow: black;
+    margin-top: 1vh;
+  }
+
+  .bar-item {
+    margin: 1vh 10vw;
+  }
+
+  .title {
+    color: var(--color-primary);
   }
 
   .btns {

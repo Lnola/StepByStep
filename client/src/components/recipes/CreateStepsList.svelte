@@ -1,26 +1,55 @@
 <script>
   import CreateStepItem from './CreateStepItem.svelte';
+  import settings from '@/settings/settings.json';
+  import { minLengthValidator, requiredValidator, selectionRequiredValidator } from '@/utils/validation/validators';
+  import { onMount } from 'svelte';
+  import Button from '../common/Button.svelte';
+  import Validation from '../common/Validation.svelte';
 
   export let steps;
   export let ingredients;
   export let unitsOfMeasurement;
+  export let selector;
+  export let validators;
 
   $: numOfSteps = steps.length;
   $: showStepIndex = numOfSteps - 1;
 
   const addStep = e => {
     const newStep = {
-      description: '',
-      time: '',
-      ingredients: [],
+      description: {
+        value: '',
+        type: 'textarea',
+        valid: false,
+        label: '*Step description',
+        placeholder: 'Describe your step here!',
+        validators: [requiredValidator(), minLengthValidator(settings.minLength.description)],
+      },
+      time: {
+        value: '',
+        type: 'number',
+        valid: false,
+        label: '*Step time',
+        placeholder: 'How long does this step take?',
+        validators: [],
+      },
+      ingredients: {
+        value: [],
+        type: 'list',
+        valid: false,
+        label: '*Step ingredients',
+        placeholder: 'Select your step ingredients!',
+        selector: selector.innerSelector,
+        validators: [selectionRequiredValidator(selector.innerSelector)],
+      },
     };
 
     steps = [...steps, newStep];
+    selector.forgive = false;
   };
 
   const removeStep = e => {
-    // TODO: Confirm message as the constant (eg DELETE_STEP_CONFIRM)
-    const response = confirm('Are you sure you want to delete this step?');
+    const response = confirm(settings.messages.deleteStep);
 
     if (response) {
       let index = e.detail;
@@ -33,8 +62,6 @@
   };
 
   const moveStepDown = e => {
-    // To move step down, it's like moving the next step up, same thing;
-    // so we use index of next step, which is e.detail + 1
     moveHelper(e.detail, 1);
   };
 
@@ -48,8 +75,7 @@
     showStepIndex = offset === 0 ? stepIndex - 1 : stepIndex;
   };
 
-  // This will force user to have at least one step for each recipe
-  addStep();
+  onMount(addStep);
 </script>
 
 {#each steps as step, index}
@@ -60,11 +86,11 @@
     show={index === showStepIndex}
     enableUp={index > 0}
     enableDown={index < numOfSteps - 1}
-    enableDelete={numOfSteps > 1}
     {step}
     {index}
     {ingredients}
     {unitsOfMeasurement}
   />
 {/each}
-<button on:click={addStep}>Add step</button>
+<Validation bind:value={steps} on:valid {validators} />
+<Button on:click={addStep}>Add step</Button>
