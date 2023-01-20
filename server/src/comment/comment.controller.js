@@ -17,9 +17,13 @@ const fetchByRecipe = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const comment = await Comment.create(req.body);
-    return res.status(OK).json({ commentId: comment.id });
+    const { text, recipeId } = req.body;
+    const userId = req.user.id;
+    const newComment = { text, recipeId, userId, createdAt: new Date() };
+    await Comment.create(newComment);
+    return res.status(OK);
   } catch (err) {
+    console.log(err);
     return next(new Error());
   }
 };
