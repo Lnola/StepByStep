@@ -40,7 +40,7 @@ const routes = [
     component: RecipeView,
   },
   {
-    path: '/admin',
+    path: '/admin/users',
     name: 'UserList',
     component: UserList,
     isAdmin: true,
