@@ -34,7 +34,7 @@ function timeRequiredValidator() {
 function minValueValidator(min, fieldName) {
   return function minValue(value) {
     let val = fieldName !== undefined ? value[fieldName] : value;
-    return val >= min || `Field ${fieldName} must be greater or equal to ${min}`;
+    return val >= min || `Field ${fieldName === undefined ? '' : fieldName} must be greater or equal to ${min}`;
   };
 }
 

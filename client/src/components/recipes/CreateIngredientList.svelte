@@ -7,37 +7,50 @@
   export let unitsOfMeasurement;
 
   let newIngredient = undefined;
+  let idCounter = 0;
 
   const addIngredient = e => {
-    if (
-      newIngredient === undefined ||
-      (newIngredient.unitOfMeasurmentId.valid && newIngredient.ingredientId.valid && newIngredient.amount.valid)
-    ) {
-      newIngredient = {
-        unitOfMeasurmentId: {
-          value: '',
-          type: 'number',
-          valid: false,
-          validators: [requiredValidator()],
-        },
-        ingredientId: {
-          value: '',
-          type: 'number',
-          valid: false,
-          validators: [requiredValidator()],
-        },
-        amount: {
-          value: '',
-          type: 'number',
-          valid: false,
-          label: 'Amount',
-          placeholder: 'Select the amount of your ingredient',
-          validators: [requiredValidator(), minValueValidator(0)],
-        },
-      };
-
-      stepIngredients = [...stepIngredients, newIngredient];
+    if (!checkValidity()) {
+      alert("Please make sure that all of the previous ingredients are valid");
+      return;
     }
+
+    newIngredient = {
+      unitOfMeasurementId: {
+        value: '',
+        type: 'number',
+        valid: false,
+        validators: [requiredValidator()],
+        defaultSelector: 'Select unit'
+      },
+      ingredientId: {
+        value: '',
+        type: 'number',
+        valid: false,
+        validators: [requiredValidator()],
+        placeholder: 'Name',
+        tagId: idCounter++,
+      },
+      amount: {
+        value: '',
+        type: 'number',
+        valid: false,
+        label: 'Amount',
+        placeholder: 'Amount',
+        validators: [requiredValidator(), minValueValidator(0)],
+      },
+    };
+
+    stepIngredients = [...stepIngredients, newIngredient];
+  };
+
+  const checkValidity = () => {
+    for (const i of stepIngredients) {
+      if (!i.unitOfMeasurementId.valid || !i.amount.valid || !i.ingredientId.valid) {
+        return false;
+      }
+    }
+    return true;
   };
 </script>
 

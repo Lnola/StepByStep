@@ -36,6 +36,11 @@
 
 <style>
   .input {
+    max-width: 100%;
     outline: none;
+    font-size: small;
+    background-color: var(--color-primary);
+    border-style: none;
+    border-bottom: 1px solid var(--color-accent);
   }
 </style>
