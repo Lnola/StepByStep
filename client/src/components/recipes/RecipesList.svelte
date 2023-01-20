@@ -1,11 +1,13 @@
 <script>
   import Card from '@/components/common/Card.svelte';
+  import { redirect } from '@/utils/router/routing';
   import { createEventDispatcher } from 'svelte';
+  import { recipeApi } from '@/api';
 
   export let category = null;
   export let published = null;
   export let recipes;
-  export let shouldDisplayBonusActions;
+  export let shouldDisplayBonusActions = false;
 
   const dispatch = createEventDispatcher();
 
@@ -21,6 +23,23 @@
     const isPublishedNotSelected = published === 0;
     return doPublishedMatch || isPublishedNotSelected;
   };
+
+  const remove = async id => {
+    if (!id) return alert('Delete failed, try again');
+    await recipeApi.remove(id);
+    dispatch('refetch');
+  };
+
+  const updateIsPublished = async (id, isPublished) => {
+    await recipeApi.updateIsPublished(id, isPublished);
+    const recipe = recipes.find(recipe => recipe.id === id);
+    recipe.isPublished = !recipe.isPublished;
+    recipes = [...recipes];
+  };
+
+  const viewRecipeRedirect = recipeId => {
+    redirect('ViewRecipe', recipeId);
+  };
 </script>
 
 <section>
@@ -33,8 +52,9 @@
         time={preparationTime}
         {shouldDisplayBonusActions}
         {isPublished}
-        on:remove={() => dispatch('remove', { id })}
-        on:update={() => dispatch('update', { id, isPublished })}
+        on:remove={remove(id)}
+        on:update={updateIsPublished(id, isPublished)}
+        on:details={() => viewRecipeRedirect(id)}
       />
     {/if}
   {/each}
