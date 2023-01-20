@@ -66,8 +66,4 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: small;
   }
-
-  .error-input {
-    border-color: var(--color-error);
-  }
 </style>
