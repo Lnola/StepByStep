@@ -1,9 +1,6 @@
 <script>
-  import routes from '@/routes';
-  import { redirect } from '@/utils/router/routing';
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
-  export let recipeId;
   export let cover;
   export let title;
   export let rating;
@@ -19,28 +16,22 @@
   function toggleExtended() {
     extended = !extended;
   }
-
-  function showRecipeRedirect() {
-    window.location = '/recipes/show-recipe/' + recipeId;
-  }
 </script>
 
 <article in:slide={{ delay: 300 }} out:slide={{ delay: 300 }}>
   {#if shouldDisplayBonusActions}
-    <div class="bonusActions">
+    <div class="bonus-actions">
       <button class="circle publish" on:click={() => dispatch('update')}>{publishText}</button>
       <button class="circle delete" on:click={() => dispatch('remove')}><i class="fa-solid fa-trash" /></button>
     </div>
   {/if}
-
-  <img alt="recipeCover" src={cover} />
+  <button class="details" on:click={() => dispatch('details')}><img alt="recipeCover" src={cover} /></button>
   <h3 class="title">{title}</h3>
   <button on:click={toggleExtended}>
     <span class="circle info {extended && 'extend'}"><i class="fa-solid fa-info" /></span>
     <span class="circle rating {extended && 'extend'}">{rating}/5</span>
     <span class="circle time {extended && 'extend'}">{time} min</span>
   </button>
-  <button class="details" on:click={showRecipeRedirect}>{recipeId}</button>
 </article>
 
 <style>
@@ -53,6 +44,13 @@
     border-radius: 15px;
     background-color: var(--color-accent);
     z-index: 0;
+  }
+
+  .details {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    padding: 0;
   }
 
   img {
@@ -76,7 +74,7 @@
     z-index: 1;
   }
 
-  .bonusActions {
+  .bonus-actions {
     padding: 0;
     margin: 0;
     align-items: center;
@@ -135,23 +133,6 @@
     text-align: center;
     line-height: 100%;
     z-index: 0;
-  }
-
-  .details {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background-color: var(--color-secondary);
-    font-size: medium;
-    transition: 0.5s;
-    z-index: 2;
-    font-size: small;
   }
 
   .rating.extend {

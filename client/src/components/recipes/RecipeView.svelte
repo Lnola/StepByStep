@@ -15,7 +15,7 @@
   onMount(async () => {
     let path = window.location.pathname;
     let recipeId = path.substring(path.lastIndexOf('/') + 1);
-    recipe = await recipeApi.showRecipe(recipeId);
+    recipe = await recipeApi.fetchById(recipeId);
     name = recipe.name;
     description = recipe.description;
     cover = recipe.imageUrl;

@@ -5,7 +5,7 @@ import Home from './components/home/Home.svelte';
 import { isAdmin, isLoggedIn } from './stores/auth';
 import RecipesPublished from './components/recipes/RecipesPublished.svelte';
 import RecipesUser from './components/recipes/RecipesUser.svelte';
-import RecipeShow from './components/recipes/RecipesShow.svelte';
+import RecipeView from './components/recipes/RecipeView.svelte';
 
 const routes = [
   {
@@ -34,9 +34,9 @@ const routes = [
     component: CreateRecipe,
   },
   {
-    path: '/recipes/show-recipe/:id',
-    name: 'ShowRecipe',
-    component: RecipeShow,
+    path: '/recipes/:id',
+    name: 'ViewRecipe',
+    component: RecipeView,
   },
 ];
 

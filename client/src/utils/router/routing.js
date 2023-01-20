@@ -24,10 +24,16 @@ export const isRoute = () => {
   return !!findRouteByPathname();
 };
 
-export const redirect = name => {
+export const redirect = (name, id) => {
   const route = routes.find(it => it.name === name);
   if (!route) return redirect('Home');
-  location.replace(route.path);
+  let path = route.path;
+  let param = '';
+  if (!!id) {
+    path = path.split(':')[0];
+    param = id;
+  }
+  location.replace(path + param);
 };
 
 export const isAuthRoute = () => {

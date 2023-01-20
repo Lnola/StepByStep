@@ -2,12 +2,12 @@ const bcrypt = require('bcrypt');
 
 const TABLE_NAME = 'users';
 
-const createUser = (index, roleId = 1) => {
+const createUser = (username, roleId = 1) => {
   const password = bcrypt.hashSync('123', process.env.SALT_ROUNDS || 12);
   return {
-    username: `example${index}`,
-    firstName: `test`,
-    lastName: `user${index}`,
+    username,
+    firstName: 'test',
+    lastName: username,
     password,
     roleId,
   };
@@ -15,8 +15,7 @@ const createUser = (index, roleId = 1) => {
 
 module.exports = {
   up(queryInterface) {
-    const users = [createUser('', 2)];
-    for (let i = 1; i < 5; i++) users.push(createUser(i));
+    const users = [createUser('admin', 2), createUser('user1'), createUser('user2')];
     return queryInterface.bulkInsert(TABLE_NAME, users);
   },
 
