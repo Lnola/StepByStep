@@ -3,6 +3,7 @@
   import { recipeApi } from '@/api';
   import RecipeViewModal from './RecipeViewModal.svelte';
   import CommentList from '../comments/CommentList.svelte';
+  import RatingCreate from '../rating/RatingCreate.svelte';
 
   const { pathname } = location;
   const recipeId = pathname.substring(pathname.lastIndexOf('/') + 1);
@@ -115,6 +116,7 @@
     </RecipeViewModal>
   {/if}
 
+  <RatingCreate {recipeId} />
   <CommentList {recipeId} />
 </main>
 
