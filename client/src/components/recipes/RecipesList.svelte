@@ -1,5 +1,6 @@
 <script>
   import Card from '@/components/common/Card.svelte';
+  import { redirect } from '@/utils/router/routing';
   import { createEventDispatcher } from 'svelte';
 
   export let category = null;
@@ -21,13 +22,17 @@
     const isPublishedNotSelected = published === 0;
     return doPublishedMatch || isPublishedNotSelected;
   };
+
+  function showRecipeRedirect(recipeId) {
+    redirect('ShowRecipe', recipeId);
+  }
 </script>
 
 <section>
   {#each recipes as { id, name, isPublished, categories, avgRating, preparationTime, imageUrl }}
     {#if isCategoryMatch(categories, category) || isPublishedMatch(isPublished, published)}
       <Card
-        recipeId={id}
+        on:click={showRecipeRedirect(id)}
         cover={imageUrl}
         title={name}
         rating={avgRating}
