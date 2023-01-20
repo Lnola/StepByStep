@@ -17,48 +17,40 @@
 
 <main>
   <h1>All users</h1>
+  <div class="user-details bold">
+    <p>Name</p>
+    <p>Username</p>
+    <p>Role</p>
+  </div>
   {#each users as { ...user }}
     <div class="user-details">
-      <h1>Name: {user.fullName}</h1>
-      <h1>Username: {user.username}</h1>
-      <h1>Role: {user.role.name}</h1>
-      <button class="circle delete" on:click={() => remove(user.id)}><i class="fa-solid fa-trash" /></button>
+      <p>{user.fullName}</p>
+      <p>{user.username}</p>
+      <p>{user.role.name}</p>
+      <button class="delete" on:click={() => remove(user.id)}><i class="fa-solid fa-trash" /></button>
     </div>
   {/each}
 </main>
 
 <style>
   .user-details {
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    border-bottom: 1px solid var(--color-light);
     display: grid;
     grid-template-columns: 3fr 3fr 2fr 1fr;
     width: 95%;
     margin: auto;
     margin-bottom: 2%;
   }
-  .user-details h1,
-  button {
+
+  .user-details p {
     text-align: center;
-    font-size: 12px;
+    font-size: 0.875rem;
   }
 
-  .circle.delete {
-    position: unset;
+  .delete {
     border: none;
-  }
-
-  .circle {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background-color: var(--color-secondary);
-    font-size: medium;
-    transition: 0.5s;
+    background-color: transparent;
+    color: var(--color-primary);
+    font-size: 1rem;
   }
 </style>
