@@ -18,6 +18,12 @@ const urls = {
   get create() {
     return this.root;
   },
+  fetchById(id) {
+    return `${this.root}/${id}`;
+  },
+  fetchStepsByRecipeId(id) {
+    return `${this.root}/${id}/steps`;
+  },
 };
 
 const fetchPublished = () => {
@@ -40,10 +46,20 @@ const create = recipe => {
   return request.post(urls.create, recipe).then(extractData);
 };
 
+const fetchById = id => {
+  return request.get(urls.fetchById(id)).then(extractData);
+};
+
+const fetchStepsByRecipeId = id => {
+  return request.get(urls.fetchStepsByRecipeId(id)).then(extractData);
+};
+
 export default {
   fetchPublished,
   fetchByUser,
   updateIsPublished,
   remove,
   create,
+  fetchById,
+  fetchStepsByRecipeId,
 };
