@@ -1,8 +1,8 @@
 import { NOT_FOUND, OK } from 'http-status';
+import { Recipe, Step, StepIngredient } from '@/shared/database/index';
 import { DatabaseError } from 'sequelize';
 import errorMessages from '@/shared/constants/errorMessages';
 import HttpError from '@/shared/error/httpError';
-import { Recipe } from '@/shared/database/index';
 
 const fetchPublished = async (_req, res, next) => {
   try {
@@ -71,4 +71,24 @@ const fetchById = async (req, res, next) => {
   }
 };
 
-export { fetchPublished, fetchByUser, create, updateIsPublished, remove, fetchById };
+const fetchStepsByRecipeId = async (req, res, next) => {
+  const { id } = req.params;
+  const recipeId = id;
+  try {
+    const steps = await Step.findAll({
+      include: [
+        {
+          model: StepIngredient,
+        },
+      ],
+      where: { recipeId },
+      order: ['orderNumber'],
+    });
+    return res.status(OK).json(steps);
+  } catch (err) {
+    if (err instanceof DatabaseError) return next(new HttpError(NOT_FOUND, errorMessages.NOT_FOUND_ERROR));
+    return next(new Error());
+  }
+};
+
+export { fetchPublished, fetchByUser, create, updateIsPublished, remove, fetchById, fetchStepsByRecipeId };
