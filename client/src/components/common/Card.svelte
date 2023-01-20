@@ -21,7 +21,7 @@
   }
 
   function showRecipeRedirect() {
-    window.location = '/recipes/show-recipe/' + recipeId;
+    redirect('ShowRecipe', recipeId);
   }
 </script>
 
